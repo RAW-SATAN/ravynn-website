@@ -251,35 +251,35 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 }
 
 /* ═══════════════════════════════════
-   EDITORIAL GRID — 2x2 square tiles
+   EDITORIAL GRID — 4 cols 1 row (ravynn.in exact)
 ═══════════════════════════════════ */
-.editorial-section { padding: 0 20px 40px; max-width: 1200px; margin: 0 auto; }
+.editorial-section { padding: 0 20px 8px; max-width: 1200px; margin: 0 auto; }
 .editorial-grid-2x2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
-@media(max-width: 767px) { .editorial-grid-2x2 { gap: 4px; } }
+@media(max-width: 900px) { .editorial-grid-2x2 { grid-template-columns: 1fr 1fr; gap: 6px; } }
+@media(max-width: 480px) { .editorial-grid-2x2 { grid-template-columns: 1fr 1fr; gap: 4px; } }
 .editorial-tile {
   position: relative;
   overflow: hidden;
   background: #111;
-  aspect-ratio: 1;
+  aspect-ratio: 3/4;
 }
-.editorial-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; opacity: .85; }
+.editorial-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; opacity: .9; }
 .editorial-tile:hover img { transform: scale(1.03); }
 .editorial-tile-content {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+  padding: 20px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
   color: #fff;
 }
-.editorial-tile-tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
-.editorial-tile-title { font-size: clamp(13px, 2vw, 17px); font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+.editorial-tile-tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
+.editorial-tile-title { font-size: clamp(14px, 1.6vw, 20px); font-weight: 900; text-transform: uppercase; line-height: 1.2; }
 
 /* ═══════════════════════════════════
    COLLECTION TILES — 4 tall banners
@@ -311,26 +311,33 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   padding: 16px 14px;
   background: linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 80%);
 }
-.col-tile-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
-.col-tile-title { font-size: clamp(12px, 1.5vw, 16px); font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+.col-tile-tag { display: none; }
+.col-tile-title { font-size: clamp(12px, 1.4vw, 17px); font-weight: 900; text-transform: uppercase; line-height: 1.3; letter-spacing: .3px; }
 
 /* ═══════════════════════════════════
    PROMO BANNER — "FLAT 10% OFF FIRST ORDER"
 ═══════════════════════════════════ */
 .promo-banner-full {
   background: #f5f2eb;
-  padding: 40px 20px;
-  text-align: center;
-  margin-bottom: 0;
+  padding: 48px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+@media(max-width: 767px) {
+  .promo-banner-full { flex-direction: column; text-align: center; padding: 36px 20px; }
+  .promo-right-block { text-align: center !important; }
 }
 .promo-banner-full h2 {
-  font-size: clamp(18px, 4vw, 28px);
+  font-size: clamp(24px, 4.5vw, 52px);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 16px;
+  margin: 0;
+  line-height: 1.1;
 }
-.promo-banner-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+.promo-right-block { text-align: right; flex-shrink: 0; }
 .promo-size-btn {
   display: inline-block;
   background: #000;
@@ -345,6 +352,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   cursor: pointer;
   border-radius: 100px;
 }
+.promo-last-chance { font-size: clamp(18px, 2.5vw, 28px); font-style: italic; font-weight: 400; color: #333; margin-bottom: 4px; }
+.promo-few-sizes { font-size: 12px; color: #888; letter-spacing: 1px; margin-bottom: 20px; }
 
 /* ═══════════════════════════════════
    NEW AND POPULAR
@@ -740,29 +749,25 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <a href="collection.html?c=oversized-essentials" class="col-tile">
       <img src="https://picsum.photos/seed/tile-essential/400/600" alt="Oversized Essentials" loading="lazy">
       <div class="col-tile-content">
-        <p class="col-tile-tag">Comfort Meets Style</p>
-        <h3 class="col-tile-title">Oversized Essentials</h3>
+        <h3 class="col-tile-title">Oversized Essentials - Comfort Meets Style</h3>
       </div>
     </a>
     <a href="collection.html?c=graphic-tees" class="col-tile">
       <img src="https://picsum.photos/seed/tile-graphic/400/600" alt="Graphic Tees" loading="lazy">
       <div class="col-tile-content">
-        <p class="col-tile-tag">Bold Designs</p>
-        <h3 class="col-tile-title">Graphic Tees</h3>
+        <h3 class="col-tile-title">Graphic Tees - Bold Designs</h3>
       </div>
     </a>
     <a href="collection.html?c=under-999" class="col-tile">
       <img src="https://picsum.photos/seed/tile-under/400/600" alt="Under 999" loading="lazy">
       <div class="col-tile-content">
-        <p class="col-tile-tag">Budget Picks</p>
-        <h3 class="col-tile-title">Under ₹999</h3>
+        <h3 class="col-tile-title">Under ₹999 - Budget Picks</h3>
       </div>
     </a>
-    <a href="collection.html?c=new-drops" class="col-tile" style="background:#1a1a1a;">
-      <img src="https://picsum.photos/seed/tile-offer/400/600" alt="10% Off" loading="lazy" style="opacity:.5">
-      <div class="col-tile-content" style="bottom:50%;transform:translateY(50%);background:none;text-align:center;">
-        <p class="col-tile-tag" style="opacity:1;font-size:11px;">USE CODE: WELCOME10</p>
-        <h3 class="col-tile-title" style="font-size:clamp(14px,2vw,20px);">Flat 10% Off<br>First Order</h3>
+    <a href="collection.html?c=new-drops" class="col-tile">
+      <img src="https://picsum.photos/seed/tile-offer/400/600" alt="Flat 10% Off" loading="lazy">
+      <div class="col-tile-content">
+        <h3 class="col-tile-title">Flat 10% Off First Order</h3>
       </div>
     </a>
   </div>
@@ -770,9 +775,12 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 
 <!-- ═══ PROMO BANNER ═══ -->
 <div class="promo-banner-full">
-  <p class="promo-banner-eyebrow">Last chance! Few sizes left</p>
   <h2>Flat 10% Off First Order</h2>
-  <a href="collection.html" class="promo-size-btn">Shop by Size</a>
+  <div class="promo-right-block">
+    <p class="promo-last-chance">Last chance!</p>
+    <p class="promo-few-sizes">Few sizes left</p>
+    <a href="collection.html" class="promo-size-btn">Shop by Size</a>
+  </div>
 </div>
 
 <!-- ═══ NEW AND POPULAR ═══ -->
