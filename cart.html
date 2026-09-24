@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/menu.css">
 <style>
 .cart-page-header { padding:28px 20px 0; max-width:1100px; margin:0 auto; }
 .cart-page-header h1 { font-size:20px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
@@ -95,22 +96,39 @@
 </div>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="mobile-menu">
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true">
   <div class="mobile-menu-header">
-    <span class="mobile-menu-logo">RAVYNN</span>
+    <span class="mobile-menu-logo">CATEGORIES</span>
     <button data-close-menu class="mobile-menu-close">×</button>
   </div>
+  <div class="mobile-menu-thumbs">
+    <a href="collection.html?c=new-drops" class="mobile-menu-thumb"><img src="https://picsum.photos/seed/rv1a/80/80" alt="New Drops"><span>New Drops</span></a>
+    <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb"><img src="https://picsum.photos/seed/rv7a/80/80" alt="Graphic Tees"><span>Graphic</span></a>
+    <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb"><img src="https://picsum.photos/seed/rv6a/80/80" alt="Oversized"><span>Oversized</span></a>
+    <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://picsum.photos/seed/rv3a/80/80" alt="Under ₹999"><span>₹999</span></a>
+  </div>
   <nav class="mobile-menu-nav">
-    <a href="collection.html?c=new-arrivals">New Arrivals</a>
-    <a href="collection.html?c=bestsellers">Bestsellers</a>
-    <a href="collection.html?c=t-shirts">T-Shirts</a>
-    <a href="collection.html?c=shirts">Shirts</a>
-    <a href="collection.html?c=jeans">Jeans</a>
-    <a href="collection.html?c=trousers">Trousers</a>
-    <a href="collection.html?c=hoodies">Hoodies</a>
-    <a href="collection.html?c=shorts">Shorts</a>
-    <a href="collection.html?c=sale">Sale</a>
+    <a href="collection.html?c=new-drops">New Arrivals <span class="menu-new-badge">NEW</span></a>
+    <a href="collection.html">Shop All</a>
+    <a href="collection.html?c=new-drops">New Drops</a>
+    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+    <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+    <a href="collection.html?c=under-999">Under ₹999</a>
+    <a href="collection.html?c=statement-tees">Statement & Typography Tees</a>
+    <a href="collection.html?c=anime-pop-culture">Anime & Pop Culture Tees</a>
+    <a href="collection.html?c=gym-fitness">Gym & Fitness Tees</a>
   </nav>
+  <div class="mobile-menu-popular">
+    <p class="mobile-menu-popular-title">New and Popular</p>
+    <div class="mobile-menu-pills" id="menu-pills">
+      <button class="active" data-col="all">All</button>
+      <button data-col="new-drops">New Drops</button>
+      <button data-col="graphic-tees">Graphic</button>
+      <button data-col="oversized-essentials">Oversized</button>
+      <button data-col="under-999">Under ₹999</button>
+    </div>
+    <div class="mobile-menu-products" id="menu-products"></div>
+  </div>
 </div>
 <div id="site-overlay" class="site-overlay"></div>
 
@@ -228,6 +246,29 @@
     else if (code) { alert('Invalid coupon code. Please try again.'); }
   });
 })();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  await Products.load();
+  function menuProductHTML(p) {
+    const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^–]*–\s*/,'').split(' ').slice(0,5).join(' ');
+    return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">Rs. ${p.price}.00</div></a>`;
+  }
+  function loadMenuProducts(col) {
+    const c = document.getElementById('menu-products');
+    if (!c) return;
+    const list = col === 'all' ? Products.all : Products.all.filter(p => p.collections?.includes(col));
+    c.innerHTML = list.slice(0,4).map(menuProductHTML).join('');
+  }
+  loadMenuProducts('all');
+  document.querySelectorAll('#menu-pills button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#menu-pills button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadMenuProducts(btn.dataset.col || 'all');
+    });
+  });
+});
 </script>
 </body>
 </html>
