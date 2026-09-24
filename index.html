@@ -97,23 +97,38 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   overflow: hidden;
   background: #111;
 }
-/* Desktop: show 2 panels side by side */
-.hero-slide { display: none; }
-.hero-slide.active { display: flex; }
+/* Desktop: show 2 panels side by side
+   Override theme.css: aspect-ratio:9/14, flex:0 0 50%, max-height:90vh on .hero-slide */
+.hero-slide {
+  display: none;
+  width: 100% !important;
+  aspect-ratio: unset !important;
+  flex: none !important;
+  max-height: none !important;
+  position: static !important;
+  overflow: visible !important;
+}
+.hero-slide.active {
+  display: flex !important;
+  width: 100% !important;
+}
 .hero-panel {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
+  flex: 1 1 50% !important;
+  min-width: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
   height: 88vh;
   max-height: 720px;
   min-height: 480px;
+  aspect-ratio: unset !important;
 }
 .hero-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;  /* override theme.css img { height: auto } */
+  object-fit: cover !important;
   object-position: center top;
-  display: block;
+  display: block !important;
+  max-width: none !important;
   transition: transform 6s ease;
 }
 .hero-slide.active .hero-panel img { transform: scale(1.04); }
