@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVYNN — New Era Men's Fashion</title>
+<meta name="description" content="Shop premium men's clothing — T-shirts, Shirts, Jeans, Trousers and more. Free shipping on orders above ₹999.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
+<style>
+/* ── Hero Carousel ── */
+.hero-carousel { position:relative; overflow:hidden; background:#111; }
+.hero-slide { display:none; position:relative; }
+.hero-slide.active { display:block; }
+.hero-slide img { width:100%; height:520px; object-fit:cover; }
+@media(max-width:767px){ .hero-slide img { height:480px; } }
+.hero-content { position:absolute; bottom:48px; left:40px; color:#fff; }
+@media(max-width:767px){ .hero-content { left:20px; bottom:32px; } }
+.hero-eyebrow { font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; opacity:.8; }
+.hero-title { font-size:clamp(28px,5vw,52px); font-weight:700; line-height:1.1; margin-bottom:16px; }
+.hero-cta { display:inline-block; background:#fff; color:#000; padding:13px 28px; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; }
+.hero-dots { position:absolute; bottom:20px; right:40px; display:flex; gap:6px; }
+@media(max-width:767px){ .hero-dots { right:20px; } }
+.hero-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.4); border:none; cursor:pointer; padding:0; }
+.hero-dot.active { background:#fff; }
+/* ── Categories ── */
+.categories-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.section-title { font-size:18px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+.section-link { font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#000; text-decoration:none; border-bottom:1px solid #000; padding-bottom:1px; }
+.cat-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+@media(max-width:767px){ .cat-grid { grid-template-columns:repeat(3,1fr); gap:8px; } }
+.cat-card { display:block; text-decoration:none; color:#000; text-align:center; }
+.cat-img-wrap { border-radius:4px; overflow:hidden; aspect-ratio:3/4; margin-bottom:8px; background:#f0f0f0; }
+.cat-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.cat-card:hover .cat-img-wrap img { transform:scale(1.04); }
+.cat-name { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+/* ── Editorial ── */
+.editorial-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
+.editorial-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:767px){ .editorial-grid { grid-template-columns:1fr; } }
+.editorial-card { position:relative; overflow:hidden; border-radius:4px; }
+.editorial-card img { width:100%; height:400px; object-fit:cover; transition:transform .4s; }
+@media(max-width:767px){ .editorial-card img { height:260px; } }
+.editorial-card:hover img { transform:scale(1.03); }
+.editorial-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:28px; color:#fff; }
+.editorial-tag { font-size:11px; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; opacity:.8; }
+.editorial-title { font-size:22px; font-weight:700; margin-bottom:14px; }
+.editorial-cta { display:inline-block; border:1px solid #fff; color:#fff; padding:10px 22px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; width:fit-content; }
+/* ── Promo Banner ── */
+.promo-banner { background:#f5f2eb; padding:60px 20px; text-align:center; margin:0 0 40px; }
+.promo-banner h2 { font-size:clamp(22px,4vw,36px); font-weight:700; margin-bottom:10px; }
+.promo-banner p { color:#666; margin-bottom:24px; font-size:15px; }
+.promo-btn { display:inline-block; background:#000; color:#fff; padding:14px 36px; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; }
+/* ── Size Banner ── */
+.size-banner { background:#000; color:#fff; padding:20px; text-align:center; margin-bottom:40px; }
+.size-banner p { font-size:13px; letter-spacing:.5px; }
+.size-banner a { color:#fff; }
+/* ── New Popular ── */
+.new-popular-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
+.new-popular-tabs { display:flex; gap:0; margin-bottom:28px; border-bottom:1px solid #e0e0e0; overflow-x:auto; }
+.new-popular-tab { padding:12px 22px; font-size:13px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; color:#888; }
+.new-popular-tab.active { border-bottom-color:#000; color:#000; }
+/* ── SEO Block ── */
+.seo-section { background:#f7f7f7; padding:48px 20px; }
+.seo-inner { max-width:900px; margin:0 auto; }
+.seo-inner h2 { font-size:20px; font-weight:700; margin-bottom:16px; }
+.seo-inner p { color:#555; font-size:14px; line-height:1.8; margin-bottom:12px; }
+</style>
+</head>
+<body data-template="index">
+
+<!-- Announcement Bar -->
+<div class="announcement-bar" role="region" aria-label="Announcement">
+  <div class="announcement-content">
+    <span>Use code <strong>TRYRAVYNN5</strong> for 5% off your first order! | Free shipping on orders above ₹999</span>
+  </div>
+  <button class="announcement-close" aria-label="Close announcement">×</button>
+</div>
+
+<!-- Header -->
+<header class="site-header" role="banner">
+  <button class="header-menu-btn" data-open-menu aria-label="Open menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a href="index.html" class="site-logo" aria-label="RAVYNN Home">RAVYNN</a>
+  <nav class="header-nav" aria-label="Main navigation">
+    <a href="collection.html?c=new-arrivals">New Arrivals</a>
+    <a href="collection.html?c=t-shirts">T-Shirts</a>
+    <a href="collection.html?c=shirts">Shirts</a>
+    <a href="collection.html?c=jeans">Jeans</a>
+    <a href="collection.html?c=trousers">Trousers</a>
+    <a href="collection.html?c=sale">Sale</a>
+  </nav>
+  <div class="header-actions">
+    <button class="header-icon-btn" data-open-search aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <a href="cart.html" class="header-icon-btn" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" style="display:none">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-inner">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" class="search-input" placeholder="Search for products..." autocomplete="off">
+      <button class="search-close" aria-label="Close search">×</button>
+    </div>
+    <div class="search-products product-grid"></div>
+  </div>
+</div>
+
+<!-- Mobile Menu Drawer -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">RAVYNN</span>
+    <button data-close-menu class="mobile-menu-close" aria-label="Close menu">×</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="collection.html?c=new-arrivals">New Arrivals</a>
+    <a href="collection.html?c=bestsellers">Bestsellers</a>
+    <a href="collection.html?c=t-shirts">T-Shirts</a>
+    <a href="collection.html?c=shirts">Shirts</a>
+    <a href="collection.html?c=jeans">Jeans</a>
+    <a href="collection.html?c=trousers">Trousers</a>
+    <a href="collection.html?c=hoodies">Hoodies</a>
+    <a href="collection.html?c=shorts">Shorts</a>
+    <a href="collection.html?c=sale">Sale</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="#">Contact Us</a>
+    <a href="#">Size Guide</a>
+    <a href="#">Track Order</a>
+  </div>
+</div>
+<div id="site-overlay" class="site-overlay"></div>
+
+<!-- Hero Carousel -->
+<section class="hero-carousel" aria-label="Hero">
+  <div class="hero-slide active">
+    <img src="https://picsum.photos/seed/hero1/1400/520" alt="New Arrivals">
+    <div class="hero-content">
+      <p class="hero-eyebrow">New Collection</p>
+      <h1 class="hero-title">Street<br>Ready Looks</h1>
+      <a href="collection.html?c=new-arrivals" class="hero-cta">Shop New Arrivals</a>
+    </div>
+  </div>
+  <div class="hero-slide">
+    <img src="https://picsum.photos/seed/hero2/1400/520" alt="Bestsellers">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Fan Favourites</p>
+      <h1 class="hero-title">The<br>Bestsellers</h1>
+      <a href="collection.html?c=bestsellers" class="hero-cta">Shop Now</a>
+    </div>
+  </div>
+  <div class="hero-slide">
+    <img src="https://picsum.photos/seed/hero3/1400/520" alt="Sale">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Limited Time</p>
+      <h1 class="hero-title">Up to<br>40% Off</h1>
+      <a href="collection.html?c=sale" class="hero-cta">Shop Sale</a>
+    </div>
+  </div>
+  <div class="hero-dots" role="tablist" aria-label="Slides">
+    <button class="hero-dot active" role="tab" aria-selected="true"></button>
+    <button class="hero-dot" role="tab" aria-selected="false"></button>
+    <button class="hero-dot" role="tab" aria-selected="false"></button>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="categories-section" aria-label="Shop by category">
+  <div class="section-header">
+    <h2 class="section-title">Shop by Category</h2>
+    <a href="collection.html" class="section-link">View All</a>
+  </div>
+  <div class="cat-grid">
+    <a href="collection.html?c=t-shirts" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat1/300/400" alt="T-Shirts" loading="lazy"></div>
+      <span class="cat-name">T-Shirts</span>
+    </a>
+    <a href="collection.html?c=shirts" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat2/300/400" alt="Shirts" loading="lazy"></div>
+      <span class="cat-name">Shirts</span>
+    </a>
+    <a href="collection.html?c=jeans" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat3/300/400" alt="Jeans" loading="lazy"></div>
+      <span class="cat-name">Jeans</span>
+    </a>
+    <a href="collection.html?c=trousers" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat4/300/400" alt="Trousers" loading="lazy"></div>
+      <span class="cat-name">Trousers</span>
+    </a>
+    <a href="collection.html?c=hoodies" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat5/300/400" alt="Hoodies" loading="lazy"></div>
+      <span class="cat-name">Hoodies</span>
+    </a>
+    <a href="collection.html?c=shorts" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat6/300/400" alt="Shorts" loading="lazy"></div>
+      <span class="cat-name">Shorts</span>
+    </a>
+  </div>
+</section>
+
+<!-- Editorial Banners -->
+<section class="editorial-section" aria-label="Editorial">
+  <div class="editorial-grid">
+    <a href="collection.html?c=new-arrivals" class="editorial-card">
+      <img src="https://picsum.photos/seed/ed1/700/400" alt="New Arrivals" loading="lazy">
+      <div class="editorial-overlay">
+        <span class="editorial-tag">Just Dropped</span>
+        <h3 class="editorial-title">New Arrivals</h3>
+        <span class="editorial-cta">Shop Now</span>
+      </div>
+    </a>
+    <a href="collection.html?c=bestsellers" class="editorial-card">
+      <img src="https://picsum.photos/seed/ed2/700/400" alt="Bestsellers" loading="lazy">
+      <div class="editorial-overlay">
+        <span class="editorial-tag">Most Loved</span>
+        <h3 class="editorial-title">Bestsellers</h3>
+        <span class="editorial-cta">Explore</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Promo Banner -->
+<div class="promo-banner">
+  <h2>Free Shipping on Orders ₹999+</h2>
+  <p>Easy 7-day returns &nbsp;·&nbsp; 100% authentic products &nbsp;·&nbsp; Cash on delivery available</p>
+  <a href="collection.html" class="promo-btn">Shop Now</a>
+</div>
+
+<!-- New & Popular -->
+<section class="new-popular-section" aria-label="New and Popular">
+  <div class="section-header">
+    <h2 class="section-title">New &amp; Popular</h2>
+  </div>
+  <div class="new-popular-tabs" role="tablist">
+    <button class="new-popular-tab active" role="tab" data-type="all">All</button>
+    <button class="new-popular-tab" role="tab" data-type="T-Shirts">T-Shirts</button>
+    <button class="new-popular-tab" role="tab" data-type="Shirts">Shirts</button>
+    <button class="new-popular-tab" role="tab" data-type="Jeans">Jeans</button>
+    <button class="new-popular-tab" role="tab" data-type="Trousers">Trousers</button>
+    <button class="new-popular-tab" role="tab" data-type="Hoodies">Hoodies</button>
+  </div>
+  <div class="product-grid"></div>
+</section>
+
+<!-- Size Banner -->
+<div class="size-banner">
+  <p>Not sure about your size? <a href="#">Download our size guide</a> — free exchanges on wrong sizes.</p>
+</div>
+
+<!-- SEO Section -->
+<section class="seo-section" aria-label="About RAVYNN">
+  <div class="seo-inner">
+    <h2>RAVYNN — Redefining Men's Style</h2>
+    <p>RAVYNN is a new-age Indian menswear brand focused on contemporary street-ready fashion. From premium oversized graphic tees to linen shirts, cargo pants to straight-fit jeans — every piece is designed for the modern man who refuses to compromise on style or comfort.</p>
+    <p>All RAVYNN products are crafted from premium fabrics, with a focus on quality construction and lasting wear. Shop our latest collections and discover why thousands of men across India choose RAVYNN.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">RAVYNN</a>
+      <p class="footer-tagline">New Era. New Rules.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <h3 class="footer-col-title">Shop</h3>
+        <ul>
+          <li><a href="collection.html?c=new-arrivals">New Arrivals</a></li>
+          <li><a href="collection.html?c=bestsellers">Bestsellers</a></li>
+          <li><a href="collection.html?c=shirts">Shirts</a></li>
+          <li><a href="collection.html?c=t-shirts">T-Shirts</a></li>
+          <li><a href="collection.html?c=jeans">Jeans</a></li>
+          <li><a href="collection.html?c=trousers">Trousers</a></li>
+          <li><a href="collection.html?c=sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Help</h3>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Size Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">RAVYNN</h3>
+        <ul>
+          <li><a href="collection.html">All Products</a></li>
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Style Blog</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 RAVYNN. Developed by Drpshippr Ecom Pvt Ltd. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Mobile Bottom Nav -->
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.html" class="mobile-nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="collection.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Explore</span>
+  </a>
+  <a href="collection.html?c=new-arrivals" class="mobile-nav-item mobile-nav-center">
+    <span class="mobile-nav-new-label">NEW</span>
+  </a>
+  <a href="cart.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Cart</span>
+  </a>
+  <a href="#" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
+  </a>
+</nav>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>

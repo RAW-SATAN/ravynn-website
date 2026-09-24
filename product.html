@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — RAVYNN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
+<style>
+/* ── Product Page Layout ── */
+.product-page { max-width:1200px; margin:0 auto; padding:32px 20px 80px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+@media(max-width:767px){ .product-page { grid-template-columns:1fr; gap:0; padding:0 0 120px; } }
+/* ── Desktop Gallery ── */
+.product-gallery { display:flex; gap:12px; position:sticky; top:80px; }
+@media(max-width:767px){ .product-gallery { display:none; } }
+.product-thumbs { display:flex; flex-direction:column; gap:8px; width:80px; flex-shrink:0; max-height:560px; overflow-y:auto; scrollbar-width:none; }
+.product-thumbs::-webkit-scrollbar { display:none; }
+.product-thumb { border:2px solid transparent; cursor:pointer; aspect-ratio:3/4; overflow:hidden; border-radius:3px; }
+.product-thumb.active, .product-thumb:hover { border-color:#000; }
+.product-thumb img { width:100%; height:100%; object-fit:cover; }
+.product-main-wrap { flex:1; aspect-ratio:3/4; overflow:hidden; border-radius:3px; background:#f5f5f5; }
+.product-main-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+/* ── Mobile Gallery ── */
+.mobile-gallery { display:none; position:relative; overflow:hidden; background:#f5f5f5; }
+@media(max-width:767px){ .mobile-gallery { display:block; } }
+.mobile-slides { display:flex; transition:none; }
+.mobile-slide { min-width:100%; aspect-ratio:3/4; display:none; }
+.mobile-slide.active { display:block; }
+.mobile-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+.mobile-slide-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.9); border:none; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; }
+.mobile-slide-prev { left:10px; }
+.mobile-slide-next { right:10px; }
+.mobile-slide-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:5px; }
+.mobile-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.5); border:none; padding:0; cursor:pointer; }
+.mobile-dot.active { background:#fff; }
+/* ── Product Info ── */
+.product-info { }
+@media(max-width:767px){ .product-info { padding:16px 16px 0; } }
+.product-breadcrumb { font-size:12px; color:#888; margin-bottom:12px; }
+.product-breadcrumb a { color:#888; text-decoration:none; }
+.product-breadcrumb a:hover { color:#000; }
+.product-name { font-size:clamp(18px,3vw,26px); font-weight:700; line-height:1.2; margin-bottom:12px; }
+.product-price { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.product-price .compare { text-decoration:line-through; color:#999; font-size:15px; }
+.product-price span:not(.compare):not(.saved) { font-size:22px; font-weight:700; }
+.product-price .saved { background:#e8f5e9; color:#2d7a3e; font-size:12px; font-weight:600; padding:3px 8px; border-radius:20px; letter-spacing:.5px; }
+/* Coupon Cards */
+.coupon-cards { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+.coupon-card { display:flex; align-items:center; justify-content:space-between; border:1.5px dashed #ccc; padding:10px 14px; border-radius:4px; background:#fafafa; }
+.coupon-tag { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:.5px; }
+.coupon-code { font-size:13px; font-weight:700; letter-spacing:1px; display:flex; flex-direction:column; gap:2px; }
+.coupon-copy { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; cursor:pointer; flex-shrink:0; }
+/* Sizes */
+.size-label-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.size-label { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+.size-guide-link { font-size:12px; color:#666; text-decoration:underline; cursor:pointer; }
+.size-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.size-grid.shake { animation:shake .4s; }
+.size-btn { padding:10px 16px; min-width:48px; text-align:center; border:1.5px solid #ddd; font-size:13px; font-weight:500; cursor:pointer; transition:border-color .15s,background .15s; user-select:none; background:#fff; }
+.size-btn:hover { border-color:#888; }
+.size-btn.active { border-color:#000; background:#000; color:#fff; }
+/* Add to bag */
+.add-to-bag-btn { display:block; width:100%; background:#000; color:#fff; border:none; padding:16px; font-size:14px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-bottom:12px; }
+.add-to-bag-btn:hover { background:#222; }
+.add-to-bag-btn.added { background:#2d7a3e; }
+.add-to-bag-btn.shake { animation:shake .4s; }
+/* Meta chips */
+.product-meta { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.product-meta-chip { font-size:11px; color:#666; border:1px solid #e0e0e0; padding:4px 10px; border-radius:20px; }
+/* ASK SID */
+.ask-sid { background:#f7f7f7; border-radius:6px; padding:14px 16px; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.ask-sid-avatar { width:36px; height:36px; border-radius:50%; background:#000; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700; flex-shrink:0; }
+.ask-sid-text { font-size:12px; line-height:1.5; }
+.ask-sid-text strong { display:block; font-size:13px; margin-bottom:2px; }
+/* Accordions */
+.product-accordions { border-top:1px solid #e0e0e0; }
+.product-accordion { border-bottom:1px solid #e0e0e0; }
+.product-accordion-header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; font-size:13px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; cursor:pointer; user-select:none; }
+.product-accordion-icon { font-size:18px; line-height:1; transition:transform .2s; }
+.product-accordion.open .product-accordion-icon { transform:rotate(45deg); }
+.product-accordion-body { display:none; padding-bottom:16px; font-size:14px; color:#444; line-height:1.7; }
+.product-accordion.open .product-accordion-body { display:block; }
+/* Upsell / You may also like */
+.upsell-section { max-width:1200px; margin:0 auto; padding:40px 20px 0; border-top:1px solid #e8e8e8; }
+.upsell-title { font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+</style>
+</head>
+<body data-template="product">
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+  <div class="announcement-content"><span>Use code <strong>TRYRAVYNN5</strong> for 5% off | Free shipping on ₹999+</span></div>
+  <button class="announcement-close">×</button>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <button class="header-menu-btn" data-open-menu aria-label="Open menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a href="index.html" class="site-logo">RAVYNN</a>
+  <nav class="header-nav">
+    <a href="collection.html?c=new-arrivals">New Arrivals</a>
+    <a href="collection.html?c=t-shirts">T-Shirts</a>
+    <a href="collection.html?c=shirts">Shirts</a>
+    <a href="collection.html?c=jeans">Jeans</a>
+    <a href="collection.html?c=trousers">Trousers</a>
+    <a href="collection.html?c=sale">Sale</a>
+  </nav>
+  <div class="header-actions">
+    <button class="header-icon-btn" data-open-search aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <a href="cart.html" class="header-icon-btn" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" style="display:none">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="search-overlay">
+  <div class="search-inner">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" class="search-input" placeholder="Search for products..." autocomplete="off">
+      <button class="search-close">×</button>
+    </div>
+    <div class="search-products product-grid"></div>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-logo">RAVYNN</span>
+    <button data-close-menu class="mobile-menu-close">×</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="collection.html?c=new-arrivals">New Arrivals</a>
+    <a href="collection.html?c=bestsellers">Bestsellers</a>
+    <a href="collection.html?c=t-shirts">T-Shirts</a>
+    <a href="collection.html?c=shirts">Shirts</a>
+    <a href="collection.html?c=jeans">Jeans</a>
+    <a href="collection.html?c=trousers">Trousers</a>
+    <a href="collection.html?c=hoodies">Hoodies</a>
+    <a href="collection.html?c=shorts">Shorts</a>
+    <a href="collection.html?c=sale">Sale</a>
+  </nav>
+</div>
+<div id="site-overlay" class="site-overlay"></div>
+
+<!-- Product Page -->
+<div class="product-page">
+  <!-- Mobile Gallery (visible on mobile, hidden on desktop) -->
+  <div class="mobile-gallery" aria-label="Product images">
+    <div class="mobile-slides"></div>
+    <button class="mobile-slide-btn mobile-slide-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="mobile-slide-btn mobile-slide-next" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="mobile-slide-dots"></div>
+  </div>
+
+  <!-- Desktop Gallery -->
+  <div class="product-gallery" aria-label="Product images">
+    <div class="product-thumbs"></div>
+    <div class="product-main-wrap">
+      <img id="product-main-img" src="" alt="Product" loading="eager">
+    </div>
+  </div>
+
+  <!-- Product Info -->
+  <div class="product-info">
+    <div class="product-breadcrumb">
+      <a href="index.html">Home</a> / <a href="collection.html" class="product-type-link">Products</a>
+    </div>
+    <h1 class="product-name">Loading...</h1>
+    <div class="product-price"></div>
+
+    <!-- Coupons -->
+    <div class="coupon-cards">
+      <div class="coupon-card">
+        <div>
+          <div class="coupon-tag">First Order</div>
+          <div class="coupon-code">5% off<br>TRYRAVYNN5</div>
+        </div>
+        <button class="coupon-copy" aria-label="Copy code">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="coupon-card">
+        <div>
+          <div class="coupon-tag">Special Deal</div>
+          <div class="coupon-code">10% off on ₹1999+<br>RAVYNN10</div>
+        </div>
+        <button class="coupon-copy" aria-label="Copy code">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <!-- Sizes -->
+    <div class="size-label-row">
+      <span class="size-label">Select Size</span>
+      <span class="size-guide-link">Size Guide</span>
+    </div>
+    <div class="size-grid"></div>
+
+    <!-- Add to Bag -->
+    <button class="add-to-bag-btn">ADD TO BAG</button>
+
+    <!-- Meta chips -->
+    <div class="product-meta">
+      <span class="product-meta-chip">✓ Free Delivery on ₹999+</span>
+      <span class="product-meta-chip">↩ Easy 7-day Returns</span>
+      <span class="product-meta-chip">💳 Cash on Delivery</span>
+    </div>
+
+    <!-- ASK SID -->
+    <div class="ask-sid">
+      <div class="ask-sid-avatar">SID</div>
+      <div class="ask-sid-text">
+        <strong>Ask Sid — Style Advisor</strong>
+        Not sure about sizing or styling? Sid can help you pick the right fit.
+        <a href="#" style="color:#000;font-weight:600;font-size:12px;margin-left:4px">Chat →</a>
+      </div>
+    </div>
+
+    <!-- Accordions -->
+    <div class="product-accordions">
+      <div class="product-accordion">
+        <div class="product-accordion-header">
+          Details <span class="product-accordion-icon">+</span>
+        </div>
+        <div class="product-accordion-body">Loading product details...</div>
+      </div>
+      <div class="product-accordion">
+        <div class="product-accordion-header">
+          Size &amp; Fit <span class="product-accordion-icon">+</span>
+        </div>
+        <div class="product-accordion-body">
+          <p>Model is 6'1" (185cm) and wearing size L. All measurements are approximate.</p>
+          <ul style="margin:10px 0 0 18px;line-height:2">
+            <li>S — Chest 36-38", Length 27"</li>
+            <li>M — Chest 38-40", Length 28"</li>
+            <li>L — Chest 40-42", Length 29"</li>
+            <li>XL — Chest 42-44", Length 30"</li>
+            <li>XXL — Chest 44-46", Length 31"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="product-accordion">
+        <div class="product-accordion-header">
+          Delivery &amp; Returns <span class="product-accordion-icon">+</span>
+        </div>
+        <div class="product-accordion-body">
+          <p><strong>Delivery:</strong> 3-7 business days. Free shipping on orders above ₹999.</p>
+          <p style="margin-top:10px"><strong>Returns:</strong> Easy 7-day return policy. Items must be unworn with all tags intact.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- You May Also Like -->
+<section class="upsell-section" aria-label="You may also like">
+  <h2 class="upsell-title">You May Also Like</h2>
+  <div class="product-grid"></div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">RAVYNN</a>
+      <p class="footer-tagline">New Era. New Rules.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <h3 class="footer-col-title">Shop</h3>
+        <ul>
+          <li><a href="collection.html?c=new-arrivals">New Arrivals</a></li>
+          <li><a href="collection.html?c=bestsellers">Bestsellers</a></li>
+          <li><a href="collection.html?c=sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Help</h3>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 RAVYNN. Developed by Drpshippr Ecom Pvt Ltd. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Mobile Bottom Nav -->
+<nav class="mobile-bottom-nav">
+  <a href="index.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="collection.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Explore</span>
+  </a>
+  <a href="collection.html?c=new-arrivals" class="mobile-nav-item mobile-nav-center">
+    <span class="mobile-nav-new-label">NEW</span>
+  </a>
+  <a href="cart.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Cart</span>
+  </a>
+  <a href="#" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
+  </a>
+</nav>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>
