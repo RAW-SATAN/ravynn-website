@@ -46,37 +46,48 @@
 .product-price { display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
 .product-price .compare { text-decoration:line-through; color:#999; font-size:15px; }
 .product-price span:not(.compare):not(.saved) { font-size:22px; font-weight:700; }
-.product-price .saved { background:#e8f5e9; color:#2d7a3e; font-size:12px; font-weight:600; padding:3px 8px; border-radius:20px; letter-spacing:.5px; }
-/* Coupon Cards */
-.coupon-cards { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
-.coupon-card { display:flex; align-items:center; justify-content:space-between; border:1.5px dashed #ccc; padding:10px 14px; border-radius:4px; background:#fafafa; }
-.coupon-tag { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:.5px; }
-.coupon-code { font-size:13px; font-weight:700; letter-spacing:1px; display:flex; flex-direction:column; gap:2px; }
-.coupon-copy { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; cursor:pointer; flex-shrink:0; }
+.product-price .saved { background:#ff6200; color:#fff; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.5px; }
+/* Coupon Cards — 2-col side by side, ravynn.in style */
+.coupon-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.coupon-card { border:1px solid #e0e0e0; border-radius:8px; padding:10px 12px; background:#fafafa; }
+.coupon-card-top { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+.coupon-heart { font-size:13px; color:#555; }
+.coupon-name { font-size:13px; font-weight:700; letter-spacing:.5px; flex:1; }
+.coupon-copy-btn { background:none; border:none; cursor:pointer; color:#666; padding:2px; flex-shrink:0; }
+.coupon-copy-btn:hover { color:#000; }
+.coupon-desc { font-size:11px; color:#777; line-height:1.4; }
 /* Sizes */
-.size-label-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.size-label { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+.size-label-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.size-label { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
 .size-guide-link { font-size:12px; color:#666; text-decoration:underline; cursor:pointer; }
-.size-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.size-rec { font-size:12px; color:#666; margin-bottom:10px; display:flex; align-items:center; gap:5px; }
+.size-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
 .size-grid.shake { animation:shake .4s; }
 .size-btn { padding:10px 16px; min-width:48px; text-align:center; border:1.5px solid #ddd; font-size:13px; font-weight:500; cursor:pointer; transition:border-color .15s,background .15s; user-select:none; background:#fff; }
 .size-btn:hover { border-color:#888; }
 .size-btn.active { border-color:#000; background:#000; color:#fff; }
+.delivery-note { font-size:12px; color:#555; margin-bottom:20px; display:flex; align-items:center; gap:5px; }
 /* Add to bag */
-.add-to-bag-btn { display:block; width:100%; background:#000; color:#fff; border:none; padding:16px; font-size:14px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-bottom:12px; }
+.add-to-bag-btn { display:block; width:100%; background:#000; color:#fff; border:none; padding:16px; font-size:14px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s; margin-bottom:16px; }
 .add-to-bag-btn:hover { background:#222; }
 .add-to-bag-btn.added { background:#2d7a3e; }
 .add-to-bag-btn.shake { animation:shake .4s; }
-/* Meta chips */
-.product-meta { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
-.product-meta-chip { font-size:11px; color:#666; border:1px solid #e0e0e0; padding:4px 10px; border-radius:20px; }
-/* ASK SID */
-.ask-sid { background:#f7f7f7; border-radius:6px; padding:14px 16px; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
-.ask-sid-avatar { width:36px; height:36px; border-radius:50%; background:#000; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700; flex-shrink:0; }
-.ask-sid-text { font-size:12px; line-height:1.5; }
-.ask-sid-text strong { display:block; font-size:13px; margin-bottom:2px; }
+/* ASK SID — dark chat widget (ravynn.in style) */
+.ask-sid { background:#111; color:#fff; border-radius:10px; padding:14px 16px; margin-bottom:20px; }
+.ask-sid-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.ask-sid-dot { width:30px; height:30px; border-radius:50%; background:#f60; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#fff; }
+.ask-sid-label { font-size:13px; font-weight:700; }
+.ask-sid-sub { font-size:10px; color:#aaa; }
+.ask-sid-pills { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin-bottom:12px; flex-wrap:wrap; }
+.ask-sid-pills::-webkit-scrollbar { display:none; }
+.ask-sid-pill { background:#1e1e1e; color:#ccc; border:1px solid #333; border-radius:20px; font-size:10px; padding:5px 10px; white-space:nowrap; cursor:pointer; }
+.ask-sid-pill:hover { border-color:#666; }
+.ask-sid-input-row { display:flex; align-items:center; border:1px solid #333; border-radius:24px; padding:8px 14px; background:#1a1a1a; gap:8px; }
+.ask-sid-input { flex:1; background:none; border:none; color:#fff; font-size:12px; outline:none; font-family:inherit; }
+.ask-sid-input::placeholder { color:#555; }
+.ask-sid-send { background:none; border:none; color:#999; cursor:pointer; padding:0; display:flex; align-items:center; }
 /* Accordions */
-.product-accordions { border-top:1px solid #e0e0e0; }
+.product-accordions { border-top:1px solid #e0e0e0; margin-top:4px; }
 .product-accordion { border-bottom:1px solid #e0e0e0; }
 .product-accordion-header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; font-size:13px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; cursor:pointer; user-select:none; }
 .product-accordion-icon { font-size:18px; line-height:1; transition:transform .2s; }
@@ -84,8 +95,18 @@
 .product-accordion-body { display:none; padding-bottom:16px; font-size:14px; color:#444; line-height:1.7; }
 .product-accordion.open .product-accordion-body { display:block; }
 /* Upsell / You may also like */
-.upsell-section { max-width:1200px; margin:0 auto; padding:40px 20px 0; border-top:1px solid #e8e8e8; }
-.upsell-title { font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+.upsell-section { max-width:1200px; margin:0 auto; padding:48px 20px 0; border-top:1px solid #e8e8e8; }
+.upsell-title { font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:24px; text-align:center; }
+.upsell-section .product-grid { grid-template-columns:repeat(5,1fr) !important; }
+@media(max-width:900px){ .upsell-section .product-grid { grid-template-columns:repeat(3,1fr) !important; } }
+@media(max-width:600px){ .upsell-section .product-grid { grid-template-columns:repeat(2,1fr) !important; } }
+/* Footer 4 col */
+.footer-inner { display:flex; flex-wrap:wrap; gap:40px; }
+.footer-brand { min-width:120px; }
+.footer-nav { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; flex:1; }
+@media(max-width:767px){ .footer-nav { grid-template-columns:repeat(2,1fr); } }
+.footer-social { display:flex; gap:12px; margin-top:12px; }
+.footer-social a { color:#000; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 </style>
 </head>
@@ -93,7 +114,7 @@
 
 <!-- Announcement Bar -->
 <div class="announcement-bar">
-  <div class="announcement-content"><span>Use code <strong>TRYRAVYNN5</strong> for 5% off | Free shipping on ₹999+</span></div>
+  <div class="announcement-content"><span>FREE SHIPPING ON EVERY ORDER | USE CODE: <strong>WELCOME10</strong> FOR 10% OFF YOUR FIRST ORDER</span></div>
   <button class="announcement-close">×</button>
 </div>
 
@@ -204,57 +225,67 @@
     <!-- Coupons -->
     <div class="coupon-cards">
       <div class="coupon-card">
-        <div>
-          <div class="coupon-tag">First Order</div>
-          <div class="coupon-code">5% off<br>TRYRAVYNN5</div>
+        <div class="coupon-card-top">
+          <span class="coupon-heart">♡</span>
+          <span class="coupon-name">WELCOME10</span>
+          <button class="coupon-copy-btn" onclick="navigator.clipboard?.writeText('WELCOME10')" title="Copy code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
         </div>
-        <button class="coupon-copy" aria-label="Copy code">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy
-        </button>
+        <div class="coupon-desc">Enjoy 10% off on your first order.</div>
       </div>
       <div class="coupon-card">
-        <div>
-          <div class="coupon-tag">Special Deal</div>
-          <div class="coupon-code">10% off on ₹1999+<br>RAVYNN10</div>
+        <div class="coupon-card-top">
+          <span class="coupon-heart">♡</span>
+          <span class="coupon-name">RAVYNN15</span>
+          <button class="coupon-copy-btn" onclick="navigator.clipboard?.writeText('RAVYNN15')" title="Copy code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
         </div>
-        <button class="coupon-copy" aria-label="Copy code">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy
-        </button>
+        <div class="coupon-desc">Enjoy 15% off on your second order, same phone or email.</div>
       </div>
     </div>
 
     <!-- Sizes -->
     <div class="size-label-row">
-      <span class="size-label">Select Size</span>
+      <span class="size-label">Sizes</span>
       <span class="size-guide-link">Size Guide</span>
     </div>
+    <div class="size-rec">ⓘ We recommend one size smaller</div>
     <div class="size-grid"></div>
+    <div class="delivery-note">🚚 FREE 1-2 day delivery on 5k+ pincodes.</div>
 
     <!-- Add to Bag -->
     <button class="add-to-bag-btn">ADD TO BAG</button>
 
-    <!-- Meta chips -->
-    <div class="product-meta">
-      <span class="product-meta-chip">✓ Free Delivery on ₹999+</span>
-      <span class="product-meta-chip">↩ Easy 7-day Returns</span>
-      <span class="product-meta-chip">💳 Cash on Delivery</span>
-    </div>
-
-    <!-- ASK SID -->
+    <!-- ASK SID — dark chat widget -->
     <div class="ask-sid">
-      <div class="ask-sid-avatar">SID</div>
-      <div class="ask-sid-text">
-        <strong>Ask Sid — Style Advisor</strong>
-        Not sure about sizing or styling? Sid can help you pick the right fit.
-        <a href="#" style="color:#000;font-weight:600;font-size:12px;margin-left:4px">Chat →</a>
+      <div class="ask-sid-header">
+        <div class="ask-sid-dot">SID</div>
+        <div>
+          <div class="ask-sid-label">ASK SID</div>
+          <div class="ask-sid-sub">Your AI-powered style assistant</div>
+        </div>
+      </div>
+      <div class="ask-sid-pills">
+        <span class="ask-sid-pill">About this product</span>
+        <span class="ask-sid-pill">What material is this</span>
+        <span class="ask-sid-pill">What fit is this</span>
+        <span class="ask-sid-pill">Different fit, same color</span>
+        <span class="ask-sid-pill">Bottoms to pair with this</span>
+        <span class="ask-sid-pill">Accessories to match</span>
+      </div>
+      <div class="ask-sid-input-row">
+        <input class="ask-sid-input" type="text" placeholder="What goes with this">
+        <button class="ask-sid-send" aria-label="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
       </div>
     </div>
 
     <!-- Accordions -->
     <div class="product-accordions">
-      <div class="product-accordion">
+      <div class="product-accordion open">
         <div class="product-accordion-header">
           Details <span class="product-accordion-icon">+</span>
         </div>
@@ -262,26 +293,26 @@
       </div>
       <div class="product-accordion">
         <div class="product-accordion-header">
-          Size &amp; Fit <span class="product-accordion-icon">+</span>
+          Reviews <span class="product-accordion-icon">+</span>
         </div>
         <div class="product-accordion-body">
-          <p>Model is 6'1" (185cm) and wearing size L. All measurements are approximate.</p>
-          <ul style="margin:10px 0 0 18px;line-height:2">
-            <li>S — Chest 36-38", Length 27"</li>
-            <li>M — Chest 38-40", Length 28"</li>
-            <li>L — Chest 40-42", Length 29"</li>
-            <li>XL — Chest 42-44", Length 30"</li>
-            <li>XXL — Chest 44-46", Length 31"</li>
-          </ul>
+          <p style="color:#888;font-style:italic">No reviews yet. Be the first to review this product.</p>
         </div>
       </div>
       <div class="product-accordion">
         <div class="product-accordion-header">
-          Delivery &amp; Returns <span class="product-accordion-icon">+</span>
+          Delivery <span class="product-accordion-icon">+</span>
         </div>
         <div class="product-accordion-body">
-          <p><strong>Delivery:</strong> 3-7 business days. Free shipping on orders above ₹999.</p>
-          <p style="margin-top:10px"><strong>Returns:</strong> Easy 7-day return policy. Items must be unworn with all tags intact.</p>
+          <p>FREE 1-2 day delivery on 5000+ pincodes. Standard delivery: 3-7 business days. Free shipping on all orders.</p>
+        </div>
+      </div>
+      <div class="product-accordion">
+        <div class="product-accordion-header">
+          Returns <span class="product-accordion-icon">+</span>
+        </div>
+        <div class="product-accordion-body">
+          <p>Easy 7-day return policy. Items must be unworn, unwashed, and in original condition with all tags intact. Contact us within 7 days of delivery.</p>
         </div>
       </div>
     </div>
@@ -297,25 +328,24 @@
 <!-- Footer -->
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="footer-logo">RAVYNN</a>
-      <p class="footer-tagline">New Era. New Rules.</p>
-    </div>
     <div class="footer-nav">
       <div class="footer-col">
         <h3 class="footer-col-title">Shop</h3>
         <ul>
-          <li><a href="collection.html?c=new-arrivals">New Arrivals</a></li>
-          <li><a href="collection.html?c=bestsellers">Bestsellers</a></li>
-          <li><a href="collection.html?c=sale">Sale</a></li>
+          <li><a href="collection.html?c=new-drops">New Drops</a></li>
+          <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
+          <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
+          <li><a href="collection.html?c=under-999">Under ₹999</a></li>
+          <li><a href="collection.html">Shop All</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h3 class="footer-col-title">Help</h3>
         <ul>
           <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
           <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Return &amp; Refund Policy</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -323,13 +353,25 @@
         <ul>
           <li><a href="#">About Us</a></li>
           <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
         </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">RAVYNN</h3>
+        <ul>
+          <li><a href="collection.html">All Products</a></li>
+          <li><a href="collection.html?c=new-drops">New Drops</a></li>
+        </ul>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 RAVYNN. Developed by Drpshippr Ecom Pvt Ltd. All rights reserved.</p>
+    <p class="footer-copy">© 2026 Ravynn | Hindon Associates. All rights reserved.</p>
   </div>
 </footer>
 
