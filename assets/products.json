@@ -2,13 +2,13 @@
   "products": [
     {
       "id": 1,
-      "handle": "oversized-graphic-tee-dragon",
-      "title": "Oversized Dragon Graphic Tee",
+      "handle": "astronaut-space-rocket",
+      "title": "RAVYNN Oversized White T-Shirt – Doodle Astronaut & Space Rocket Graphic",
       "price": 699,
       "compare_at_price": 999,
-      "type": "T-Shirts",
-      "collections": ["all", "new-arrivals", "bestsellers"],
-      "tags": ["new", "oversized", "graphic"],
+      "type": "Graphic Tees",
+      "collections": ["all", "new-drops", "graphic-tees"],
+      "tags": ["astronaut", "space", "graphic", "new"],
       "images": [
         "https://picsum.photos/seed/rv1a/400/533",
         "https://picsum.photos/seed/rv1b/400/533",
@@ -16,205 +16,237 @@
       ],
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Premium heavyweight oversized tee with bold dragon graphic. Boxy silhouette with dropped shoulders for that street-ready look.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p><p><strong>Fit:</strong> Oversized, true to size</p>"
+      "description": "<p>Oversized white tee featuring a doodle-style astronaut floating through space with rockets. Boxy silhouette with dropped shoulders.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p><p><strong>Fit:</strong> Oversized, true to size</p>"
     },
     {
       "id": 2,
-      "handle": "classic-white-linen-shirt",
-      "title": "Classic White Linen Shirt",
-      "price": 1099,
-      "compare_at_price": 1599,
-      "type": "Shirts",
-      "collections": ["all", "new-arrivals", "linen"],
-      "tags": ["linen", "formal", "bestseller"],
+      "handle": "sculpture-dont-trust",
+      "title": "RAVYNN Oversized White T-Shirt – \"Realistic / Don't Trust Everything You See\" Sculpture Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees"],
+      "tags": ["sculpture", "statement", "graphic", "text"],
       "images": [
         "https://picsum.photos/seed/rv2a/400/533",
         "https://picsum.photos/seed/rv2b/400/533"
       ],
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Breathable linen shirt for all-day comfort. Perfect for both casual and semi-formal occasions.</p><p><strong>Fabric:</strong> 100% Linen</p><p><strong>Fit:</strong> Regular fit</p>"
+      "description": "<p>Bold back-print graphic with a classical sculpture and the quote 'Don't Trust Everything You See'. Statement piece for the streets.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 3,
-      "handle": "washed-straight-fit-jeans",
-      "title": "Washed Straight Fit Jeans",
-      "price": 1499,
-      "compare_at_price": 1999,
-      "type": "Jeans",
-      "collections": ["all", "jeans", "bestsellers"],
-      "tags": ["jeans", "straight", "washed"],
+      "handle": "i-need-more-space",
+      "title": "RAVYNN Oversized White T-Shirt – \"I Need More Space\" Astronaut Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "new-drops", "under-999"],
+      "tags": ["astronaut", "space", "funny", "graphic"],
       "images": [
         "https://picsum.photos/seed/rv3a/400/533",
         "https://picsum.photos/seed/rv3b/400/533"
       ],
-      "sizes": ["28", "30", "32", "34", "36", "38"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Classic washed straight fit jeans. Versatile and comfortable for everyday wear.</p><p><strong>Fabric:</strong> 98% Cotton, 2% Elastane</p>"
+      "description": "<p>A playful astronaut graphic with 'I Need More Space' text. Perfect blend of humour and street style.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 4,
-      "handle": "black-polo-tshirt",
-      "title": "Essential Black Polo T-Shirt",
-      "price": 799,
-      "compare_at_price": 1099,
-      "type": "T-Shirts",
-      "collections": ["all", "polos", "bestsellers"],
-      "tags": ["polo", "essential", "black"],
+      "handle": "mood-of-the-day-panda",
+      "title": "RAVYNN Oversized White T-Shirt – \"Mood of the Day\" Panda Grid Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["panda", "mood", "grid", "funny"],
       "images": [
         "https://picsum.photos/seed/rv4a/400/533",
         "https://picsum.photos/seed/rv4b/400/533"
       ],
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Classic polo t-shirt in premium cotton pique. A wardrobe essential.</p><p><strong>Fabric:</strong> 100% Cotton Pique, 220 GSM</p>"
+      "description": "<p>A grid of panda expressions for every mood. The perfect tee for panda lovers and graphic tee fans alike.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 5,
-      "handle": "cargo-pants-olive",
-      "title": "Tactical Cargo Pants Olive",
-      "price": 1299,
-      "compare_at_price": 1799,
-      "type": "Trousers",
-      "collections": ["all", "cargo-pants", "new-arrivals"],
-      "tags": ["cargo", "olive", "tactical"],
+      "handle": "they-call-him-og",
+      "title": "RAVYNN Oversized White T-Shirt – \"They Call Him OG\" Red Brush Typography Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "new-drops"],
+      "tags": ["OG", "typography", "red", "statement"],
       "images": [
         "https://picsum.photos/seed/rv5a/400/533",
         "https://picsum.photos/seed/rv5b/400/533"
       ],
-      "sizes": ["28", "30", "32", "34", "36"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Multi-pocket cargo pants in olive green. Functional and stylish.</p><p><strong>Fabric:</strong> 100% Cotton Twill</p>"
+      "description": "<p>Bold red brush typography graphic. 'They Call Him OG' — a tee for those who move different.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 6,
-      "handle": "oversized-hoodie-charcoal",
-      "title": "Oversized Hoodie Charcoal",
-      "price": 1299,
-      "compare_at_price": 1799,
-      "type": "Hoodies",
-      "collections": ["all", "hoodies", "new-arrivals"],
-      "tags": ["hoodie", "oversized", "winter"],
+      "handle": "signature-logo",
+      "title": "RAVYNN Signature Logo Oversized White T-Shirt",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "new-drops"],
+      "tags": ["logo", "signature", "essential", "classic"],
       "images": [
         "https://picsum.photos/seed/rv6a/400/533",
         "https://picsum.photos/seed/rv6b/400/533"
       ],
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Ultra-soft oversized hoodie in charcoal. Perfect for layering.</p><p><strong>Fabric:</strong> 80% Cotton, 20% Polyester, 320 GSM</p>"
+      "description": "<p>The classic RAVYNN signature logo tee. Clean, minimal, and effortlessly cool. A wardrobe essential.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 7,
-      "handle": "baggy-fit-jeans-indigo",
-      "title": "Baggy Fit Indigo Jeans",
-      "price": 1699,
-      "compare_at_price": 2299,
-      "type": "Jeans",
-      "collections": ["all", "jeans", "new-arrivals"],
-      "tags": ["baggy", "jeans", "indigo", "new"],
+      "handle": "goku-gym-dumbbell",
+      "title": "RAVYNN Oversized White T-Shirt – Goku Dumbbell Curl Gym Anime Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "gym-fitness"],
+      "tags": ["goku", "anime", "gym", "dragonball"],
       "images": [
         "https://picsum.photos/seed/rv7a/400/533",
         "https://picsum.photos/seed/rv7b/400/533"
       ],
-      "sizes": ["28", "30", "32", "34", "36"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Wide-leg baggy jeans in rich indigo wash. Street-style ready.</p><p><strong>Fabric:</strong> 100% Denim Cotton</p>"
+      "description": "<p>Goku doing a dumbbell curl — for the gym-heads and anime fans. Train in style.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 8,
-      "handle": "linen-overshirt-beige",
-      "title": "Linen Overshirt Beige",
-      "price": 1399,
-      "compare_at_price": 1999,
-      "type": "Shirts",
-      "collections": ["all", "overshirts", "linen"],
-      "tags": ["linen", "overshirt", "beige", "summer"],
+      "handle": "basketball-hoop-swoosh",
+      "title": "RAVYNN Oversized White T-Shirt – Basketball Hoop Swoosh Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "gym-fitness", "under-999"],
+      "tags": ["basketball", "swoosh", "sport", "graphic"],
       "images": [
         "https://picsum.photos/seed/rv8a/400/533",
         "https://picsum.photos/seed/rv8b/400/533"
       ],
-      "sizes": ["S", "M", "L", "XL"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Relaxed linen overshirt in natural beige. Wear open over a tee or buttoned up.</p>"
+      "description": "<p>Minimalist basketball hoop graphic with a Swoosh element. Street sport aesthetic.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 9,
-      "handle": "chino-slim-fit-navy",
-      "title": "Slim Fit Navy Chinos",
-      "price": 999,
-      "compare_at_price": 1499,
-      "type": "Trousers",
-      "collections": ["all", "chinos", "bestsellers"],
-      "tags": ["chinos", "slim", "navy", "formal"],
+      "handle": "shiva-trishul",
+      "title": "RAVYNN Oversized White T-Shirt – Lord Shiva Tripundra & Trishul Silhouette Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "new-drops"],
+      "tags": ["shiva", "trishul", "spiritual", "graphic"],
       "images": [
         "https://picsum.photos/seed/rv9a/400/533",
         "https://picsum.photos/seed/rv9b/400/533"
       ],
-      "sizes": ["28", "30", "32", "34", "36"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Classic slim fit chinos in navy. Dress up or down effortlessly.</p><p><strong>Fabric:</strong> 97% Cotton, 3% Elastane</p>"
+      "description": "<p>Powerful Lord Shiva silhouette with Tripundra and Trishul elements. Spiritual meets streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 10,
-      "handle": "graphic-tee-abstract-art",
-      "title": "Abstract Art Graphic Tee",
-      "price": 649,
-      "compare_at_price": 899,
-      "type": "T-Shirts",
-      "collections": ["all", "t-shirts", "sale"],
-      "tags": ["graphic", "art", "oversized"],
+      "handle": "hakuna-matata",
+      "title": "RAVYNN Oversized White T-Shirt – \"Hakuna Matata\" Chest Typography Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["hakuna matata", "typography", "positive", "chest"],
       "images": [
         "https://picsum.photos/seed/rv10a/400/533",
         "https://picsum.photos/seed/rv10b/400/533"
       ],
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Bold abstract art print on premium cotton. Limited edition design.</p>"
+      "description": "<p>Chest placement 'Hakuna Matata' typography — it means no worries. Good vibes only.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 11,
-      "handle": "formal-shirt-white-pinstripe",
-      "title": "White Pinstripe Formal Shirt",
-      "price": 1199,
-      "compare_at_price": 0,
-      "type": "Shirts",
-      "collections": ["all", "shirts", "formal"],
-      "tags": ["formal", "pinstripe", "white", "office"],
+      "handle": "not-every-journey-penguin",
+      "title": "RAVYNN Oversized White T-Shirt – \"Not Every Journey\" Penguin & Mountain Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "new-drops", "under-999"],
+      "tags": ["penguin", "mountain", "journey", "graphic"],
       "images": [
         "https://picsum.photos/seed/rv11a/400/533",
         "https://picsum.photos/seed/rv11b/400/533"
       ],
-      "sizes": ["S", "M", "L", "XL"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Crisp white pinstripe formal shirt. Ideal for office and formal occasions.</p><p><strong>Fabric:</strong> 100% Giza Cotton</p>"
+      "description": "<p>A lone penguin on a mountain journey — 'Not Every Journey' graphic. For the wanderers.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 12,
-      "handle": "shorts-cargo-khaki",
-      "title": "Cargo Shorts Khaki",
-      "price": 799,
-      "compare_at_price": 1099,
-      "type": "Shorts",
-      "collections": ["all", "shorts", "sale"],
-      "tags": ["shorts", "cargo", "khaki", "summer"],
+      "handle": "itachi-swoosh-frame",
+      "title": "RAVYNN Oversized White T-Shirt – Itachi Uchiha Swoosh Frame Anime Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture"],
+      "tags": ["itachi", "naruto", "anime", "swoosh"],
       "images": [
         "https://picsum.photos/seed/rv12a/400/533",
         "https://picsum.photos/seed/rv12b/400/533"
       ],
-      "sizes": ["28", "30", "32", "34", "36"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
-      "description": "<p>Relaxed cargo shorts in khaki. Perfect for summer outings.</p>"
+      "description": "<p>Itachi Uchiha in a Swoosh frame — anime meets streetwear. For the real weebs.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 13,
+      "handle": "dark-cat-oversized",
+      "title": "RAVYNN Oversized Black T-Shirt – DARK Cat Eyes Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "new-drops"],
+      "tags": ["dark", "cat", "black", "oversized"],
+      "images": [
+        "https://picsum.photos/seed/rv13a/400/533",
+        "https://picsum.photos/seed/rv13b/400/533"
+      ],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "available": true,
+      "description": "<p>Bold yellow 'DARK' text with cat eyes on an oversized black tee. Streetwear that makes a statement.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 14,
+      "handle": "ravynn-mountain-logo",
+      "title": "RAVYNN Oversized Olive T-Shirt – Mountain Logo Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "new-drops"],
+      "tags": ["mountain", "logo", "olive", "graphic"],
+      "images": [
+        "https://picsum.photos/seed/rv14a/400/533",
+        "https://picsum.photos/seed/rv14b/400/533"
+      ],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "available": true,
+      "description": "<p>RAVYNN mountain badge logo on an olive oversized tee. 'Not All Those Who Wander Are Lost.'</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     }
   ],
   "collections": [
-    { "handle": "new-arrivals", "title": "New Arrivals" },
-    { "handle": "bestsellers", "title": "Bestsellers" },
-    { "handle": "shirts", "title": "Shirts" },
-    { "handle": "t-shirts", "title": "T-Shirts" },
-    { "handle": "jeans", "title": "Jeans" },
-    { "handle": "trousers", "title": "Trousers" },
-    { "handle": "hoodies", "title": "Hoodies" },
-    { "handle": "shorts", "title": "Shorts" },
-    { "handle": "sale", "title": "Sale" }
+    { "handle": "new-drops", "title": "New Drops" },
+    { "handle": "oversized-essentials", "title": "Oversized Essentials" },
+    { "handle": "graphic-tees", "title": "Graphic Tees" },
+    { "handle": "under-999", "title": "Under ₹999" },
+    { "handle": "statement-tees", "title": "Statement Tees" },
+    { "handle": "anime-pop-culture", "title": "Anime & Pop Culture" },
+    { "handle": "gym-fitness", "title": "Gym & Fitness" }
   ]
 }

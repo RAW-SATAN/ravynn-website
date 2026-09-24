@@ -3,101 +3,484 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAVYNN — New Era Men's Fashion</title>
-<meta name="description" content="Shop premium men's clothing — T-shirts, Shirts, Jeans, Trousers and more. Free shipping on orders above ₹999.">
+<title>Ravynn | Oversized Graphic Tees & Streetwear India</title>
+<meta name="description" content="Shop RAVYNN oversized graphic tees & streetwear. Bold designs, premium quality. Free shipping on every order.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
 <style>
-/* ── Hero Carousel ── */
-.hero-carousel { position:relative; overflow:hidden; background:#111; }
-.hero-slide { display:none; position:relative; }
-.hero-slide.active { display:block; }
-.hero-slide img { width:100%; height:520px; object-fit:cover; }
-@media(max-width:767px){ .hero-slide img { height:480px; } }
-.hero-content { position:absolute; bottom:48px; left:40px; color:#fff; }
-@media(max-width:767px){ .hero-content { left:20px; bottom:32px; } }
-.hero-eyebrow { font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; opacity:.8; }
-.hero-title { font-size:clamp(28px,5vw,52px); font-weight:700; line-height:1.1; margin-bottom:16px; }
-.hero-cta { display:inline-block; background:#fff; color:#000; padding:13px 28px; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; }
-.hero-dots { position:absolute; bottom:20px; right:40px; display:flex; gap:6px; }
-@media(max-width:767px){ .hero-dots { right:20px; } }
-.hero-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.4); border:none; cursor:pointer; padding:0; }
-.hero-dot.active { background:#fff; }
-/* ── Categories ── */
-.categories-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
-.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
-.section-title { font-size:18px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
-.section-link { font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#000; text-decoration:none; border-bottom:1px solid #000; padding-bottom:1px; }
-.cat-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
-@media(max-width:767px){ .cat-grid { grid-template-columns:repeat(3,1fr); gap:8px; } }
-.cat-card { display:block; text-decoration:none; color:#000; text-align:center; }
-.cat-img-wrap { border-radius:4px; overflow:hidden; aspect-ratio:3/4; margin-bottom:8px; background:#f0f0f0; }
-.cat-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
-.cat-card:hover .cat-img-wrap img { transform:scale(1.04); }
-.cat-name { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
-/* ── Editorial ── */
-.editorial-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
-.editorial-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-@media(max-width:767px){ .editorial-grid { grid-template-columns:1fr; } }
-.editorial-card { position:relative; overflow:hidden; border-radius:4px; }
-.editorial-card img { width:100%; height:400px; object-fit:cover; transition:transform .4s; }
-@media(max-width:767px){ .editorial-card img { height:260px; } }
-.editorial-card:hover img { transform:scale(1.03); }
-.editorial-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:28px; color:#fff; }
-.editorial-tag { font-size:11px; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; opacity:.8; }
-.editorial-title { font-size:22px; font-weight:700; margin-bottom:14px; }
-.editorial-cta { display:inline-block; border:1px solid #fff; color:#fff; padding:10px 22px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; width:fit-content; }
-/* ── Promo Banner ── */
-.promo-banner { background:#f5f2eb; padding:60px 20px; text-align:center; margin:0 0 40px; }
-.promo-banner h2 { font-size:clamp(22px,4vw,36px); font-weight:700; margin-bottom:10px; }
-.promo-banner p { color:#666; margin-bottom:24px; font-size:15px; }
-.promo-btn { display:inline-block; background:#000; color:#fff; padding:14px 36px; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; text-decoration:none; }
-/* ── Size Banner ── */
-.size-banner { background:#000; color:#fff; padding:20px; text-align:center; margin-bottom:40px; }
-.size-banner p { font-size:13px; letter-spacing:.5px; }
-.size-banner a { color:#fff; }
-/* ── New Popular ── */
-.new-popular-section { padding:40px 20px; max-width:1200px; margin:0 auto; }
-.new-popular-tabs { display:flex; gap:0; margin-bottom:28px; border-bottom:1px solid #e0e0e0; overflow-x:auto; }
-.new-popular-tab { padding:12px 22px; font-size:13px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; color:#888; }
-.new-popular-tab.active { border-bottom-color:#000; color:#000; }
-/* ── SEO Block ── */
-.seo-section { background:#f7f7f7; padding:48px 20px; }
-.seo-inner { max-width:900px; margin:0 auto; }
-.seo-inner h2 { font-size:20px; font-weight:700; margin-bottom:16px; }
-.seo-inner p { color:#555; font-size:14px; line-height:1.8; margin-bottom:12px; }
+/* ═══════════════════════════════════
+   GLOBAL OVERRIDES FOR RAVYNN.IN MATCH
+═══════════════════════════════════ */
+:root {
+  --c-black: #000;
+  --c-white: #fff;
+  --c-gray-100: #f7f7f7;
+  --c-gray-200: #e8e8e8;
+  --header-height: 64px;
+}
+body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 0; }
+
+/* ── Announcement Bar ── */
+.announcement-bar {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 40px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  position: relative;
+}
+.announcement-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; line-height: 1; padding: 0; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+}
+.header-menu-btn { background: none; border: none; cursor: pointer; padding: 6px; display: flex; align-items: center; }
+.header-menu-btn svg { width: 22px; height: 22px; }
+.site-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #000;
+}
+.site-logo-icon { width: 28px; height: 16px; }
+.site-logo-text { font-size: 14px; font-weight: 800; letter-spacing: 4px; line-height: 1; }
+.header-nav { display: flex; gap: 24px; margin-left: auto; }
+@media(max-width: 767px) { .header-nav { display: none; } }
+.header-nav a { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; color: #000; }
+.header-nav a:hover { color: #555; }
+.header-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.header-icon-btn { background: none; border: none; cursor: pointer; padding: 6px; display: flex; align-items: center; position: relative; text-decoration: none; color: #000; }
+.header-icon-btn svg { width: 20px; height: 20px; }
+.cart-count { position: absolute; top: 0; right: 0; background: #000; color: #fff; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* ── Search Overlay ── */
+.search-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.5); }
+.search-overlay.open { display: block; }
+.search-inner { background: #fff; padding: 24px 20px; max-height: 90vh; overflow-y: auto; }
+.search-bar { display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #000; padding-bottom: 12px; margin-bottom: 24px; }
+.search-input { flex: 1; border: none; outline: none; font-size: 16px; font-family: inherit; }
+.search-close { background: none; border: none; font-size: 24px; cursor: pointer; line-height: 1; padding: 0; }
+
+/* ── Mobile Menu ── */
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: #fff; z-index: 300; flex-direction: column; }
+.mobile-menu.open { display: flex; }
+.mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #e8e8e8; }
+.mobile-menu-logo { font-size: 13px; font-weight: 800; letter-spacing: 3px; }
+.mobile-menu-close { background: none; border: none; font-size: 22px; cursor: pointer; }
+.mobile-menu-nav { flex: 1; overflow-y: auto; padding: 16px 0; }
+.mobile-menu-nav a { display: block; padding: 14px 20px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; color: #000; border-bottom: 1px solid #f0f0f0; }
+.mobile-menu-nav a:hover { background: #f7f7f7; }
+.site-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 200; }
+.site-overlay.active { display: block; }
+
+/* ═══════════════════════════════════
+   HERO CAROUSEL — Exact ravynn.in style
+═══════════════════════════════════ */
+.hero-carousel {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+.hero-slide { display: none; position: relative; }
+.hero-slide.active { display: block; }
+.hero-slide img { width: 100%; height: 580px; object-fit: cover; display: block; }
+@media(max-width: 767px) { .hero-slide img { height: 100svh; max-height: 600px; } }
+.hero-content {
+  position: absolute;
+  bottom: 60px;
+  left: 40px;
+  color: #fff;
+  max-width: 400px;
+}
+@media(max-width: 767px) { .hero-content { left: 20px; bottom: 100px; } }
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: .85;
+}
+.hero-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+.hero-cta {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  padding: 12px 28px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.hero-cta:hover { background: #f0f0f0; }
+.hero-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+.hero-dot {
+  width: 28px;
+  height: 3px;
+  background: rgba(255,255,255,.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 2px;
+  transition: background .3s;
+}
+.hero-dot.active { background: #fff; }
+
+/* ═══════════════════════════════════
+   SHOP BY CATEGORY — 5 cols horizontal scroll
+═══════════════════════════════════ */
+.categories-section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 20px; }
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+@media(max-width: 767px) {
+  .cat-grid { grid-template-columns: repeat(5, 140px); overflow-x: auto; gap: 8px; padding-bottom: 8px; scrollbar-width: none; }
+  .cat-grid::-webkit-scrollbar { display: none; }
+}
+.cat-card { display: block; text-decoration: none; color: #000; }
+.cat-img-wrap {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background: #f0f0f0;
+}
+.cat-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; display: block; }
+.cat-card:hover .cat-img-wrap img { transform: scale(1.04); }
+.cat-name {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════
+   EDITORIAL GRID — 2x2 square tiles
+═══════════════════════════════════ */
+.editorial-section { padding: 0 20px 40px; max-width: 1200px; margin: 0 auto; }
+.editorial-grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+@media(max-width: 767px) { .editorial-grid-2x2 { gap: 4px; } }
+.editorial-tile {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  aspect-ratio: 1;
+}
+.editorial-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; opacity: .85; }
+.editorial-tile:hover img { transform: scale(1.03); }
+.editorial-tile-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+  color: #fff;
+}
+.editorial-tile-tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
+.editorial-tile-title { font-size: clamp(13px, 2vw, 17px); font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+
+/* ═══════════════════════════════════
+   COLLECTION TILES — 4 tall banners
+═══════════════════════════════════ */
+.collection-tiles-section { padding: 0 20px 40px; max-width: 1200px; margin: 0 auto; }
+.collection-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media(max-width: 767px) { .collection-tiles-grid { grid-template-columns: 1fr 1fr; } }
+.col-tile {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #fff;
+  background: #111;
+  aspect-ratio: 2/3;
+}
+.col-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; opacity: .8; }
+.col-tile:hover img { transform: scale(1.04); }
+.col-tile-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 80%);
+}
+.col-tile-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
+.col-tile-title { font-size: clamp(12px, 1.5vw, 16px); font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+
+/* ═══════════════════════════════════
+   PROMO BANNER — "FLAT 10% OFF FIRST ORDER"
+═══════════════════════════════════ */
+.promo-banner-full {
+  background: #f5f2eb;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.promo-banner-full h2 {
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.promo-size-btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 12px 32px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════
+   NEW AND POPULAR
+═══════════════════════════════════ */
+.new-popular-section { padding: 48px 20px 60px; max-width: 1200px; margin: 0 auto; }
+.new-popular-eyebrow { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+.new-popular-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e0e0e0;
+}
+.new-popular-tab {
+  padding: 10px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: #999;
+  white-space: nowrap;
+}
+.new-popular-tab.active { border-bottom-color: #000; color: #000; }
+
+/* ═══════════════════════════════════
+   PRODUCT GRID — 4 col desktop, 2 col mobile
+═══════════════════════════════════ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media(max-width: 1023px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width: 767px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+
+/* Product Card */
+.product-card { display: block; text-decoration: none; color: #000; }
+.product-card-image-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #f5f5f5;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.product-card-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.product-card:hover .product-card-image-wrap img { transform: scale(1.03); }
+.product-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  letter-spacing: .5px;
+}
+.product-card-wish {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,.9);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.product-card-wish svg { width: 14px; height: 14px; }
+.product-card-wish.wished svg { fill: #e00; stroke: #e00; }
+.product-card-name { font-size: 12px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
+.product-card-price { font-size: 13px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.product-card-price .compare { text-decoration: line-through; color: #999; font-size: 11px; }
+.product-card-price .sale-price { font-weight: 700; color: #cc0000; }
+
+/* Search results grid */
+.search-products { grid-template-columns: repeat(4, 1fr); }
+@media(max-width: 767px) { .search-products { grid-template-columns: repeat(2, 1fr); } }
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+.site-footer { background: #fff; border-top: 1px solid #e8e8e8; }
+.footer-top { padding: 32px 20px 24px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; border-bottom: 1px solid #e8e8e8; }
+@media(max-width: 767px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.footer-top-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; color: #000; }
+.footer-top-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-top-links a { font-size: 13px; color: #444; text-decoration: none; }
+.footer-top-links a:hover { color: #000; }
+.footer-popular { padding: 20px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid #e8e8e8; }
+.footer-popular-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.footer-popular-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.footer-popular-tag { font-size: 12px; color: #666; text-decoration: none; border: 1px solid #e0e0e0; padding: 5px 12px; border-radius: 20px; }
+.footer-popular-tag:hover { border-color: #000; color: #000; }
+.footer-inner { padding: 32px 20px 24px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media(max-width: 767px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.footer-col-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { font-size: 13px; color: #444; text-decoration: none; }
+.footer-col ul li a:hover { color: #000; }
+.footer-social { display: flex; gap: 14px; margin-top: 8px; }
+.footer-social a { color: #000; display: flex; }
+.footer-social a svg { width: 18px; height: 18px; }
+.footer-bottom { border-top: 1px solid #e8e8e8; padding: 16px 20px; text-align: center; }
+.footer-copy { font-size: 12px; color: #888; }
+
+/* ═══════════════════════════════════
+   MOBILE BOTTOM NAV
+═══════════════════════════════════ */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  z-index: 99;
+  height: 60px;
+}
+@media(max-width: 767px) { .mobile-bottom-nav { display: flex; } }
+.mobile-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #888;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.mobile-nav-item svg { width: 20px; height: 20px; }
+.mobile-nav-item.active { color: #000; }
+.mobile-nav-center {
+  background: #000;
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  align-self: center;
+  margin: 0 8px;
+}
+.mobile-nav-new-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; }
 </style>
 </head>
 <body data-template="index">
 
 <!-- Announcement Bar -->
-<div class="announcement-bar" role="region" aria-label="Announcement">
-  <div class="announcement-content">
-    <span>Use code <strong>TRYRAVYNN5</strong> for 5% off your first order! | Free shipping on orders above ₹999</span>
-  </div>
-  <button class="announcement-close" aria-label="Close announcement">×</button>
+<div class="announcement-bar">
+  FREE SHIPPING ON EVERY ORDER | USE CODE: <strong>WELCOME10</strong> FOR 10% OFF YOUR FIRST ORDER
+  <button class="announcement-close" aria-label="Close">×</button>
 </div>
 
 <!-- Header -->
-<header class="site-header" role="banner">
+<header class="site-header">
   <button class="header-menu-btn" data-open-menu aria-label="Open menu">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
-  <a href="index.html" class="site-logo" aria-label="RAVYNN Home">RAVYNN</a>
-  <nav class="header-nav" aria-label="Main navigation">
-    <a href="collection.html?c=new-arrivals">New Arrivals</a>
-    <a href="collection.html?c=t-shirts">T-Shirts</a>
-    <a href="collection.html?c=shirts">Shirts</a>
-    <a href="collection.html?c=jeans">Jeans</a>
-    <a href="collection.html?c=trousers">Trousers</a>
-    <a href="collection.html?c=sale">Sale</a>
+
+  <!-- Logo with wing icon -->
+  <a href="index.html" class="site-logo" aria-label="RAVYNN Home">
+    <svg class="site-logo-icon" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30 24 C20 18, 4 14, 2 4 C10 6, 20 10, 30 22 C40 10, 50 6, 58 4 C56 14, 40 18, 30 24Z" fill="#000"/>
+    </svg>
+    <span class="site-logo-text">RAVYNN</span>
+  </a>
+
+  <nav class="header-nav">
+    <a href="collection.html?c=new-drops">New Drops</a>
+    <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+    <a href="collection.html?c=under-999">Under ₹999</a>
+    <a href="collection.html">Shop All</a>
   </nav>
+
   <div class="header-actions">
     <button class="header-icon-btn" data-open-search aria-label="Search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
+    <a href="#" class="header-icon-btn" aria-label="Account">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </a>
     <a href="cart.html" class="header-icon-btn" aria-label="Cart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       <span class="cart-count" style="display:none">0</span>
@@ -106,225 +489,274 @@
 </header>
 
 <!-- Search Overlay -->
-<div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+<div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true">
   <div class="search-inner">
     <div class="search-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" class="search-input" placeholder="Search for products..." autocomplete="off">
-      <button class="search-close" aria-label="Close search">×</button>
+      <input type="search" class="search-input" placeholder="Search products..." autocomplete="off">
+      <button class="search-close" aria-label="Close">×</button>
     </div>
     <div class="search-products product-grid"></div>
   </div>
 </div>
 
-<!-- Mobile Menu Drawer -->
-<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu">
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true">
   <div class="mobile-menu-header">
     <span class="mobile-menu-logo">RAVYNN</span>
-    <button data-close-menu class="mobile-menu-close" aria-label="Close menu">×</button>
+    <button data-close-menu class="mobile-menu-close">×</button>
   </div>
   <nav class="mobile-menu-nav">
-    <a href="collection.html?c=new-arrivals">New Arrivals</a>
-    <a href="collection.html?c=bestsellers">Bestsellers</a>
-    <a href="collection.html?c=t-shirts">T-Shirts</a>
-    <a href="collection.html?c=shirts">Shirts</a>
-    <a href="collection.html?c=jeans">Jeans</a>
-    <a href="collection.html?c=trousers">Trousers</a>
-    <a href="collection.html?c=hoodies">Hoodies</a>
-    <a href="collection.html?c=shorts">Shorts</a>
-    <a href="collection.html?c=sale">Sale</a>
+    <a href="collection.html?c=new-drops">New Drops</a>
+    <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+    <a href="collection.html?c=under-999">Under ₹999</a>
+    <a href="collection.html?c=anime-pop-culture">Anime & Pop Culture</a>
+    <a href="collection.html?c=gym-fitness">Gym & Fitness</a>
+    <a href="collection.html">Shop All</a>
   </nav>
-  <div class="mobile-menu-footer">
-    <a href="#">Contact Us</a>
-    <a href="#">Size Guide</a>
-    <a href="#">Track Order</a>
-  </div>
 </div>
 <div id="site-overlay" class="site-overlay"></div>
 
-<!-- Hero Carousel -->
+<!-- ═══ HERO CAROUSEL ═══ -->
 <section class="hero-carousel" aria-label="Hero">
   <div class="hero-slide active">
-    <img src="https://picsum.photos/seed/hero1/1400/520" alt="New Arrivals">
+    <img src="https://picsum.photos/seed/hero-dark/1400/580" alt="New Drops">
     <div class="hero-content">
-      <p class="hero-eyebrow">New Collection</p>
-      <h1 class="hero-title">Street<br>Ready Looks</h1>
-      <a href="collection.html?c=new-arrivals" class="hero-cta">Shop New Arrivals</a>
+      <p class="hero-eyebrow">Oversized Tees, Fresh In</p>
+      <h1 class="hero-title">New<br>Drops</h1>
+      <a href="collection.html?c=new-drops" class="hero-cta">Shop Now</a>
     </div>
   </div>
   <div class="hero-slide">
-    <img src="https://picsum.photos/seed/hero2/1400/520" alt="Bestsellers">
+    <img src="https://picsum.photos/seed/hero-graphic/1400/580" alt="Graphic Tees">
     <div class="hero-content">
-      <p class="hero-eyebrow">Fan Favourites</p>
-      <h1 class="hero-title">The<br>Bestsellers</h1>
-      <a href="collection.html?c=bestsellers" class="hero-cta">Shop Now</a>
+      <p class="hero-eyebrow">Bold Designs That Speak</p>
+      <h1 class="hero-title">Graphic<br>Tees</h1>
+      <a href="collection.html?c=graphic-tees" class="hero-cta">Shop Now</a>
     </div>
   </div>
   <div class="hero-slide">
-    <img src="https://picsum.photos/seed/hero3/1400/520" alt="Sale">
+    <img src="https://picsum.photos/seed/hero-under/1400/580" alt="Under 999">
     <div class="hero-content">
-      <p class="hero-eyebrow">Limited Time</p>
-      <h1 class="hero-title">Up to<br>40% Off</h1>
-      <a href="collection.html?c=sale" class="hero-cta">Shop Sale</a>
+      <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
+      <h1 class="hero-title">Under<br>₹999</h1>
+      <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
     </div>
   </div>
-  <div class="hero-dots" role="tablist" aria-label="Slides">
-    <button class="hero-dot active" role="tab" aria-selected="true"></button>
-    <button class="hero-dot" role="tab" aria-selected="false"></button>
-    <button class="hero-dot" role="tab" aria-selected="false"></button>
+  <div class="hero-slide">
+    <img src="https://picsum.photos/seed/hero-essential/1400/580" alt="Oversized Essentials">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Comfort Meets Style</p>
+      <h1 class="hero-title">Oversized<br>Essentials</h1>
+      <a href="collection.html?c=oversized-essentials" class="hero-cta">Explore</a>
+    </div>
+  </div>
+  <div class="hero-dots" role="tablist">
+    <button class="hero-dot active" role="tab"></button>
+    <button class="hero-dot" role="tab"></button>
+    <button class="hero-dot" role="tab"></button>
+    <button class="hero-dot" role="tab"></button>
   </div>
 </section>
 
-<!-- Categories -->
-<section class="categories-section" aria-label="Shop by category">
-  <div class="section-header">
-    <h2 class="section-title">Shop by Category</h2>
-    <a href="collection.html" class="section-link">View All</a>
-  </div>
+<!-- ═══ SHOP BY CATEGORY ═══ -->
+<section class="categories-section">
+  <p class="section-eyebrow">Shop by Category</p>
   <div class="cat-grid">
-    <a href="collection.html?c=t-shirts" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat1/300/400" alt="T-Shirts" loading="lazy"></div>
-      <span class="cat-name">T-Shirts</span>
+    <a href="collection.html?c=new-drops" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-newdrops/300/400" alt="New Drops" loading="lazy"></div>
+      <span class="cat-name">New Drops</span>
     </a>
-    <a href="collection.html?c=shirts" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat2/300/400" alt="Shirts" loading="lazy"></div>
-      <span class="cat-name">Shirts</span>
+    <a href="collection.html?c=oversized-essentials" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-oversized/300/400" alt="Oversized Essentials" loading="lazy"></div>
+      <span class="cat-name">Oversized Essentials</span>
     </a>
-    <a href="collection.html?c=jeans" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat3/300/400" alt="Jeans" loading="lazy"></div>
-      <span class="cat-name">Jeans</span>
+    <a href="collection.html?c=graphic-tees" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-graphic/300/400" alt="Graphic Tees" loading="lazy"></div>
+      <span class="cat-name">Graphic Tees</span>
     </a>
-    <a href="collection.html?c=trousers" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat4/300/400" alt="Trousers" loading="lazy"></div>
-      <span class="cat-name">Trousers</span>
+    <a href="collection.html?c=under-999" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-under/300/400" alt="Under ₹999" loading="lazy"></div>
+      <span class="cat-name">Under ₹999</span>
     </a>
-    <a href="collection.html?c=hoodies" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat5/300/400" alt="Hoodies" loading="lazy"></div>
-      <span class="cat-name">Hoodies</span>
-    </a>
-    <a href="collection.html?c=shorts" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat6/300/400" alt="Shorts" loading="lazy"></div>
-      <span class="cat-name">Shorts</span>
+    <a href="collection.html" class="cat-card">
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-all/300/400" alt="Shop All" loading="lazy"></div>
+      <span class="cat-name">Shop All</span>
     </a>
   </div>
 </section>
 
-<!-- Editorial Banners -->
-<section class="editorial-section" aria-label="Editorial">
-  <div class="editorial-grid">
-    <a href="collection.html?c=new-arrivals" class="editorial-card">
-      <img src="https://picsum.photos/seed/ed1/700/400" alt="New Arrivals" loading="lazy">
-      <div class="editorial-overlay">
-        <span class="editorial-tag">Just Dropped</span>
-        <h3 class="editorial-title">New Arrivals</h3>
-        <span class="editorial-cta">Shop Now</span>
+<!-- ═══ EDITORIAL 2×2 GRID ═══ -->
+<section class="editorial-section">
+  <div class="editorial-grid-2x2">
+    <a href="collection.html?c=anime-pop-culture" class="editorial-tile">
+      <img src="https://picsum.photos/seed/ed-anime/600/600" alt="Anime & Pop Culture" loading="lazy">
+      <div class="editorial-tile-content">
+        <p class="editorial-tile-tag">Goku, Zoro & More</p>
+        <h3 class="editorial-tile-title">Anime &<br>Pop Culture</h3>
       </div>
     </a>
-    <a href="collection.html?c=bestsellers" class="editorial-card">
-      <img src="https://picsum.photos/seed/ed2/700/400" alt="Bestsellers" loading="lazy">
-      <div class="editorial-overlay">
-        <span class="editorial-tag">Most Loved</span>
-        <h3 class="editorial-title">Bestsellers</h3>
-        <span class="editorial-cta">Explore</span>
+    <a href="collection.html?c=statement-tees" class="editorial-tile">
+      <img src="https://picsum.photos/seed/ed-statement/600/600" alt="Statement Tees" loading="lazy">
+      <div class="editorial-tile-content">
+        <p class="editorial-tile-tag">Words That Hit Different</p>
+        <h3 class="editorial-tile-title">Statement<br>Tees</h3>
+      </div>
+    </a>
+    <a href="collection.html?c=gym-fitness" class="editorial-tile">
+      <img src="https://picsum.photos/seed/ed-gym/600/600" alt="Gym & Fitness" loading="lazy">
+      <div class="editorial-tile-content">
+        <p class="editorial-tile-tag">Train in Style</p>
+        <h3 class="editorial-tile-title">Gym &<br>Fitness</h3>
+      </div>
+    </a>
+    <a href="collection.html?c=new-drops" class="editorial-tile">
+      <img src="https://picsum.photos/seed/ed-newdrops/600/600" alt="New Drops" loading="lazy">
+      <div class="editorial-tile-content">
+        <p class="editorial-tile-tag">Fresh Arrivals</p>
+        <h3 class="editorial-tile-title">New<br>Drops</h3>
       </div>
     </a>
   </div>
 </section>
 
-<!-- Promo Banner -->
-<div class="promo-banner">
-  <h2>Free Shipping on Orders ₹999+</h2>
-  <p>Easy 7-day returns &nbsp;·&nbsp; 100% authentic products &nbsp;·&nbsp; Cash on delivery available</p>
-  <a href="collection.html" class="promo-btn">Shop Now</a>
+<!-- ═══ COLLECTION TILES ═══ -->
+<section class="collection-tiles-section">
+  <div class="collection-tiles-grid">
+    <a href="collection.html?c=oversized-essentials" class="col-tile">
+      <img src="https://picsum.photos/seed/tile-essential/400/600" alt="Oversized Essentials" loading="lazy">
+      <div class="col-tile-content">
+        <p class="col-tile-tag">Comfort Meets Style</p>
+        <h3 class="col-tile-title">Oversized Essentials</h3>
+      </div>
+    </a>
+    <a href="collection.html?c=graphic-tees" class="col-tile">
+      <img src="https://picsum.photos/seed/tile-graphic/400/600" alt="Graphic Tees" loading="lazy">
+      <div class="col-tile-content">
+        <p class="col-tile-tag">Bold Designs</p>
+        <h3 class="col-tile-title">Graphic Tees</h3>
+      </div>
+    </a>
+    <a href="collection.html?c=under-999" class="col-tile">
+      <img src="https://picsum.photos/seed/tile-under/400/600" alt="Under 999" loading="lazy">
+      <div class="col-tile-content">
+        <p class="col-tile-tag">Budget Picks</p>
+        <h3 class="col-tile-title">Under ₹999</h3>
+      </div>
+    </a>
+    <a href="collection.html?c=new-drops" class="col-tile" style="background:#1a1a1a;">
+      <img src="https://picsum.photos/seed/tile-offer/400/600" alt="10% Off" loading="lazy" style="opacity:.5">
+      <div class="col-tile-content" style="bottom:50%;transform:translateY(50%);background:none;text-align:center;">
+        <p class="col-tile-tag" style="opacity:1;font-size:11px;">USE CODE: WELCOME10</p>
+        <h3 class="col-tile-title" style="font-size:clamp(14px,2vw,20px);">Flat 10% Off<br>First Order</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PROMO BANNER ═══ -->
+<div class="promo-banner-full">
+  <h2>Flat 10% Off First Order</h2>
+  <a href="collection.html" class="promo-size-btn">Shop by Size</a>
 </div>
 
-<!-- New & Popular -->
-<section class="new-popular-section" aria-label="New and Popular">
-  <div class="section-header">
-    <h2 class="section-title">New &amp; Popular</h2>
-  </div>
+<!-- ═══ NEW AND POPULAR ═══ -->
+<section class="new-popular-section">
+  <p class="new-popular-eyebrow">New and Popular</p>
   <div class="new-popular-tabs" role="tablist">
-    <button class="new-popular-tab active" role="tab" data-type="all">All</button>
-    <button class="new-popular-tab" role="tab" data-type="T-Shirts">T-Shirts</button>
-    <button class="new-popular-tab" role="tab" data-type="Shirts">Shirts</button>
-    <button class="new-popular-tab" role="tab" data-type="Jeans">Jeans</button>
-    <button class="new-popular-tab" role="tab" data-type="Trousers">Trousers</button>
-    <button class="new-popular-tab" role="tab" data-type="Hoodies">Hoodies</button>
+    <button class="new-popular-tab active" data-type="all">All</button>
+    <button class="new-popular-tab" data-type="new-drops">New Drops</button>
+    <button class="new-popular-tab" data-type="oversized-essentials">Oversized Essentials</button>
+    <button class="new-popular-tab" data-type="graphic-tees">Graphic Tees</button>
+    <button class="new-popular-tab" data-type="under-999">Under ₹999</button>
   </div>
-  <div class="product-grid"></div>
+  <div class="product-grid new-popular-grid"></div>
 </section>
 
-<!-- Size Banner -->
-<div class="size-banner">
-  <p>Not sure about your size? <a href="#">Download our size guide</a> — free exchanges on wrong sizes.</p>
-</div>
-
-<!-- SEO Section -->
-<section class="seo-section" aria-label="About RAVYNN">
-  <div class="seo-inner">
-    <h2>RAVYNN — Redefining Men's Style</h2>
-    <p>RAVYNN is a new-age Indian menswear brand focused on contemporary street-ready fashion. From premium oversized graphic tees to linen shirts, cargo pants to straight-fit jeans — every piece is designed for the modern man who refuses to compromise on style or comfort.</p>
-    <p>All RAVYNN products are crafted from premium fabrics, with a focus on quality construction and lasting wear. Shop our latest collections and discover why thousands of men across India choose RAVYNN.</p>
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <!-- Top: Categories + Quick Links -->
+  <div class="footer-top">
+    <div>
+      <h3 class="footer-top-title">Top Categories</h3>
+      <div class="footer-top-links">
+        <a href="collection.html?c=new-drops">New Drops</a>
+        <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+        <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+        <a href="collection.html?c=under-999">Under ₹999</a>
+        <a href="collection.html">Shop All</a>
+      </div>
+    </div>
+    <div>
+      <h3 class="footer-top-title">Quick Links</h3>
+      <div class="footer-top-links">
+        <a href="collection.html?c=new-drops">New Drops</a>
+        <a href="#">FAQ</a>
+        <a href="#">Return Policy</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- Footer -->
-<footer class="site-footer" role="contentinfo">
+  <!-- Popular Searches -->
+  <div class="footer-popular">
+    <h3 class="footer-popular-title">Popular Searches</h3>
+    <div class="footer-popular-tags">
+      <a href="collection.html?q=oversized" class="footer-popular-tag">oversized t-shirt</a>
+      <a href="collection.html?c=graphic-tees" class="footer-popular-tag">graphic tees</a>
+      <a href="collection.html?c=under-999" class="footer-popular-tag">t-shirts under 999</a>
+      <a href="collection.html?c=new-drops" class="footer-popular-tag">new drops</a>
+      <a href="collection.html" class="footer-popular-tag">streetwear tees</a>
+    </div>
+  </div>
+
+  <!-- Main Footer Columns -->
   <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="footer-logo">RAVYNN</a>
-      <p class="footer-tagline">New Era. New Rules.</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
-      </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Shop</h3>
+      <ul>
+        <li><a href="collection.html?c=new-drops">New Drops</a></li>
+        <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
+        <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
+        <li><a href="collection.html?c=under-999">Under ₹999</a></li>
+        <li><a href="collection.html">Shop All</a></li>
+      </ul>
     </div>
-    <div class="footer-nav">
-      <div class="footer-col">
-        <h3 class="footer-col-title">Shop</h3>
-        <ul>
-          <li><a href="collection.html?c=new-arrivals">New Arrivals</a></li>
-          <li><a href="collection.html?c=bestsellers">Bestsellers</a></li>
-          <li><a href="collection.html?c=shirts">Shirts</a></li>
-          <li><a href="collection.html?c=t-shirts">T-Shirts</a></li>
-          <li><a href="collection.html?c=jeans">Jeans</a></li>
-          <li><a href="collection.html?c=trousers">Trousers</a></li>
-          <li><a href="collection.html?c=sale">Sale</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3 class="footer-col-title">Help</h3>
-        <ul>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-          <li><a href="#">Size Guide</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3 class="footer-col-title">Company</h3>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3 class="footer-col-title">RAVYNN</h3>
-        <ul>
-          <li><a href="collection.html">All Products</a></li>
-          <li><a href="#">Gift Cards</a></li>
-          <li><a href="#">Style Blog</a></li>
-          <li><a href="#">Sustainability</a></li>
-        </ul>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Help</h3>
+      <ul>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping & Refund Policy</a></li>
+        <li><a href="#">Return & Refund Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Company</h3>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">RAVYNN</h3>
+      <ul>
+        <li><a href="collection.html">All Products</a></li>
+        <li><a href="collection.html?c=new-drops">New Drops</a></li>
+      </ul>
+      <div class="footer-social" style="margin-top:16px">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 RAVYNN. Developed by Drpshippr Ecom Pvt Ltd. All rights reserved.</p>
+    <p class="footer-copy">© 2026 Ravynn | Hindsol Associates. All rights reserved.</p>
   </div>
 </footer>
 
@@ -338,7 +770,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <span>Explore</span>
   </a>
-  <a href="collection.html?c=new-arrivals" class="mobile-nav-item mobile-nav-center">
+  <a href="collection.html?c=new-drops" class="mobile-nav-item mobile-nav-center">
     <span class="mobile-nav-new-label">NEW</span>
   </a>
   <a href="cart.html" class="mobile-nav-item">
@@ -352,5 +784,51 @@
 </nav>
 
 <script src="assets/theme.js"></script>
+<script>
+// New & Popular with collection-based filtering
+document.addEventListener('DOMContentLoaded', async () => {
+  await Products.load();
+  const grid = document.querySelector('.new-popular-grid');
+  const tabs = document.querySelectorAll('.new-popular-tab');
+
+  function showTab(col) {
+    let list;
+    if (col === 'all') list = Products.all;
+    else list = Products.all.filter(p => p.collections?.includes(col));
+    if (grid) grid.innerHTML = list.slice(0, 10).map(p => productCardHTML(p)).join('');
+  }
+
+  function productCardHTML(p) {
+    const disc = p.compare_at_price > 0 ? Math.round((1 - p.price / p.compare_at_price) * 100) : 0;
+    return `<a href="product.html?p=${p.handle}" class="product-card">
+      <div class="product-card-image-wrap">
+        <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
+        ${disc ? `<span class="product-badge">${disc}% OFF</span>` : ''}
+        <button class="product-card-wish" onclick="event.preventDefault();this.classList.toggle('wished')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-name">${p.title}</div>
+        <div class="product-card-price">
+          ${p.compare_at_price > 0 ? `<span class="compare">Rs. ${p.compare_at_price}.00</span>` : ''}
+          <span class="sale-price">Rs. ${p.price}.00</span>
+        </div>
+      </div>
+    </a>`;
+  }
+
+  showTab('all');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    showTab(tab.dataset.type || 'all');
+  }));
+
+  // Also patch Products.card to match ravynn.in price format
+  const origCard = Products.card.bind(Products);
+  Products.card = (p) => productCardHTML(p);
+});
+</script>
 </body>
 </html>
