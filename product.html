@@ -97,9 +97,18 @@
 /* Upsell / You may also like */
 .upsell-section { max-width:1200px; margin:0 auto; padding:48px 20px 0; border-top:1px solid #e8e8e8; }
 .upsell-title { font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:24px; text-align:center; }
-.upsell-section .product-grid { grid-template-columns:repeat(5,1fr) !important; }
+.upsell-section .product-grid { display:grid !important; grid-template-columns:repeat(5,1fr) !important; gap:12px !important; }
 @media(max-width:900px){ .upsell-section .product-grid { grid-template-columns:repeat(3,1fr) !important; } }
-@media(max-width:600px){ .upsell-section .product-grid { grid-template-columns:repeat(2,1fr) !important; } }
+@media(max-width:600px){ .upsell-section .product-grid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; } }
+/* Product card badges + sale price for upsell grid */
+.product-card { position:relative; }
+.product-card-image-wrap { position:relative; overflow:hidden; aspect-ratio:3/4; background:#f5f5f5; }
+.product-card-image-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+.product-badge { position:absolute; bottom:8px; left:8px; background:#ff6200; color:#fff; font-size:10px; font-weight:700; padding:3px 6px; border-radius:3px; z-index:1; }
+.product-card-price .sale-price { font-weight:700; color:#cc0000; }
+.product-card-price .compare { text-decoration:line-through; color:#999; font-size:13px; }
+.product-card-name { font-size:12px; line-height:1.4; margin:6px 0 2px; }
+.product-card-wish { position:absolute; top:8px; right:8px; background:rgba(255,255,255,.9); border:none; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 /* Footer 4 col */
 .footer-inner { display:flex; flex-wrap:wrap; gap:40px; }
 .footer-brand { min-width:120px; }
