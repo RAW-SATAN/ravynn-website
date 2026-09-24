@@ -236,7 +236,6 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   aspect-ratio: 3/4;
   overflow: hidden;
   border-radius: 4px;
-  margin-bottom: 10px;
   background: #f0f0f0;
 }
 .cat-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; display: block; }
@@ -247,6 +246,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   text-transform: uppercase;
   letter-spacing: .5px;
   text-align: center;
+  display: block;
+  padding: 8px 0 6px;
 }
 
 /* ═══════════════════════════════════
@@ -329,6 +330,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   letter-spacing: 2px;
   margin-bottom: 16px;
 }
+.promo-banner-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
 .promo-size-btn {
   display: inline-block;
   background: #000;
@@ -341,6 +343,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   text-decoration: none;
   border: none;
   cursor: pointer;
+  border-radius: 100px;
 }
 
 /* ═══════════════════════════════════
@@ -351,36 +354,37 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .new-popular-tabs {
   display: flex;
   justify-content: center;
-  gap: 0;
+  gap: 8px;
   margin-bottom: 32px;
   flex-wrap: wrap;
-  border-bottom: 1px solid #e0e0e0;
 }
 .new-popular-tab {
-  padding: 10px 18px;
+  padding: 8px 18px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: .5px;
   text-transform: uppercase;
-  border: none;
-  background: none;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  color: #000;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  color: #999;
+  border-radius: 100px;
   white-space: nowrap;
+  transition: background .2s, border-color .2s, color .2s;
 }
-.new-popular-tab.active { border-bottom-color: #000; color: #000; }
+.new-popular-tab:hover { border-color: #000; }
+.new-popular-tab.active { background: #000; color: #fff; border-color: #000; }
 
 /* ═══════════════════════════════════
-   PRODUCT GRID — 4 col desktop, 2 col mobile
+   PRODUCT GRID — 5 col desktop, 2 col mobile
 ═══════════════════════════════════ */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
 }
-@media(max-width: 1023px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width: 1200px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+@media(max-width: 900px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
 @media(max-width: 767px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
 
 /* Product Card */
@@ -397,14 +401,15 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .product-card:hover .product-card-image-wrap img { transform: scale(1.03); }
 .product-badge {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   left: 10px;
-  background: #000;
+  background: #ff6200;
   color: #fff;
   font-size: 10px;
   font-weight: 700;
   padding: 3px 8px;
   letter-spacing: .5px;
+  border-radius: 3px;
 }
 .product-card-wish {
   position: absolute;
@@ -444,8 +449,8 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .footer-popular { padding: 20px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid #e8e8e8; }
 .footer-popular-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
 .footer-popular-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.footer-popular-tag { font-size: 12px; color: #666; text-decoration: none; border: 1px solid #e0e0e0; padding: 5px 12px; border-radius: 20px; }
-.footer-popular-tag:hover { border-color: #000; color: #000; }
+.footer-popular-tag { font-size: 13px; color: #555; text-decoration: none; }
+.footer-popular-tag:hover { color: #000; text-decoration: underline; }
 .footer-inner { padding: 32px 20px 24px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 @media(max-width: 767px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 20px; } }
 .footer-col-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
@@ -673,24 +678,24 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <p class="section-eyebrow">Shop by Category</p>
   <div class="cat-grid">
     <a href="collection.html?c=new-drops" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-newdrops/300/400" alt="New Drops" loading="lazy"></div>
       <span class="cat-name">New Drops</span>
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-newdrops/300/400" alt="New Drops" loading="lazy"></div>
     </a>
     <a href="collection.html?c=oversized-essentials" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-oversized/300/400" alt="Oversized Essentials" loading="lazy"></div>
       <span class="cat-name">Oversized Essentials</span>
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-oversized/300/400" alt="Oversized Essentials" loading="lazy"></div>
     </a>
     <a href="collection.html?c=graphic-tees" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-graphic/300/400" alt="Graphic Tees" loading="lazy"></div>
       <span class="cat-name">Graphic Tees</span>
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-graphic/300/400" alt="Graphic Tees" loading="lazy"></div>
     </a>
     <a href="collection.html?c=under-999" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-under/300/400" alt="Under ₹999" loading="lazy"></div>
       <span class="cat-name">Under ₹999</span>
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-under/300/400" alt="Under ₹999" loading="lazy"></div>
     </a>
     <a href="collection.html" class="cat-card">
-      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-all/300/400" alt="Shop All" loading="lazy"></div>
       <span class="cat-name">Shop All</span>
+      <div class="cat-img-wrap"><img src="https://picsum.photos/seed/cat-all/300/400" alt="Shop All" loading="lazy"></div>
     </a>
   </div>
 </section>
@@ -765,6 +770,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 
 <!-- ═══ PROMO BANNER ═══ -->
 <div class="promo-banner-full">
+  <p class="promo-banner-eyebrow">Last chance! Few sizes left</p>
   <h2>Flat 10% Off First Order</h2>
   <a href="collection.html" class="promo-size-btn">Shop by Size</a>
 </div>

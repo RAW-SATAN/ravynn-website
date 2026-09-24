@@ -238,6 +238,57 @@
       "sizes": ["S", "M", "L", "XL", "XXL"],
       "available": true,
       "description": "<p>RAVYNN mountain badge logo on an olive oversized tee. 'Not All Those Who Wander Are Lost.'</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 15,
+      "handle": "bodybuilder-zyzz-swoosh",
+      "title": "RAVYNN Oversized White T-Shirt – Bodybuilder Zyzz Pose Swoosh Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "gym-fitness", "new-drops"],
+      "tags": ["zyzz", "bodybuilder", "gym", "swoosh", "fitness"],
+      "images": [
+        "https://picsum.photos/seed/rv15a/400/533",
+        "https://picsum.photos/seed/rv15b/400/533"
+      ],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "available": true,
+      "description": "<p>Iconic Zyzz bodybuilder pose in a Swoosh frame. For the gym aesthetic kings. Train hard, look good.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 16,
+      "handle": "lord-ram-archer-silhouette",
+      "title": "RAVYNN Oversized White T-Shirt – Lord Ram Bow & Arrow Archer Silhouette Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "new-drops"],
+      "tags": ["ram", "archer", "silhouette", "spiritual", "mythology"],
+      "images": [
+        "https://picsum.photos/seed/rv16a/400/533",
+        "https://picsum.photos/seed/rv16b/400/533"
+      ],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "available": true,
+      "description": "<p>Lord Ram archer silhouette — powerful, mythological, street-ready. Spirituality meets streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 17,
+      "handle": "awaazz-pointing-hand",
+      "title": "RAVYNN Oversized White T-Shirt – Awaazz Pointing Hand Hindi-English Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["awaazz", "hindi", "pointing", "statement", "typography"],
+      "images": [
+        "https://picsum.photos/seed/rv17a/400/533",
+        "https://picsum.photos/seed/rv17b/400/533"
+      ],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "available": true,
+      "description": "<p>'Awaazz' — a bold Hindi-English typography graphic with a pointing hand. Make some noise.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     }
   ],
   "collections": [
