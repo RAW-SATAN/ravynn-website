@@ -61,13 +61,10 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   text-decoration: none;
   color: #000;
 }
-.site-logo-icon { width: 28px; height: 16px; }
-.site-logo-text { font-size: 14px; font-weight: 800; letter-spacing: 4px; line-height: 1; }
-.header-nav { display: flex; gap: 24px; margin-left: auto; }
-@media(max-width: 767px) { .header-nav { display: none; } }
-.header-nav a { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; color: #000; }
-.header-nav a:hover { color: #555; }
-.header-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.site-logo-icon { width: 44px; height: 20px; }
+.site-logo-text { font-size: 13px; font-weight: 800; letter-spacing: 5px; line-height: 1; }
+.header-nav { display: none; } /* hamburger-only nav like ravynn.in */
+.header-actions { display: flex; align-items: center; gap: 4px; margin-left: auto; }
 .header-icon-btn { background: none; border: none; cursor: pointer; padding: 6px; display: flex; align-items: center; position: relative; text-decoration: none; color: #000; }
 .header-icon-btn svg { width: 20px; height: 20px; }
 .cart-count { position: absolute; top: 0; right: 0; background: #000; color: #fff; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -93,64 +90,99 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .site-overlay.active { display: block; }
 
 /* ═══════════════════════════════════
-   HERO CAROUSEL — Exact ravynn.in style
+   HERO — Split-screen 2-panel (ravynn.in exact)
 ═══════════════════════════════════ */
 .hero-carousel {
   position: relative;
   overflow: hidden;
   background: #111;
 }
-.hero-slide { display: none; position: relative; }
-.hero-slide.active { display: block; }
-.hero-slide img { width: 100%; height: 580px; object-fit: cover; display: block; }
-@media(max-width: 767px) { .hero-slide img { height: 100svh; max-height: 600px; } }
+/* Desktop: show 2 panels side by side */
+.hero-slide { display: none; }
+.hero-slide.active { display: flex; }
+.hero-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  height: 88vh;
+  max-height: 720px;
+  min-height: 480px;
+}
+.hero-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 6s ease;
+}
+.hero-slide.active .hero-panel img { transform: scale(1.04); }
+/* Divider line between panels */
+.hero-panel:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,.15);
+  z-index: 2;
+}
+/* Gradient overlay */
+.hero-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+  z-index: 1;
+}
 .hero-content {
   position: absolute;
-  bottom: 60px;
-  left: 40px;
+  bottom: 44px;
+  left: 28px;
   color: #fff;
-  max-width: 400px;
+  z-index: 2;
+  max-width: 90%;
 }
-@media(max-width: 767px) { .hero-content { left: 20px; bottom: 100px; } }
 .hero-eyebrow {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 8px;
-  opacity: .85;
+  opacity: .8;
 }
 .hero-title {
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: clamp(28px, 4vw, 52px);
   font-weight: 900;
   line-height: 1;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   text-transform: uppercase;
-  letter-spacing: -1px;
+  letter-spacing: -.5px;
 }
 .hero-cta {
   display: inline-block;
   background: #fff;
   color: #000;
-  padding: 12px 28px;
-  font-size: 12px;
+  padding: 11px 26px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 100px; /* pill shape */
 }
 .hero-cta:hover { background: #f0f0f0; }
+/* Dots */
 .hero-dots {
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 6px;
+  gap: 5px;
+  z-index: 5;
 }
 .hero-dot {
-  width: 28px;
+  width: 24px;
   height: 3px;
   background: rgba(255,255,255,.35);
   border: none;
@@ -160,6 +192,15 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   transition: background .3s;
 }
 .hero-dot.active { background: #fff; }
+/* Mobile: one panel at a time */
+@media(max-width: 767px) {
+  .hero-slide.active { display: block; position: relative; }
+  .hero-panel { height: 85svh; max-height: 600px; }
+  .hero-panel:nth-child(2) { display: none; }
+  .hero-panel:first-child::after { display: none; }
+  .hero-content { bottom: 80px; left: 20px; }
+  .hero-title { font-size: 36px; }
+}
 
 /* ═══════════════════════════════════
    SHOP BY CATEGORY — 5 cols horizontal scroll
@@ -458,10 +499,13 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
 
-  <!-- Logo with wing icon -->
+  <!-- Logo: elegant bird wing + RAVYNN text (matching ravynn.in) -->
   <a href="index.html" class="site-logo" aria-label="RAVYNN Home">
-    <svg class="site-logo-icon" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30 24 C20 18, 4 14, 2 4 C10 6, 20 10, 30 22 C40 10, 50 6, 58 4 C56 14, 40 18, 30 24Z" fill="#000"/>
+    <svg class="site-logo-icon" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left wing -->
+      <path d="M40 26 C32 20, 18 16, 6 8 C10 8, 16 10, 22 13 C24 10, 26 8, 28 7 C30 10, 32 14, 33 18 C34 16, 35 13, 36 11 C37 14, 38 19, 39 24 L40 26Z" fill="#000" opacity=".9"/>
+      <!-- Right wing -->
+      <path d="M40 26 C48 20, 62 16, 74 8 C70 8, 64 10, 58 13 C56 10, 54 8, 52 7 C50 10, 48 14, 47 18 C46 16, 45 13, 44 11 C43 14, 42 19, 41 24 L40 26Z" fill="#000" opacity=".9"/>
     </svg>
     <span class="site-logo-text">RAVYNN</span>
   </a>
@@ -518,40 +562,89 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 </div>
 <div id="site-overlay" class="site-overlay"></div>
 
-<!-- ═══ HERO CAROUSEL ═══ -->
+<!-- ═══ HERO CAROUSEL (Split-screen 2-panel) ═══ -->
 <section class="hero-carousel" aria-label="Hero">
+
+  <!-- Slide 1: Oversized Essentials (left) + New Drops (right) -->
   <div class="hero-slide active">
-    <img src="https://picsum.photos/seed/hero-dark/1400/580" alt="New Drops">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Oversized Tees, Fresh In</p>
-      <h1 class="hero-title">New<br>Drops</h1>
-      <a href="collection.html?c=new-drops" class="hero-cta">Shop Now</a>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-confidence/700/720" alt="Oversized Essentials">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Comfort Meets Style</p>
+        <h1 class="hero-title">Oversized<br>Essentials</h1>
+        <a href="collection.html?c=oversized-essentials" class="hero-cta">Explore</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-dark-cat/700/720" alt="New Drops">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Oversized Tees, Fresh In</p>
+        <h1 class="hero-title">New<br>Drops</h1>
+        <a href="collection.html?c=new-drops" class="hero-cta">Shop Now</a>
+      </div>
     </div>
   </div>
+
+  <!-- Slide 2: Graphic Tees (left) + Under ₹999 (right) -->
   <div class="hero-slide">
-    <img src="https://picsum.photos/seed/hero-graphic/1400/580" alt="Graphic Tees">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Bold Designs That Speak</p>
-      <h1 class="hero-title">Graphic<br>Tees</h1>
-      <a href="collection.html?c=graphic-tees" class="hero-cta">Shop Now</a>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-graphic2/700/720" alt="Graphic Tees">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Bold Designs That Speak</p>
+        <h1 class="hero-title">Graphic<br>Tees</h1>
+        <a href="collection.html?c=graphic-tees" class="hero-cta">Shop Now</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-under2/700/720" alt="Under ₹999">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
+        <h1 class="hero-title">Under<br>₹999</h1>
+        <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
+      </div>
     </div>
   </div>
+
+  <!-- Slide 3: Anime (left) + Statement Tees (right) -->
   <div class="hero-slide">
-    <img src="https://picsum.photos/seed/hero-under/1400/580" alt="Under 999">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
-      <h1 class="hero-title">Under<br>₹999</h1>
-      <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-anime3/700/720" alt="Anime & Pop Culture">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Goku, Zoro & More</p>
+        <h1 class="hero-title">Anime &<br>Pop Culture</h1>
+        <a href="collection.html?c=anime-pop-culture" class="hero-cta">Explore</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-statement3/700/720" alt="Statement Tees">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Words That Hit Different</p>
+        <h1 class="hero-title">Statement<br>Tees</h1>
+        <a href="collection.html?c=statement-tees" class="hero-cta">Shop Now</a>
+      </div>
     </div>
   </div>
+
+  <!-- Slide 4: Gym & Fitness (left) + Shop All (right) -->
   <div class="hero-slide">
-    <img src="https://picsum.photos/seed/hero-essential/1400/580" alt="Oversized Essentials">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Comfort Meets Style</p>
-      <h1 class="hero-title">Oversized<br>Essentials</h1>
-      <a href="collection.html?c=oversized-essentials" class="hero-cta">Explore</a>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-gym4/700/720" alt="Gym & Fitness">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Train in Style</p>
+        <h1 class="hero-title">Gym &<br>Fitness</h1>
+        <a href="collection.html?c=gym-fitness" class="hero-cta">Explore</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <img src="https://picsum.photos/seed/hero-all4/700/720" alt="Shop All">
+      <div class="hero-content">
+        <p class="hero-eyebrow">All Collections</p>
+        <h1 class="hero-title">Shop<br>All</h1>
+        <a href="collection.html" class="hero-cta">Shop Now</a>
+      </div>
     </div>
   </div>
+
   <div class="hero-dots" role="tablist">
     <button class="hero-dot active" role="tab"></button>
     <button class="hero-dot" role="tab"></button>
