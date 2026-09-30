@@ -2,42 +2,45 @@
   "products": [
     {
       "id": 1,
-      "handle": "astronaut-space-rocket",
+      "handle": "ravynn-oversized-white-t-shirt-doodle-astronaut-space-rocket-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Doodle Astronaut & Space Rocket Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Graphic Tees",
-      "collections": ["all", "new-drops", "graphic-tees"],
+      "collections": ["all", "new-drops", "graphic-tees", "under-999"],
       "tags": ["astronaut", "space", "graphic", "new"],
       "images": [
-        "https://picsum.photos/seed/rv1a/400/533",
-        "https://picsum.photos/seed/rv1b/400/533",
-        "https://picsum.photos/seed/rv1c/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/39_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/cvds_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/sfvs_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Oversized white tee featuring a doodle-style astronaut floating through space with rockets. Boxy silhouette with dropped shoulders.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p><p><strong>Fit:</strong> Oversized, true to size</p>"
     },
     {
       "id": 2,
-      "handle": "sculpture-dont-trust",
-      "title": "RAVYNN Oversized White T-Shirt – \"Realistic / Don't Trust Everything You See\" Sculpture Graphic",
+      "handle": "ravynn-oversized-white-t-shirt-realistic-dont-trust-everything-you-see-sculpture-back-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – \"Realistic / Don't Trust Everything You See\" Sculpture Back Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Statement Tees",
-      "collections": ["all", "graphic-tees", "statement-tees"],
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
       "tags": ["sculpture", "statement", "graphic", "text"],
       "images": [
-        "https://picsum.photos/seed/rv2a/400/533",
-        "https://picsum.photos/seed/rv2b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/37_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/38_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/dceaf_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/sdae_800x.png"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Bold back-print graphic with a classical sculpture and the quote 'Don't Trust Everything You See'. Statement piece for the streets.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 3,
-      "handle": "i-need-more-space",
+      "handle": "ravynn-oversized-white-t-shirt-i-need-more-space-astronaut-graphic",
       "title": "RAVYNN Oversized White T-Shirt – \"I Need More Space\" Astronaut Graphic",
       "price": 699,
       "compare_at_price": 999,
@@ -45,16 +48,18 @@
       "collections": ["all", "graphic-tees", "new-drops", "under-999"],
       "tags": ["astronaut", "space", "funny", "graphic"],
       "images": [
-        "https://picsum.photos/seed/rv3a/400/533",
-        "https://picsum.photos/seed/rv3b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/36_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/dcsadev_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/adfq_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>A playful astronaut graphic with 'I Need More Space' text. Perfect blend of humour and street style.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 4,
-      "handle": "mood-of-the-day-panda",
+      "handle": "ravynn-oversized-white-t-shirt-mood-of-the-day-panda-grid-graphic",
       "title": "RAVYNN Oversized White T-Shirt – \"Mood of the Day\" Panda Grid Graphic",
       "price": 699,
       "compare_at_price": 999,
@@ -62,67 +67,74 @@
       "collections": ["all", "graphic-tees", "under-999"],
       "tags": ["panda", "mood", "grid", "funny"],
       "images": [
-        "https://picsum.photos/seed/rv4a/400/533",
-        "https://picsum.photos/seed/rv4b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/35_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/adca_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/c_vs_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>A grid of panda expressions for every mood. The perfect tee for panda lovers and graphic tee fans alike.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 5,
-      "handle": "they-call-him-og",
+      "handle": "ravynn-oversized-white-t-shirt-they-call-him-og-red-brush-typography-graphic",
       "title": "RAVYNN Oversized White T-Shirt – \"They Call Him OG\" Red Brush Typography Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Statement Tees",
-      "collections": ["all", "graphic-tees", "statement-tees", "new-drops"],
+      "collections": ["all", "graphic-tees", "statement-tees", "new-drops", "under-999"],
       "tags": ["OG", "typography", "red", "statement"],
       "images": [
-        "https://picsum.photos/seed/rv5a/400/533",
-        "https://picsum.photos/seed/rv5b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/34_7c752dd8-f66a-433e-9007-8324d951fe3c_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/sfbv_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/sfv_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Bold red brush typography graphic. 'They Call Him OG' — a tee for those who move different.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 6,
-      "handle": "signature-logo",
+      "handle": "ravynn-signature-logo-oversized-white-t-shirt",
       "title": "RAVYNN Signature Logo Oversized White T-Shirt",
       "price": 699,
       "compare_at_price": 999,
       "type": "Oversized Essentials",
-      "collections": ["all", "oversized-essentials", "new-drops"],
+      "collections": ["all", "oversized-essentials", "new-drops", "under-999"],
       "tags": ["logo", "signature", "essential", "classic"],
       "images": [
-        "https://picsum.photos/seed/rv6a/400/533",
-        "https://picsum.photos/seed/rv6b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/33_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/fhc_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>The classic RAVYNN signature logo tee. Clean, minimal, and effortlessly cool. A wardrobe essential.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 7,
-      "handle": "goku-gym-dumbbell",
+      "handle": "ravynn-oversized-white-t-shirt-goku-dumbbell-curl-gym-anime-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Goku Dumbbell Curl Gym Anime Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Graphic Tees",
-      "collections": ["all", "graphic-tees", "anime-pop-culture", "gym-fitness"],
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "gym-fitness", "under-999"],
       "tags": ["goku", "anime", "gym", "dragonball"],
       "images": [
-        "https://picsum.photos/seed/rv7a/400/533",
-        "https://picsum.photos/seed/rv7b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/32_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/bzd_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/tcf_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Goku doing a dumbbell curl — for the gym-heads and anime fans. Train in style.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 8,
-      "handle": "basketball-hoop-swoosh",
+      "handle": "ravynn-oversized-white-t-shirt-basketball-hoop-swoosh-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Basketball Hoop Swoosh Graphic",
       "price": 699,
       "compare_at_price": 999,
@@ -130,33 +142,37 @@
       "collections": ["all", "graphic-tees", "gym-fitness", "under-999"],
       "tags": ["basketball", "swoosh", "sport", "graphic"],
       "images": [
-        "https://picsum.photos/seed/rv8a/400/533",
-        "https://picsum.photos/seed/rv8b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/31_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/c_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/cf_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Minimalist basketball hoop graphic with a Swoosh element. Street sport aesthetic.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 9,
-      "handle": "shiva-trishul",
+      "handle": "ravynn-oversized-white-t-shirt-lord-shiva-tripundra-trishul-silhouette-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Lord Shiva Tripundra & Trishul Silhouette Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Graphic Tees",
-      "collections": ["all", "graphic-tees", "new-drops"],
+      "collections": ["all", "graphic-tees", "new-drops", "under-999"],
       "tags": ["shiva", "trishul", "spiritual", "graphic"],
       "images": [
-        "https://picsum.photos/seed/rv9a/400/533",
-        "https://picsum.photos/seed/rv9b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/30_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/29_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/cgv_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/yc_800x.png"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Powerful Lord Shiva silhouette with Tripundra and Trishul elements. Spiritual meets streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 10,
-      "handle": "hakuna-matata",
+      "handle": "ravynn-oversized-white-t-shirt-hakuna-matata-chest-typography-graphic",
       "title": "RAVYNN Oversized White T-Shirt – \"Hakuna Matata\" Chest Typography Graphic",
       "price": 699,
       "compare_at_price": 999,
@@ -164,16 +180,17 @@
       "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
       "tags": ["hakuna matata", "typography", "positive", "chest"],
       "images": [
-        "https://picsum.photos/seed/rv10a/400/533",
-        "https://picsum.photos/seed/rv10b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/27_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/28_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Chest placement 'Hakuna Matata' typography — it means no worries. Good vibes only.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 11,
-      "handle": "not-every-journey-penguin",
+      "handle": "ravynn-oversized-white-t-shirt-not-every-journey-penguin-mountain-graphic",
       "title": "RAVYNN Oversized White T-Shirt – \"Not Every Journey\" Penguin & Mountain Graphic",
       "price": 699,
       "compare_at_price": 999,
@@ -181,114 +198,503 @@
       "collections": ["all", "graphic-tees", "new-drops", "under-999"],
       "tags": ["penguin", "mountain", "journey", "graphic"],
       "images": [
-        "https://picsum.photos/seed/rv11a/400/533",
-        "https://picsum.photos/seed/rv11b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/26_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ntz_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>A lone penguin on a mountain journey — 'Not Every Journey' graphic. For the wanderers.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
       "id": 12,
-      "handle": "itachi-swoosh-frame",
-      "title": "RAVYNN Oversized White T-Shirt – Itachi Uchiha Swoosh Frame Anime Graphic",
-      "price": 699,
-      "compare_at_price": 999,
-      "type": "Graphic Tees",
-      "collections": ["all", "graphic-tees", "anime-pop-culture"],
-      "tags": ["itachi", "naruto", "anime", "swoosh"],
-      "images": [
-        "https://picsum.photos/seed/rv12a/400/533",
-        "https://picsum.photos/seed/rv12b/400/533"
-      ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
-      "available": true,
-      "description": "<p>Itachi Uchiha in a Swoosh frame — anime meets streetwear. For the real weebs.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
-    },
-    {
-      "id": 13,
-      "handle": "dark-cat-oversized",
-      "title": "RAVYNN Oversized Black T-Shirt – DARK Cat Eyes Graphic",
-      "price": 699,
-      "compare_at_price": 999,
-      "type": "Oversized Essentials",
-      "collections": ["all", "oversized-essentials", "new-drops"],
-      "tags": ["dark", "cat", "black", "oversized"],
-      "images": [
-        "https://picsum.photos/seed/rv13a/400/533",
-        "https://picsum.photos/seed/rv13b/400/533"
-      ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
-      "available": true,
-      "description": "<p>Bold yellow 'DARK' text with cat eyes on an oversized black tee. Streetwear that makes a statement.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
-    },
-    {
-      "id": 14,
-      "handle": "ravynn-mountain-logo",
-      "title": "RAVYNN Oversized Olive T-Shirt – Mountain Logo Graphic",
-      "price": 699,
-      "compare_at_price": 999,
-      "type": "Oversized Essentials",
-      "collections": ["all", "oversized-essentials", "new-drops"],
-      "tags": ["mountain", "logo", "olive", "graphic"],
-      "images": [
-        "https://picsum.photos/seed/rv14a/400/533",
-        "https://picsum.photos/seed/rv14b/400/533"
-      ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
-      "available": true,
-      "description": "<p>RAVYNN mountain badge logo on an olive oversized tee. 'Not All Those Who Wander Are Lost.'</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
-    },
-    {
-      "id": 15,
-      "handle": "bodybuilder-zyzz-swoosh",
+      "handle": "ravynn-oversized-white-t-shirt-bodybuilder-zyzz-pose-swoosh-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Bodybuilder Zyzz Pose Swoosh Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Graphic Tees",
-      "collections": ["all", "graphic-tees", "gym-fitness", "new-drops"],
+      "collections": ["all", "graphic-tees", "gym-fitness", "new-drops", "under-999"],
       "tags": ["zyzz", "bodybuilder", "gym", "swoosh", "fitness"],
       "images": [
-        "https://picsum.photos/seed/rv15a/400/533",
-        "https://picsum.photos/seed/rv15b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/25_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/fc_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Iconic Zyzz bodybuilder pose in a Swoosh frame. For the gym aesthetic kings. Train hard, look good.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
-      "id": 16,
-      "handle": "lord-ram-archer-silhouette",
+      "id": 13,
+      "handle": "ravynn-oversized-white-t-shirt-lord-ram-bow-arrow-archer-silhouette-graphic",
       "title": "RAVYNN Oversized White T-Shirt – Lord Ram Bow & Arrow Archer Silhouette Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Graphic Tees",
-      "collections": ["all", "graphic-tees", "new-drops"],
+      "collections": ["all", "graphic-tees", "new-drops", "under-999"],
       "tags": ["ram", "archer", "silhouette", "spiritual", "mythology"],
       "images": [
-        "https://picsum.photos/seed/rv16a/400/533",
-        "https://picsum.photos/seed/rv16b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/24_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/xct_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/23_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>Lord Ram archer silhouette — powerful, mythological, street-ready. Spirituality meets streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     },
     {
-      "id": 17,
-      "handle": "awaazz-pointing-hand",
-      "title": "RAVYNN Oversized White T-Shirt – Awaazz Pointing Hand Hindi-English Graphic",
+      "id": 14,
+      "handle": "ravynn-oversized-white-t-shirt-itachi-uchiha-swoosh-frame-anime-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Itachi Uchiha Swoosh Frame Anime Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "under-999"],
+      "tags": ["itachi", "naruto", "anime", "swoosh"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/22_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/cghcm_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Itachi Uchiha in a Swoosh frame — anime meets streetwear. For the real weebs.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 15,
+      "handle": "ravynn-oversized-white-t-shirt-awaazz-pointing-hand-hindi-english-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – \"Awaazz\" Pointing Hand Hindi-English Graphic",
       "price": 699,
       "compare_at_price": 999,
       "type": "Statement Tees",
       "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
       "tags": ["awaazz", "hindi", "pointing", "statement", "typography"],
       "images": [
-        "https://picsum.photos/seed/rv17a/400/533",
-        "https://picsum.photos/seed/rv17b/400/533"
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/21_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/hjv_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL"],
       "available": true,
       "description": "<p>'Awaazz' — a bold Hindi-English typography graphic with a pointing hand. Make some noise.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 16,
+      "handle": "ravynn-oversized-white-t-shirt-anime-powerlifter-swoosh-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Anime Powerlifter Swoosh Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "gym-fitness", "under-999"],
+      "tags": ["anime", "powerlifter", "gym", "swoosh"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/20_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/hvu_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Anime-style powerlifter in a Swoosh frame. For those who grind in the gym and still watch anime.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 17,
+      "handle": "ravynn-oversized-white-t-shirt-batman-swoosh-frame-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Batman Swoosh Frame Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["batman", "dc", "graphic", "swoosh"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/19_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Batman silhouette in the iconic Swoosh frame. Superhero meets streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 18,
+      "handle": "ravynn-oversized-white-t-shirt-divine-lord-krishna-eyes-peacock-feather-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Divine Lord Krishna Eyes & Peacock Feather Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "new-drops", "under-999"],
+      "tags": ["krishna", "peacock", "spiritual", "divine"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/18_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/zh_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Divine Lord Krishna eyes with peacock feather motif. Devotion meets contemporary streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 19,
+      "handle": "ravynn-oversized-white-t-shirt-batman-bat-symbol-cutout-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Batman Bat Symbol Cutout Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["batman", "dc", "symbol", "graphic"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/17_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Clean Batman bat symbol cutout graphic. Bold and minimal.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 20,
+      "handle": "ravynn-oversized-white-t-shirt-somewhere-paradise-tropical-collage-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – \"Somewhere Paradise\" Tropical Collage Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["paradise", "tropical", "collage", "summer"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/16_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/esrtx_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>'Somewhere Paradise' tropical collage — escape to the aesthetic. Vibrant summer vibes.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 21,
+      "handle": "ravynn-oversized-white-t-shirt-roronoa-zoro-eyes-purple-dragon-anime-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Roronoa Zoro Eyes & Purple Dragon Anime Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "new-drops", "under-999"],
+      "tags": ["zoro", "one piece", "anime", "dragon"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/asdcasc_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/casc_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Roronoa Zoro eyes with a purple dragon motif — One Piece streetwear at its finest.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 22,
+      "handle": "ravynn-oversized-white-t-shirt-abstract-horse-goat-painting-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Welcome Painting Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["abstract", "painting", "art", "graphic"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/41_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/sdfvsf_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/efvdfv_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Abstract painting graphic tee. Art-inspired streetwear for the creative souls.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 23,
+      "handle": "ravynn-oversized-white-t-shirt-son-goku-half-portrait-kanji-anime-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Son Goku Half Portrait & Kanji Anime Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "new-drops", "under-999"],
+      "tags": ["goku", "dragonball", "anime", "kanji"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/42_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/gdr_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/vgfb_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Son Goku half portrait with kanji script — Dragon Ball Z vibes in a clean streetwear silhouette.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 24,
+      "handle": "ravynn-oversized-white-t-shirt-ultra-instinct-goku-halo-silhouette-anime-back-graphic",
+      "title": "RAVYNN Oversized White T-Shirt – Ultra Instinct Goku Halo Silhouette Anime Back Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "new-drops", "under-999"],
+      "tags": ["goku", "ultra instinct", "anime", "back print"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/adscas_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/mdhu_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Ultra Instinct Goku back print — the power of gods, in a tee. Anime at its peak.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 25,
+      "handle": "ravynn-oversized-black-t-shirt-yellow-dark-black-cat-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Yellow \"DARK\" Black Cat Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "graphic-tees", "new-drops", "under-999"],
+      "tags": ["dark", "cat", "black", "oversized"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/7_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/qfe_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Bold yellow 'DARK' text with cat eyes on an oversized black tee. Streetwear that makes a statement.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 26,
+      "handle": "ravynn-oversized-black-t-shirt-vibrant-tribal-geometric-owl-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Vibrant Tribal Geometric Owl Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["owl", "tribal", "geometric", "vibrant"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/6_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/SBF_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Vibrant tribal geometric owl on a black base. Eye-catching and bold.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 27,
+      "handle": "ravynn-oversized-black-t-shirt-confidence-is-a-state-of-mind-japanese-crane-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – \"Confidence Is A State Of Mind\" Japanese Crane Graphic",
+      "price": 999,
+      "compare_at_price": 1499,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees"],
+      "tags": ["confidence", "japanese", "crane", "statement"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/5_2_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/dzfbn_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>'Confidence Is A State Of Mind' with a Japanese crane graphic. Premium statement tee.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 28,
+      "handle": "ravynn-oversized-black-t-shirt-tom-and-jerry-scooter-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Tom and Jerry Scooter Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "under-999"],
+      "tags": ["tom and jerry", "cartoon", "scooter", "nostalgia"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/4_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/1_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Tom and Jerry on a scooter — nostalgic cartoon meets streetwear. Always a crowd-pleaser.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 29,
+      "handle": "ravynn-oversized-black-t-shirt-goku-anime-eyes-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Goku Anime Eyes Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "anime-pop-culture", "under-999"],
+      "tags": ["goku", "dragonball", "eyes", "anime"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/3_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Goku's iconic eyes on a bold black tee. The power of the Super Saiyan, in your wardrobe.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 30,
+      "handle": "ravynn-oversized-black-t-shirt-one-bad-day-is-not-a-bad-life-stock-graph-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – \"One Bad Day Is Not A Bad Life\" Stock Graph Graphic",
+      "price": 599,
+      "compare_at_price": 899,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["stock", "motivational", "graph", "statement"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/2_2_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>'One Bad Day Is Not A Bad Life' — stock graph graphic for the mindful grinder. Motivational streetwear.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 31,
+      "handle": "built-different-oversized-graphic-tee",
+      "title": "Ravynn \"Built Different\" Oversized Graphic Tee",
+      "price": 599,
+      "compare_at_price": 899,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "graphic-tees", "under-999"],
+      "tags": ["built different", "oversized", "graphic", "essential"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ChatGPT_Image_May_28_2026_05_00_36_PM_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ChatGPT_Image_May_28_2026_04_50_35_PM_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ChatGPT_Image_May_28_2026_05_04_22_PM_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>'Built Different' oversized graphic tee. For those who stand apart from the crowd.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 32,
+      "handle": "ravynn-oversized-black-t-shirt-white-batman-emblem-back-typography-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – White Batman Emblem & Back Typography Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["batman", "dc", "emblem", "typography"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/9_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/8_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>White Batman emblem on the front, bold typography on the back. Dark knight energy, all day.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 33,
+      "handle": "ravynn-oversized-black-t-shirt-white-angry-cartoon-eyes-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – White Angry Cartoon Eyes Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["cartoon", "angry", "eyes", "graphic"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/10_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/wrgwe_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>White angry cartoon eyes on a black oversized tee. Bold, minimalist, statement-making.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 34,
+      "handle": "ravynn-signature-logo-oversized-black-t-shirt",
+      "title": "RAVYNN Signature Logo Oversized Black T-Shirt",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Oversized Essentials",
+      "collections": ["all", "oversized-essentials", "under-999"],
+      "tags": ["logo", "signature", "black", "essential"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/11_1_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/x_tk_8399a405-6dda-4def-bb0d-985464cd5d79_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>RAVYNN signature logo on a classic black oversized tee. The essential you didn't know you needed.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 35,
+      "handle": "ravynn-oversized-black-t-shirt-be-the-richest-in-your-bloodline-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – \"Be The Richest In Your Bloodline\" Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["bloodline", "motivational", "statement", "richest"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/12_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/fckk_mck_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ChatGPT_Image_Aug_16_2026_05_47_33_PM_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/mck3_800x.png"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>'Be The Richest In Your Bloodline' — a motivational statement tee for the ambitious. Bold typography on premium black cotton.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 36,
+      "handle": "ravynn-oversized-black-t-shirt-hindi-quote-na-samman-ka-moh-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Hindi Quote \"Na Samman Ka Moh\" Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["hindi", "quote", "na samman", "statement"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/13_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/svbsf_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Hindi quote 'Na Samman Ka Moh' — raw, real, rooted. Desi streetwear meets philosophy.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 37,
+      "handle": "ravynn-oversized-black-t-shirt-strikethrough-ahamkar-hindi-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Strikethrough \"अहंकार\" (Ahamkar) Hindi Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Statement Tees",
+      "collections": ["all", "graphic-tees", "statement-tees", "under-999"],
+      "tags": ["ahamkar", "hindi", "ego", "strikethrough"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/14_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ChatGPT_Image_Aug_17_2026_08_42_48_AM_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Strikethrough 'अहंकार' (ego) in Hindi — ego is the enemy. Bold desi streetwear statement.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
+    },
+    {
+      "id": 38,
+      "handle": "ravynn-oversized-black-t-shirt-iron-man-arc-reactor-graphic",
+      "title": "RAVYNN Oversized Black T-Shirt – Iron Man Arc Reactor Graphic",
+      "price": 699,
+      "compare_at_price": 999,
+      "type": "Graphic Tees",
+      "collections": ["all", "graphic-tees", "under-999"],
+      "tags": ["iron man", "arc reactor", "marvel", "superhero"],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/15_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/tudl_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/xfyj_800x.png",
+        "https://cdn.shopify.com/s/files/1/1002/3282/3065/files/ravynn-size-chart_19e25424-ccc0-4876-bb21-7d276498e0ba_800x.jpg"
+      ],
+      "sizes": ["S", "M", "L", "XL"],
+      "available": true,
+      "description": "<p>Iron Man Arc Reactor graphic on a bold black tee. Marvel energy, streetwear style.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>"
     }
   ],
   "collections": [
