@@ -116,30 +116,39 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   position: relative;
   overflow: hidden;
   background: #111;
+  height: 88vh;
+  max-height: 720px;
+  min-height: 480px;
 }
-/* Desktop: show 2 panels side by side
+/* Desktop: show 2 panels side by side — use opacity crossfade for smooth transitions
    Override theme.css: aspect-ratio:9/14, flex:0 0 50%, max-height:90vh on .hero-slide */
 .hero-slide {
-  display: none;
+  display: flex !important;
   width: 100% !important;
   aspect-ratio: unset !important;
   flex: none !important;
   max-height: none !important;
-  position: static !important;
-  overflow: visible !important;
+  position: absolute !important;
+  inset: 0 !important;
+  overflow: hidden !important;
+  opacity: 0;
+  transition: opacity 0.75s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 .hero-slide.active {
-  display: flex !important;
-  width: 100% !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 1 !important;
 }
 .hero-panel {
   flex: 1 1 50% !important;
   min-width: 0 !important;
   position: relative !important;
   overflow: hidden !important;
-  height: 88vh;
-  max-height: 720px;
-  min-height: 480px;
+  height: 100% !important;
+  max-height: none !important;
+  min-height: 0 !important;
   aspect-ratio: unset !important;
 }
 .hero-panel img {
@@ -229,8 +238,9 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 .hero-dot.active { background: #fff; }
 /* Mobile: one panel at a time */
 @media(max-width: 767px) {
-  .hero-slide.active { display: block; position: relative; }
-  .hero-panel { height: 85svh; max-height: 600px; }
+  .hero-carousel { height: 85svh; max-height: 600px; min-height: 350px; }
+  .hero-slide.active { z-index: 1; }
+  .hero-panel { height: 100% !important; }
   .hero-panel:nth-child(2) { display: none; }
   .hero-panel:first-child::after { display: none; }
   .hero-content { bottom: 80px; left: 20px; }
@@ -602,19 +612,19 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <!-- Category thumbnails -->
   <div class="mobile-menu-thumbs">
     <a href="collection.html?c=new-drops" class="mobile-menu-thumb">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976.png" alt="New Drops">
+      <img src="https://ravynn.in/cdn/shop/files/sfv.png" alt="New Drops">
       <span>New Drops</span>
     </a>
     <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40.png" alt="Graphic Tees">
+      <img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees">
       <span>Graphic</span>
     </a>
     <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/11_1.png" alt="Oversized">
+      <img src="https://ravynn.in/cdn/shop/files/SBF.png" alt="Oversized">
       <span>Oversized</span>
     </a>
     <a href="collection.html?c=under-999" class="mobile-menu-thumb">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/2_2.png" alt="Under ₹999">
+      <img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999">
       <span>₹999</span>
     </a>
   </div>
@@ -651,7 +661,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <!-- Slide 1: Oversized Essentials (left) + New Drops (right) -->
   <div class="hero-slide active">
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/11_1.png" alt="Oversized Essentials">
+      <img src="https://ravynn.in/cdn/shop/files/dzfbn.png" alt="Oversized Essentials">
       <div class="hero-content">
         <p class="hero-eyebrow">Comfort Meets Style</p>
         <h1 class="hero-title">Oversized<br>Essentials</h1>
@@ -659,7 +669,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       </div>
     </div>
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976.png" alt="New Drops">
+      <img src="https://ravynn.in/cdn/shop/files/qfe.png" alt="New Drops">
       <div class="hero-content">
         <p class="hero-eyebrow">Oversized Tees, Fresh In</p>
         <h1 class="hero-title">New<br>Drops</h1>
@@ -671,7 +681,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <!-- Slide 2: Graphic Tees (left) + Under ₹999 (right) -->
   <div class="hero-slide">
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40.png" alt="Graphic Tees">
+      <img src="https://ravynn.in/cdn/shop/files/ChatGPT_Image_May_28_2026_05_04_22_PM.png" alt="Graphic Tees">
       <div class="hero-content">
         <p class="hero-eyebrow">Bold Designs That Speak</p>
         <h1 class="hero-title">Graphic<br>Tees</h1>
@@ -679,7 +689,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
       </div>
     </div>
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/2_2.png" alt="Under ₹999">
+      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under ₹999">
       <div class="hero-content">
         <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
         <h1 class="hero-title">Under<br>₹999</h1>
@@ -688,42 +698,42 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
     </div>
   </div>
 
-  <!-- Slide 3: Anime (left) + Statement Tees (right) -->
+  <!-- Slide 3: New Drops (left) + Oversized Essentials (right) -->
   <div class="hero-slide">
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/42.png" alt="Anime & Pop Culture">
+      <img src="https://ravynn.in/cdn/shop/files/qfe.png" alt="New Drops">
       <div class="hero-content">
-        <p class="hero-eyebrow">Goku, Zoro & More</p>
-        <h1 class="hero-title">Anime &<br>Pop Culture</h1>
-        <a href="collection.html?c=anime-pop-culture" class="hero-cta">Explore</a>
+        <p class="hero-eyebrow">Oversized Tees, Fresh In</p>
+        <h1 class="hero-title">New<br>Drops</h1>
+        <a href="collection.html?c=new-drops" class="hero-cta">Shop Now</a>
       </div>
     </div>
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/12.png" alt="Statement Tees">
+      <img src="https://ravynn.in/cdn/shop/files/dzfbn.png" alt="Oversized Essentials">
       <div class="hero-content">
-        <p class="hero-eyebrow">Words That Hit Different</p>
-        <h1 class="hero-title">Statement<br>Tees</h1>
-        <a href="collection.html?c=statement-tees" class="hero-cta">Shop Now</a>
+        <p class="hero-eyebrow">Comfort Meets Style</p>
+        <h1 class="hero-title">Oversized<br>Essentials</h1>
+        <a href="collection.html?c=oversized-essentials" class="hero-cta">Explore</a>
       </div>
     </div>
   </div>
 
-  <!-- Slide 4: Gym & Fitness (left) + Shop All (right) -->
+  <!-- Slide 4: Under ₹999 (left) + Graphic Tees (right) -->
   <div class="hero-slide">
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/32.png" alt="Gym & Fitness">
+      <img src="https://ravynn.in/cdn/shop/files/adfq.png" alt="Under ₹999">
       <div class="hero-content">
-        <p class="hero-eyebrow">Train in Style</p>
-        <h1 class="hero-title">Gym &<br>Fitness</h1>
-        <a href="collection.html?c=gym-fitness" class="hero-cta">Explore</a>
+        <p class="hero-eyebrow">Streetwear Tees, Priced Right</p>
+        <h1 class="hero-title">Under<br>₹999</h1>
+        <a href="collection.html?c=under-999" class="hero-cta">Shop Now</a>
       </div>
     </div>
     <div class="hero-panel">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/7_1.png" alt="Shop All">
+      <img src="https://ravynn.in/cdn/shop/files/ChatGPT_Image_May_28_2026_05_04_22_PM.png" alt="Graphic Tees">
       <div class="hero-content">
-        <p class="hero-eyebrow">All Collections</p>
-        <h1 class="hero-title">Shop<br>All</h1>
-        <a href="collection.html" class="hero-cta">Shop Now</a>
+        <p class="hero-eyebrow">Bold Designs That Speak</p>
+        <h1 class="hero-title">Graphic<br>Tees</h1>
+        <a href="collection.html?c=graphic-tees" class="hero-cta">Shop Now</a>
       </div>
     </div>
   </div>
@@ -742,23 +752,23 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <div class="cat-grid">
     <a href="collection.html?c=new-drops" class="cat-card">
       <span class="cat-name">New Drops</span>
-      <div class="cat-img-wrap"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976.png" alt="New Drops" loading="lazy"></div>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/sfv.png" alt="New Drops" loading="lazy"></div>
     </a>
     <a href="collection.html?c=oversized-essentials" class="cat-card">
       <span class="cat-name">Oversized Essentials</span>
-      <div class="cat-img-wrap"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/11_1.png" alt="Oversized Essentials" loading="lazy"></div>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/SBF.png" alt="Oversized Essentials" loading="lazy"></div>
     </a>
     <a href="collection.html?c=graphic-tees" class="cat-card">
       <span class="cat-name">Graphic Tees</span>
-      <div class="cat-img-wrap"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40.png" alt="Graphic Tees" loading="lazy"></div>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees" loading="lazy"></div>
     </a>
     <a href="collection.html?c=under-999" class="cat-card">
       <span class="cat-name">Under ₹999</span>
-      <div class="cat-img-wrap"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/2_2.png" alt="Under ₹999" loading="lazy"></div>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999" loading="lazy"></div>
     </a>
     <a href="collection.html" class="cat-card">
       <span class="cat-name">Shop All</span>
-      <div class="cat-img-wrap"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/34_7c752dd8-f66a-433e-9007-8324d951fe3c.png" alt="Shop All" loading="lazy"></div>
+      <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/gvgcxc.png" alt="Shop All" loading="lazy"></div>
     </a>
   </div>
 </section>
@@ -767,28 +777,28 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 <section class="editorial-section">
   <div class="editorial-grid-2x2">
     <a href="collection.html?c=anime-pop-culture" class="editorial-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/42.png" alt="Anime & Pop Culture" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/xfyj.png" alt="Anime & Pop Culture" loading="lazy">
       <div class="editorial-tile-content">
         <p class="editorial-tile-tag">Goku, Zoro & More</p>
         <h3 class="editorial-tile-title">Anime &<br>Pop Culture</h3>
       </div>
     </a>
     <a href="collection.html?c=statement-tees" class="editorial-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/12.png" alt="Statement Tees" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/mck3.png" alt="Statement Tees" loading="lazy">
       <div class="editorial-tile-content">
         <p class="editorial-tile-tag">Words That Hit Different</p>
         <h3 class="editorial-tile-title">Statement<br>Tees</h3>
       </div>
     </a>
     <a href="collection.html?c=gym-fitness" class="editorial-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/32.png" alt="Gym & Fitness" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/tcf.png" alt="Gym & Fitness" loading="lazy">
       <div class="editorial-tile-content">
         <p class="editorial-tile-tag">Train in Style</p>
         <h3 class="editorial-tile-title">Gym &<br>Fitness</h3>
       </div>
     </a>
     <a href="collection.html?c=new-drops" class="editorial-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976.png" alt="New Drops" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/ChatGPT_Image_May_28_2026_05_10_51_PM.png" alt="New Drops" loading="lazy">
       <div class="editorial-tile-content">
         <p class="editorial-tile-tag">Fresh Arrivals</p>
         <h3 class="editorial-tile-title">New<br>Drops</h3>
@@ -801,25 +811,25 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
 <section class="collection-tiles-section">
   <div class="collection-tiles-grid">
     <a href="collection.html?c=oversized-essentials" class="col-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/33.png" alt="Oversized Essentials" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/ewG.png" alt="Oversized Essentials" loading="lazy">
       <div class="col-tile-content">
         <h3 class="col-tile-title">Oversized Essentials - Comfort Meets Style</h3>
       </div>
     </a>
     <a href="collection.html?c=graphic-tees" class="col-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40.png" alt="Graphic Tees" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/dsfzbnbb.png" alt="Graphic Tees" loading="lazy">
       <div class="col-tile-content">
         <h3 class="col-tile-title">Graphic Tees - Bold Designs</h3>
       </div>
     </a>
     <a href="collection.html?c=under-999" class="col-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/14.png" alt="Under 999" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/GD.png" alt="Under 999" loading="lazy">
       <div class="col-tile-content">
         <h3 class="col-tile-title">Under ₹999 - Budget Picks</h3>
       </div>
     </a>
     <a href="collection.html?c=new-drops" class="col-tile">
-      <img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/15.png" alt="Flat 10% Off" loading="lazy">
+      <img src="https://ravynn.in/cdn/shop/files/837f48f3-a242-4dbc-8fb8-5b5563c5ad1b.png" alt="Flat 10% Off" loading="lazy">
       <div class="col-tile-content">
         <h3 class="col-tile-title">Flat 10% Off First Order</h3>
       </div>
