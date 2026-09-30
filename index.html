@@ -630,15 +630,11 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   </div>
   <!-- Nav links -->
   <nav class="mobile-menu-nav">
-    <a href="collection.html?c=new-drops">New Arrivals <span class="menu-new-badge">NEW</span></a>
-    <a href="collection.html">Shop All</a>
-    <a href="collection.html?c=new-drops">New Drops</a>
-    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+    <a href="collection.html?c=new-drops">New Drops <span class="menu-new-badge">NEW</span></a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
     <a href="collection.html?c=under-999">Under ₹999</a>
-    <a href="collection.html?c=statement-tees">Statement & Typography Tees</a>
-    <a href="collection.html?c=anime-pop-culture">Anime & Pop Culture Tees</a>
-    <a href="collection.html?c=gym-fitness">Gym & Fitness Tees</a>
+    <a href="collection.html">Shop All</a>
   </nav>
   <!-- New and Popular section -->
   <div class="mobile-menu-popular">
@@ -751,24 +747,24 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: #000; margin: 
   <p class="section-eyebrow">Shop by Category</p>
   <div class="cat-grid">
     <a href="collection.html?c=new-drops" class="cat-card">
-      <span class="cat-name">New Drops</span>
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/sfv.png" alt="New Drops" loading="lazy"></div>
+      <span class="cat-name">New Drops</span>
     </a>
     <a href="collection.html?c=oversized-essentials" class="cat-card">
-      <span class="cat-name">Oversized Essentials</span>
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/SBF.png" alt="Oversized Essentials" loading="lazy"></div>
+      <span class="cat-name">Oversized Essentials</span>
     </a>
     <a href="collection.html?c=graphic-tees" class="cat-card">
-      <span class="cat-name">Graphic Tees</span>
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees" loading="lazy"></div>
+      <span class="cat-name">Graphic Tees</span>
     </a>
     <a href="collection.html?c=under-999" class="cat-card">
-      <span class="cat-name">Under ₹999</span>
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999" loading="lazy"></div>
+      <span class="cat-name">Under ₹999</span>
     </a>
     <a href="collection.html" class="cat-card">
-      <span class="cat-name">Shop All</span>
       <div class="cat-img-wrap"><img src="https://ravynn.in/cdn/shop/files/gvgcxc.png" alt="Shop All" loading="lazy"></div>
+      <span class="cat-name">Shop All</span>
     </a>
   </div>
 </section>
@@ -997,8 +993,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="product-card-info">
         <div class="product-card-name">${p.title}</div>
         <div class="product-card-price">
-          ${p.compare_at_price > 0 ? `<span class="compare">Rs. ${p.compare_at_price}.00</span>` : ''}
-          <span class="sale-price">Rs. ${p.price}.00</span>
+          ${p.compare_at_price > 0 ? `<span class="compare">₹${p.compare_at_price}</span>` : ''}
+          <span class="sale-price">₹${p.price}</span>
         </div>
       </div>
     </a>`;
@@ -1021,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `<a href="product.html?p=${p.handle}" class="menu-product-card">
       <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
       <div class="menu-product-name">${shortTitle}</div>
-      <div class="menu-product-price">Rs. ${p.price}.00</div>
+      <div class="menu-product-price">₹${p.price}</div>
     </a>`;
   }
   function loadMenuProducts(col) {

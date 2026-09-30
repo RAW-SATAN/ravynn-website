@@ -198,15 +198,11 @@
     <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999"><span>₹999</span></a>
   </div>
   <nav class="mobile-menu-nav">
-    <a href="collection.html?c=new-drops">New Arrivals <span class="menu-new-badge">NEW</span></a>
-    <a href="collection.html">Shop All</a>
-    <a href="collection.html?c=new-drops">New Drops</a>
-    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+    <a href="collection.html?c=new-drops">New Drops <span class="menu-new-badge">NEW</span></a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+    <a href="collection.html?c=graphic-tees">Graphic Tees</a>
     <a href="collection.html?c=under-999">Under ₹999</a>
-    <a href="collection.html?c=statement-tees">Statement & Typography Tees</a>
-    <a href="collection.html?c=anime-pop-culture">Anime & Pop Culture Tees</a>
-    <a href="collection.html?c=gym-fitness">Gym & Fitness Tees</a>
+    <a href="collection.html">Shop All</a>
   </nav>
   <div class="mobile-menu-popular">
     <p class="mobile-menu-popular-title">New and Popular</p>
@@ -402,7 +398,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 Ravynn | Hindon Associates. All rights reserved.</p>
+    <p class="footer-copy">© 2026 Ravynn | Hindsol Associates. All rights reserved.</p>
   </div>
 </footer>
 
@@ -416,7 +412,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <span>Explore</span>
   </a>
-  <a href="collection.html?c=new-arrivals" class="mobile-nav-item mobile-nav-center">
+  <a href="collection.html?c=new-drops" class="mobile-nav-item mobile-nav-center">
     <span class="mobile-nav-new-label">NEW</span>
   </a>
   <a href="cart.html" class="mobile-nav-item">
@@ -435,7 +431,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await Products.load();
   function menuProductHTML(p) {
     const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^–]*–\s*/,'').split(' ').slice(0,5).join(' ');
-    return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">Rs. ${p.price}.00</div></a>`;
+    return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">₹${p.price}</div></a>`;
   }
   function loadMenuProducts(col) {
     const c = document.getElementById('menu-products');
