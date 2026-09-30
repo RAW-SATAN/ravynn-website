@@ -796,6 +796,14 @@ input, select, textarea { font-family: inherit; }
   padding-top: 16px;
   border-top: 1px solid var(--c-gray-200);
 }
+.footer-made {
+  font-size: 11px;
+  color: #aaa;
+  text-align: center;
+  margin-top: 6px;
+}
+.footer-made a { color: #888; text-decoration: none; }
+.footer-made a:hover { color: #000; }
 
 /* ============================================================
    MOBILE MENU (DRAWER)
