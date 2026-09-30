@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders — RAVYNN Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f6f6f7;min-height:100vh}
+
+/* ── Login ───────────────────────────────────────────── */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f6f6f7}
+.login-box{background:#fff;border-radius:8px;padding:40px 36px;width:360px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.login-logo{font-size:16px;font-weight:800;letter-spacing:5px;margin-bottom:6px}
+.login-sub{font-size:12px;color:#888;margin-bottom:28px}
+.login-box input{width:100%;border:1.5px solid #e1e1e1;padding:12px 14px;font-size:14px;font-family:inherit;border-radius:6px;outline:none;margin-bottom:12px}
+.login-box input:focus{border-color:#000}
+.login-btn{width:100%;background:#000;color:#fff;border:none;padding:13px;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;border-radius:6px}
+.login-err{font-size:12px;color:#e53e3e;margin-top:8px;display:none}
+
+/* ── App shell ───────────────────────────────────────── */
+#app{display:none}
+
+/* ── Top nav ─────────────────────────────────────────── */
+.admin-nav{background:#fff;border-bottom:1px solid #e1e1e1;display:flex;align-items:center;padding:0 24px;height:56px;gap:24px;position:sticky;top:0;z-index:100}
+.admin-logo{font-size:14px;font-weight:800;letter-spacing:4px;color:#000;text-decoration:none;margin-right:8px}
+.nav-tab{font-size:13px;font-weight:500;color:#666;padding:6px 2px;border-bottom:2px solid transparent;cursor:pointer;text-decoration:none}
+.nav-tab.active{color:#000;border-color:#000}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.nav-store-link{font-size:12px;color:#555;text-decoration:none;border:1px solid #ddd;padding:5px 12px;border-radius:4px}
+.nav-store-link:hover{border-color:#000;color:#000}
+.logout-btn{font-size:12px;color:#888;background:none;border:none;cursor:pointer;padding:4px}
+.logout-btn:hover{color:#000}
+
+/* ── Page ────────────────────────────────────────────── */
+.admin-page{padding:24px;max-width:1280px;margin:0 auto}
+
+/* ── Stats ───────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:#fff;border-radius:8px;padding:20px;border:1px solid #e1e1e1}
+.stat-label{font-size:12px;color:#888;margin-bottom:6px;font-weight:500}
+.stat-value{font-size:24px;font-weight:700;color:#1a1a1a}
+.stat-sub{font-size:11px;color:#aaa;margin-top:4px}
+
+/* ── Orders panel ────────────────────────────────────── */
+.orders-panel{background:#fff;border-radius:8px;border:1px solid #e1e1e1;overflow:hidden}
+.orders-header{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.orders-title{font-size:15px;font-weight:700}
+.search-input{border:1.5px solid #e1e1e1;padding:8px 12px;font-size:13px;font-family:inherit;border-radius:6px;outline:none;width:220px}
+.search-input:focus{border-color:#000}
+.btn-export{margin-left:auto;background:#000;color:#fff;border:none;padding:8px 16px;font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;border-radius:6px}
+.btn-export:hover{background:#222}
+
+/* Status filter tabs */
+.status-tabs{display:flex;gap:0;border-bottom:1px solid #f0f0f0;overflow-x:auto}
+.status-tab{padding:10px 16px;font-size:12px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.status-tab:hover{color:#333}
+.status-tab.active{color:#000;border-bottom-color:#000}
+
+/* Table */
+.orders-table{width:100%;border-collapse:collapse}
+.orders-table th{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;padding:10px 16px;text-align:left;background:#fafafa;border-bottom:1px solid #f0f0f0}
+.orders-table td{padding:14px 16px;border-bottom:1px solid #f5f5f5;font-size:13px;vertical-align:middle}
+.orders-table tr:last-child td{border-bottom:none}
+.orders-table tr:hover td{background:#fafafa;cursor:pointer}
+.order-num{font-weight:700;color:#000}
+.order-customer{font-weight:500}
+.order-phone{font-size:11px;color:#888;margin-top:2px}
+.order-items-preview{font-size:12px;color:#555;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Status badge */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+.badge-pending{background:#fff8e7;color:#b45309}
+.badge-confirmed{background:#e8f5e9;color:#2d7a3e}
+.badge-processing{background:#e8f0fe;color:#1a56db}
+.badge-shipped{background:#f3e8ff;color:#7e22ce}
+.badge-delivered{background:#d1fae5;color:#065f46}
+.badge-cancelled{background:#fee2e2;color:#b91c1c}
+.badge-pending_payment{background:#fef9c3;color:#854d0e}
+
+.no-orders{text-align:center;padding:48px 20px;color:#888;font-size:14px}
+
+/* ── Order detail drawer ──────────────────────────────── */
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200}
+.drawer-overlay.open{display:block}
+.drawer{position:fixed;top:0;right:-540px;width:540px;height:100vh;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:201;overflow-y:auto;transition:right .25s ease;display:flex;flex-direction:column}
+.drawer.open{right:0}
+@media(max-width:600px){.drawer{width:100vw;right:-100vw}}
+.drawer-header{padding:20px 24px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px;position:sticky;top:0;background:#fff;z-index:1}
+.drawer-close{background:none;border:none;font-size:22px;cursor:pointer;color:#666;margin-left:auto;line-height:1}
+.drawer-order-num{font-size:16px;font-weight:700}
+.drawer-date{font-size:12px;color:#888;margin-top:2px}
+.drawer-body{padding:24px;flex:1}
+.drawer-section{margin-bottom:24px}
+.drawer-section-title{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f0f0}
+.drawer-info-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;gap:16px}
+.drawer-info-row span:first-child{color:#888;flex-shrink:0}
+.drawer-info-row span:last-child{font-weight:500;text-align:right}
+.drawer-items{display:flex;flex-direction:column;gap:10px}
+.drawer-item{display:flex;gap:12px;align-items:center;padding:10px;background:#f9f9f9;border-radius:6px}
+.drawer-item img{width:48px;height:60px;object-fit:cover;border-radius:4px;background:#eee;flex-shrink:0}
+.drawer-item-info{flex:1;min-width:0}
+.drawer-item-name{font-size:13px;font-weight:500;line-height:1.3}
+.drawer-item-variant{font-size:11px;color:#888;margin-top:2px}
+.drawer-item-price{font-size:13px;font-weight:700;flex-shrink:0}
+.totals-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:#555}
+.totals-row.total{font-size:15px;font-weight:700;color:#000;border-top:1px solid #eee;padding-top:10px;margin-top:4px}
+.totals-row .free{color:#2d7a3e;font-weight:600}
+
+/* Status update */
+.status-update-box{border:1.5px solid #e1e1e1;border-radius:6px;padding:16px}
+.status-update-label{font-size:12px;color:#888;margin-bottom:10px;font-weight:500}
+.status-btns{display:flex;flex-wrap:wrap;gap:8px}
+.status-btn{padding:7px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #e1e1e1;background:#fff;font-family:inherit;transition:all .15s}
+.status-btn:hover{border-color:#000}
+.status-btn.active-status{background:#000;color:#fff;border-color:#000}
+.tracking-row{margin-top:12px;display:flex;gap:8px}
+.tracking-input{flex:1;border:1.5px solid #e1e1e1;padding:9px 12px;font-size:13px;font-family:inherit;border-radius:4px;outline:none}
+.tracking-input:focus{border-color:#000}
+.tracking-save-btn{background:#000;color:#fff;border:none;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px}
+
+.notes-area{width:100%;border:1.5px solid #e1e1e1;padding:10px 12px;font-size:13px;font-family:inherit;border-radius:6px;outline:none;resize:none;min-height:72px}
+.notes-area:focus{border-color:#000}
+.save-notes-btn{margin-top:8px;background:#000;color:#fff;border:none;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px}
+
+/* ── Firebase setup banner ────────────────────────────── */
+.setup-banner{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:13px;display:none}
+.setup-banner.show{display:block}
+.setup-banner strong{color:#856404}
+
+/* ── Loading ─────────────────────────────────────────── */
+.loading{text-align:center;padding:40px;color:#888;font-size:13px}
+.spinner{width:24px;height:24px;border:2px solid #e1e1e1;border-top-color:#000;border-radius:50%;animation:spin .6s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">RAVYNN</div>
+    <div class="login-sub">Admin Dashboard</div>
+    <input type="password" id="login-pw" placeholder="Enter admin password" autocomplete="current-password">
+    <button class="login-btn" id="login-btn">Sign in</button>
+    <div class="login-err" id="login-err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Nav -->
+  <nav class="admin-nav">
+    <span class="admin-logo">RAVYNN</span>
+    <a class="nav-tab active" href="#">Orders</a>
+    <div class="nav-right">
+      <a href="index.html" target="_blank" class="nav-store-link">↗ View Store</a>
+      <button class="logout-btn" id="logout-btn">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="admin-page">
+    <!-- Firebase setup banner -->
+    <div class="setup-banner" id="setup-banner">
+      <strong>⚙️ Firebase not connected.</strong> Orders from real customers won't appear here until you add your Firebase config in <code>checkout.html</code> and <code>admin.html</code>. See setup instructions in the code.
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-value" id="stat-total">—</div>
+        <div class="stat-sub">All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value" id="stat-revenue">—</div>
+        <div class="stat-sub">All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pending</div>
+        <div class="stat-value" id="stat-pending">—</div>
+        <div class="stat-sub">Need action</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Today</div>
+        <div class="stat-value" id="stat-today">—</div>
+        <div class="stat-sub">Orders today</div>
+      </div>
+    </div>
+
+    <!-- Orders panel -->
+    <div class="orders-panel">
+      <div class="orders-header">
+        <span class="orders-title">Orders</span>
+        <input type="search" class="search-input" id="search-input" placeholder="Search name, phone, order #…">
+        <button class="btn-export" id="btn-export">↓ Export CSV</button>
+      </div>
+      <div class="status-tabs">
+        <button class="status-tab active" data-status="all">All</button>
+        <button class="status-tab" data-status="pending">Pending</button>
+        <button class="status-tab" data-status="confirmed">Confirmed</button>
+        <button class="status-tab" data-status="processing">Processing</button>
+        <button class="status-tab" data-status="shipped">Shipped</button>
+        <button class="status-tab" data-status="delivered">Delivered</button>
+        <button class="status-tab" data-status="cancelled">Cancelled</button>
+      </div>
+      <div id="orders-container">
+        <div class="loading"><div class="spinner"></div>Loading orders…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order detail drawer -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="order-drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="drawer-order-num" id="d-order-num"></div>
+      <div class="drawer-date" id="d-date"></div>
+    </div>
+    <span id="d-badge"></span>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <!-- Customer -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Customer</div>
+      <div class="drawer-info-row"><span>Name</span><span id="d-name"></span></div>
+      <div class="drawer-info-row"><span>Phone</span><span id="d-phone"></span></div>
+      <div class="drawer-info-row"><span>Address</span><span id="d-address"></span></div>
+      <div class="drawer-info-row"><span>Payment</span><span id="d-payment"></span></div>
+      <div class="drawer-info-row"><span>Shipping</span><span id="d-shipping-method"></span></div>
+    </div>
+
+    <!-- Items -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Items</div>
+      <div class="drawer-items" id="d-items"></div>
+    </div>
+
+    <!-- Totals -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Order Total</div>
+      <div id="d-totals"></div>
+    </div>
+
+    <!-- Status -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Update Status</div>
+      <div class="status-update-box">
+        <div class="status-update-label">Change order status:</div>
+        <div class="status-btns">
+          <button class="status-btn" data-s="pending">Pending</button>
+          <button class="status-btn" data-s="confirmed">Confirmed</button>
+          <button class="status-btn" data-s="processing">Processing</button>
+          <button class="status-btn" data-s="shipped">Shipped</button>
+          <button class="status-btn" data-s="delivered">Delivered</button>
+          <button class="status-btn" data-s="cancelled">Cancelled</button>
+        </div>
+        <div class="tracking-row">
+          <input type="text" class="tracking-input" id="d-tracking" placeholder="Tracking number (optional)">
+          <button class="tracking-save-btn" id="d-save-tracking">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Internal Notes</div>
+      <textarea class="notes-area" id="d-notes" placeholder="Add internal notes (not visible to customer)…"></textarea>
+      <button class="save-notes-btn" id="d-save-notes">Save notes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+// ── FIREBASE CONFIG — same as checkout.html ──────────────────
+const FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",         // ← apna project ID yahan
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+
+// ── ADMIN PASSWORD ───────────────────────────────────────────
+const ADMIN_PASSWORD = 'ravynn2026'; // ← change karo!
+
+// ── State ────────────────────────────────────────────────────
+let db = null;
+let allOrders = [];
+let currentStatus = 'all';
+let currentOrderId = null;
+let unsubscribe = null;
+
+const fmt = n => '₹' + Number(n).toLocaleString('en-IN');
+const fmtDate = iso => {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+};
+
+// ── Login ─────────────────────────────────────────────────────
+document.getElementById('login-btn').onclick = doLogin;
+document.getElementById('login-pw').onkeydown = e => { if (e.key === 'Enter') doLogin(); };
+
+function doLogin() {
+  const pw = document.getElementById('login-pw').value;
+  if (pw === ADMIN_PASSWORD) {
+    localStorage.setItem('ravynn_admin', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initFirebase();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('login-pw').value = '';
+  }
+}
+
+document.getElementById('logout-btn').onclick = () => {
+  localStorage.removeItem('ravynn_admin');
+  if (unsubscribe) unsubscribe();
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+};
+
+// Auto-login if session exists
+if (localStorage.getItem('ravynn_admin')) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  // Init after DOM ready
+  window.addEventListener('DOMContentLoaded', initFirebase);
+}
+
+// ── Firebase init ─────────────────────────────────────────────
+function initFirebase() {
+  if (!FIREBASE_CONFIG.projectId) {
+    document.getElementById('setup-banner').classList.add('show');
+    loadSampleOrders();
+    return;
+  }
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.firestore();
+    listenOrders();
+  } catch (e) {
+    document.getElementById('setup-banner').classList.add('show');
+    loadSampleOrders();
+  }
+}
+
+// ── Real-time listener ────────────────────────────────────────
+function listenOrders() {
+  document.getElementById('orders-container').innerHTML = '<div class="loading"><div class="spinner"></div>Loading orders…</div>';
+  if (unsubscribe) unsubscribe();
+  unsubscribe = db.collection('orders').orderBy('createdAt', 'desc').onSnapshot(snap => {
+    allOrders = snap.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+    renderAll();
+  }, err => {
+    console.error(err);
+    document.getElementById('setup-banner').classList.add('show');
+    loadSampleOrders();
+  });
+}
+
+// ── Sample orders (when Firebase not connected) ───────────────
+function loadSampleOrders() {
+  allOrders = [
+    { _id: 'RVN001', orderId: 'RVN892341', createdAt: new Date().toISOString(), status: 'pending',
+      customer: { name: 'Rahul Sharma', phone: '9876543210', address: 'B-42 Sector 18', city: 'Noida', pincode: '201301', state: 'Uttar Pradesh' },
+      items: [{ title: 'RAVYNN Oversized White T-Shirt – Goku Halo Graphic', size: 'M', qty: 1, price: 699, image: 'https://ravynn.in/cdn/shop/files/sfv.png' }],
+      subtotal: 699, discount: 0, coupon: null, shipping: 99, total: 798, shippingMethod: 'standard', paymentMethod: 'cod' },
+    { _id: 'RVN002', orderId: 'RVN892342', createdAt: new Date(Date.now()-86400000).toISOString(), status: 'shipped',
+      customer: { name: 'Priya Verma', phone: '9123456780', address: '12 MG Road', city: 'Bengaluru', pincode: '560001', state: 'Karnataka' },
+      items: [{ title: 'RAVYNN Oversized White T-Shirt – Son Goku Portrait', size: 'L', qty: 2, price: 699, image: 'https://ravynn.in/cdn/shop/files/fckk_mck.png' }],
+      subtotal: 1398, discount: 139, coupon: 'WELCOME10', shipping: 0, total: 1259, shippingMethod: 'standard', paymentMethod: 'upi' },
+    { _id: 'RVN003', orderId: 'RVN892343', createdAt: new Date(Date.now()-172800000).toISOString(), status: 'delivered',
+      customer: { name: 'Amit Joshi', phone: '9988776655', address: 'C-7 Vasant Kunj', city: 'Delhi', pincode: '110070', state: 'Delhi' },
+      items: [{ title: 'RAVYNN Oversized White T-Shirt – Abstract Painting', size: 'XL', qty: 1, price: 699, image: 'https://ravynn.in/cdn/shop/files/sfv.png' }],
+      subtotal: 699, discount: 0, coupon: null, shipping: 0, total: 699, shippingMethod: 'express', paymentMethod: 'cod' },
+  ];
+  renderAll();
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderAll() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  let orders = allOrders.filter(o => {
+    if (currentStatus !== 'all' && o.status !== currentStatus) return false;
+    if (search) {
+      const hay = `${o.orderId} ${o.customer?.name} ${o.customer?.phone} ${o.customer?.city}`.toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  renderStats();
+  renderTable(orders);
+}
+
+function renderStats() {
+  const today = new Date().toDateString();
+  document.getElementById('stat-total').textContent = allOrders.length;
+  document.getElementById('stat-revenue').textContent = fmt(allOrders.reduce((s, o) => s + (o.total || 0), 0));
+  document.getElementById('stat-pending').textContent = allOrders.filter(o => o.status === 'pending').length;
+  document.getElementById('stat-today').textContent = allOrders.filter(o => new Date(o.createdAt).toDateString() === today).length;
+}
+
+function badgeHTML(status) {
+  const map = {
+    pending: 'badge-pending', confirmed: 'badge-confirmed', processing: 'badge-processing',
+    shipped: 'badge-shipped', delivered: 'badge-delivered', cancelled: 'badge-cancelled',
+    pending_payment: 'badge-pending_payment'
+  };
+  const label = status?.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()) || 'Unknown';
+  return `<span class="badge ${map[status]||'badge-pending'}">${label}</span>`;
+}
+
+function renderTable(orders) {
+  if (!orders.length) {
+    document.getElementById('orders-container').innerHTML = '<div class="no-orders">No orders found.</div>';
+    return;
+  }
+  document.getElementById('orders-container').innerHTML = `
+    <table class="orders-table">
+      <thead><tr>
+        <th>Order</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        ${orders.map(o => `
+          <tr onclick="openDrawer('${o._id}')">
+            <td><span class="order-num">#${o.orderId || o._id}</span></td>
+            <td style="color:#888;font-size:12px">${fmtDate(o.createdAt)}</td>
+            <td><div class="order-customer">${o.customer?.name||'—'}</div><div class="order-phone">${o.customer?.phone||''}</div></td>
+            <td><div class="order-items-preview">${(o.items||[]).map(i=>`${i.qty}× ${i.title?.replace(/^RAVYNN\s+/,'').slice(0,30)}…`).join(', ')}</div></td>
+            <td><strong>${fmt(o.total||0)}</strong></td>
+            <td style="text-transform:capitalize;color:#666">${o.paymentMethod||'—'}</td>
+            <td>${badgeHTML(o.status)}</td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+// ── Status tabs ───────────────────────────────────────────────
+document.querySelectorAll('.status-tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentStatus = tab.dataset.status;
+    renderAll();
+  };
+});
+
+// ── Search ────────────────────────────────────────────────────
+document.getElementById('search-input').oninput = renderAll;
+
+// ── Export CSV ────────────────────────────────────────────────
+document.getElementById('btn-export').onclick = () => {
+  const rows = [['Order ID','Date','Name','Phone','Address','City','Pincode','State','Items','Subtotal','Discount','Shipping','Total','Payment','Status']];
+  allOrders.forEach(o => {
+    const items = (o.items||[]).map(i=>`${i.qty}x ${i.title} (${i.size})`).join(' | ');
+    rows.push([o.orderId||o._id, fmtDate(o.createdAt), o.customer?.name, o.customer?.phone,
+      o.customer?.address, o.customer?.city, o.customer?.pincode, o.customer?.state,
+      items, o.subtotal, o.discount||0, o.shipping, o.total, o.paymentMethod, o.status]);
+  });
+  const csv = rows.map(r => r.map(c => `"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `ravynn-orders-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+};
+
+// ── Order drawer ──────────────────────────────────────────────
+function openDrawer(id) {
+  const o = allOrders.find(x => x._id === id);
+  if (!o) return;
+  currentOrderId = id;
+
+  document.getElementById('d-order-num').textContent = `Order #${o.orderId || o._id}`;
+  document.getElementById('d-date').textContent = fmtDate(o.createdAt);
+  document.getElementById('d-badge').innerHTML = badgeHTML(o.status);
+  document.getElementById('d-name').textContent = o.customer?.name || '—';
+  document.getElementById('d-phone').textContent = o.customer?.phone ? '+91 ' + o.customer.phone : '—';
+  document.getElementById('d-address').textContent = `${o.customer?.address}, ${o.customer?.city} – ${o.customer?.pincode}, ${o.customer?.state}`;
+  document.getElementById('d-payment').textContent = o.paymentMethod === 'cod' ? 'Cash on Delivery' : o.paymentMethod === 'upi' ? 'UPI' : 'Card / Net Banking';
+  document.getElementById('d-shipping-method').textContent = o.shippingMethod === 'express' ? 'Express (2–3 days)' : 'Standard (4–7 days)';
+
+  // Items
+  document.getElementById('d-items').innerHTML = (o.items||[]).map(item => `
+    <div class="drawer-item">
+      <img src="${item.image || ''}" alt="${item.title}" onerror="this.style.display='none'">
+      <div class="drawer-item-info">
+        <div class="drawer-item-name">${item.title?.replace(/^RAVYNN\s+/,'')}</div>
+        <div class="drawer-item-variant">Size: ${item.size} · Qty: ${item.qty}</div>
+      </div>
+      <div class="drawer-item-price">${fmt(item.price * item.qty)}</div>
+    </div>`).join('');
+
+  // Totals
+  document.getElementById('d-totals').innerHTML = `
+    <div class="totals-row"><span>Subtotal</span><span>${fmt(o.subtotal||0)}</span></div>
+    ${o.discount ? `<div class="totals-row" style="color:#2d7a3e"><span>Discount ${o.coupon ? '(' + o.coupon + ')' : ''}</span><span>−${fmt(o.discount)}</span></div>` : ''}
+    <div class="totals-row"><span>Shipping</span><span>${o.shipping === 0 ? '<span class="free">FREE</span>' : fmt(o.shipping)}</span></div>
+    <div class="totals-row total"><span>Total</span><span>${fmt(o.total||0)}</span></div>`;
+
+  // Status buttons
+  document.querySelectorAll('.status-btn').forEach(btn => {
+    btn.classList.toggle('active-status', btn.dataset.s === o.status);
+  });
+
+  document.getElementById('d-tracking').value = o.tracking || '';
+  document.getElementById('d-notes').value = o.notes || '';
+
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('order-drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('order-drawer').classList.remove('open');
+  currentOrderId = null;
+}
+
+// Status update
+document.querySelectorAll('.status-btn').forEach(btn => {
+  btn.onclick = async () => {
+    if (!currentOrderId) return;
+    const newStatus = btn.dataset.s;
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active-status'));
+    btn.classList.add('active-status');
+    // Update badge in drawer
+    document.getElementById('d-badge').innerHTML = badgeHTML(newStatus);
+    await updateOrder(currentOrderId, { status: newStatus, updatedAt: new Date().toISOString() });
+  };
+});
+
+document.getElementById('d-save-tracking').onclick = async () => {
+  if (!currentOrderId) return;
+  const tracking = document.getElementById('d-tracking').value.trim();
+  await updateOrder(currentOrderId, { tracking, status: tracking ? 'shipped' : undefined });
+  if (tracking) { document.querySelectorAll('.status-btn').forEach(b => b.classList.toggle('active-status', b.dataset.s === 'shipped')); }
+};
+
+document.getElementById('d-save-notes').onclick = async () => {
+  if (!currentOrderId) return;
+  const notes = document.getElementById('d-notes').value;
+  await updateOrder(currentOrderId, { notes });
+  document.getElementById('d-save-notes').textContent = 'Saved ✓';
+  setTimeout(() => document.getElementById('d-save-notes').textContent = 'Save notes', 1500);
+};
+
+async function updateOrder(id, data) {
+  // Remove undefined values
+  Object.keys(data).forEach(k => data[k] === undefined && delete data[k]);
+  // Update in memory
+  const idx = allOrders.findIndex(o => o._id === id);
+  if (idx !== -1) Object.assign(allOrders[idx], data);
+  renderAll();
+  // Update in Firebase
+  if (db) {
+    try { await db.collection('orders').doc(id).update(data); } catch (e) { console.warn(e); }
+  }
+}
+</script>
+</body>
+</html>

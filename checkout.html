@@ -12,17 +12,20 @@
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff;min-height:100vh}
 
 /* ─── Header ─────────────────────────────────── */
-.co-header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid #e6e6e6;background:#fff;}
+.co-header{display:grid;grid-template-columns:1fr 420px;border-bottom:1px solid #e6e6e6;background:#fff;}
+.co-header-left{display:flex;align-items:center;justify-content:flex-end;padding:0 48px 0 24px;height:60px}
+.co-header-right{display:flex;align-items:center;justify-content:flex-end;padding:0 32px;height:60px;background:#fafafa;border-left:1px solid #e6e6e6}
 .co-logo{font-size:15px;font-weight:800;letter-spacing:5px;text-decoration:none;color:#000}
 .co-secure{display:flex;align-items:center;gap:6px;font-size:12px;color:#777}
 .co-secure svg{width:14px;height:14px}
+@media(max-width:900px){.co-header{grid-template-columns:1fr;}.co-header-left{justify-content:space-between;padding:0 20px}.co-header-right{display:none}}
 
 /* ─── Layout ──────────────────────────────────── */
-.co-layout{display:grid;grid-template-columns:1fr 380px;min-height:calc(100vh - 60px)}
+.co-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 60px)}
 @media(max-width:900px){.co-layout{grid-template-columns:1fr;display:flex;flex-direction:column-reverse}}
 
 /* ─── Left: Main ──────────────────────────────── */
-.co-main{padding:32px 40px 60px;max-width:620px;margin-left:auto;width:100%}
+.co-main{padding:40px 48px 60px;max-width:660px;margin-left:auto;width:100%}
 @media(max-width:900px){.co-main{padding:24px 20px 80px;max-width:100%;margin:0}}
 
 /* ─── Breadcrumb ──────────────────────────────── */
@@ -101,7 +104,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-back-link svg{width:14px;height:14px}
 
 /* ─── Right: Summary ──────────────────────────── */
-.co-sidebar{background:#fafafa;border-left:1px solid #e6e6e6;padding:32px 32px 40px}
+.co-sidebar{background:#fafafa;border-left:1px solid #e6e6e6;padding:40px 32px 40px}
 @media(max-width:900px){.co-sidebar{border-left:none;border-bottom:1px solid #e6e6e6;padding:20px}}
 
 /* Mobile summary toggle */
@@ -153,10 +156,14 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
 <!-- Header -->
 <header class="co-header">
-  <a href="index.html" class="co-logo">RAVYNN</a>
-  <div class="co-secure">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-    Secure Checkout
+  <div class="co-header-left">
+    <a href="index.html" class="co-logo">RAVYNN</a>
+  </div>
+  <div class="co-header-right">
+    <div class="co-secure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Secure Checkout
+    </div>
   </div>
 </header>
 
@@ -630,6 +637,19 @@ function applyCoupon() {
   }
 }
 
+// ── Firebase save order ───────────────────────────────────────
+async function saveOrderToFirebase(orderData) {
+  try {
+    if (typeof firebase === 'undefined' || !firebase.apps.length) return null;
+    const db = firebase.firestore();
+    const ref = await db.collection('orders').add(orderData);
+    return ref.id;
+  } catch (e) {
+    console.warn('Firebase save failed:', e);
+    return null;
+  }
+}
+
 // ── Build WhatsApp order message ──────────────────────────────
 function buildWAMsg(payMethod) {
   const phone = document.getElementById('inp-phone').value.trim();
@@ -651,28 +671,49 @@ function buildWAMsg(payMethod) {
 }
 
 // ── Order confirmation page ───────────────────────────────────
-function showConfirmation(orderNum, payMethod) {
+async function showConfirmation(orderNum, payMethod) {
   const phone = document.getElementById('inp-phone').value.trim();
   const name  = document.getElementById('inp-name').value.trim();
   const addr1 = document.getElementById('inp-addr1').value.trim();
+  const addr2 = document.getElementById('inp-addr2').value.trim();
   const city  = document.getElementById('inp-city').value.trim();
   const pin   = document.getElementById('inp-pincode').value.trim();
-  const { total } = calcTotals();
+  const state = document.getElementById('inp-state').value;
+  const { sub, disc, ship, total } = calcTotals();
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   const eta = method === 'express' ? '2–3 business days' : '4–7 business days';
 
-  document.getElementById('confirm-order-num').textContent = `Order #${orderNum}`;
+  // Save to Firebase
+  const orderData = {
+    orderId: orderNum,
+    createdAt: new Date().toISOString(),
+    status: 'pending',
+    customer: { phone, name, address: addr1 + (addr2 ? ', ' + addr2 : ''), city, pincode: pin, state },
+    items: cartItems.map(i => ({ id: i.id, title: i.title, size: i.size, qty: i.qty, price: i.price })),
+    subtotal: sub,
+    discount: disc,
+    coupon: appliedCoupon?.code || null,
+    shipping: ship,
+    shippingMethod: method,
+    total,
+    paymentMethod: payMethod,
+    paymentStatus: payMethod === 'cod' ? 'pending' : 'paid'
+  };
+  const fbId = await saveOrderToFirebase(orderData);
+  const displayId = fbId ? orderNum : orderNum;
+
+  document.getElementById('confirm-order-num').textContent = `Order #${displayId}`;
   document.getElementById('confirm-details').innerHTML =
-    `<strong>Delivering to</strong>${name}, ${addr1}, ${city} – ${pin}<br>
+    `<strong>Delivering to</strong>${name}, ${addr1}, ${city} – ${pin}, ${state}<br>
      <strong>Estimated delivery</strong>${eta}<br>
      <strong>Payment</strong>${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI' : 'Card/Online'}<br>
      <strong>Order total</strong>${fmt(total)}`;
 
-  // WhatsApp button
-  const { msg } = buildWAMsg(payMethod);
-  document.getElementById('btn-wa-confirm').onclick = () => window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  document.getElementById('btn-wa-confirm').onclick = () => {
+    const { msg } = buildWAMsg(payMethod);
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 
-  // Clear cart
   localStorage.removeItem('ravynn_cart');
   goTo(4);
 }
@@ -739,14 +780,11 @@ document.getElementById('btn-place-order').addEventListener('click', () => {
   }
 
   if (payMethod === 'upi') {
-    // Open UPI app deep link
     const { total } = calcTotals();
     const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=RAVYNN&am=${total}&cu=INR&tn=Order ${orderNum}`;
     window.open(upiLink, '_blank');
   }
 
-  // Send WhatsApp notification
-  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   showConfirmation(orderNum, payMethod);
 });
 
@@ -781,6 +819,25 @@ renderSidebar();
 // Open sidebar by default on desktop
 if (window.innerWidth > 900) {
   document.getElementById('sidebar-inner').classList.add('open');
+}
+</script>
+
+<!-- Firebase (paste your config below after setup) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+// ── FIREBASE CONFIG — apna config yahan paste karo ──────────
+// Firebase Console → Project Settings → Your Apps → Web App → Config
+const FIREBASE_CONFIG = {
+  apiKey: "",            // ← fill karo
+  authDomain: "",
+  projectId: "",         // ← fill karo (most important)
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+if (FIREBASE_CONFIG.projectId) {
+  firebase.initializeApp(FIREBASE_CONFIG);
 }
 </script>
 
