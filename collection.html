@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="assets/theme.css">
 <link rel="stylesheet" href="assets/menu.css">
 <style>
+.site-logo { display:flex; align-items:center; gap:6px; text-decoration:none; }
+.site-logo-icon { width:44px; height:20px; }
+.site-logo-text { font-size:13px; font-weight:800; letter-spacing:5px; line-height:1; color:#000; }
+.header-nav { display:none; }
 .collection-banner { background:#f5f2eb; padding:32px 20px; text-align:center; border-bottom:1px solid #e8e8e8; }
 .collection-banner h1 { font-size:clamp(20px,4vw,32px); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
 .collection-banner p { color:#666; font-size:14px; }
@@ -59,7 +63,13 @@
   <button class="header-menu-btn" data-open-menu aria-label="Open menu">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
-  <a href="index.html" class="site-logo">RAVYNN</a>
+  <a href="index.html" class="site-logo" aria-label="RAVYNN Home">
+    <svg class="site-logo-icon" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 26 C32 20, 18 16, 6 8 C10 8, 16 10, 22 13 C24 10, 26 8, 28 7 C30 10, 32 14, 33 18 C34 16, 35 13, 36 11 C37 14, 38 19, 39 24 L40 26Z" fill="#000" opacity=".9"/>
+      <path d="M40 26 C48 20, 62 16, 74 8 C70 8, 64 10, 58 13 C56 10, 54 8, 52 7 C50 10, 48 14, 47 18 C46 16, 45 13, 44 11 C43 14, 42 19, 41 24 L40 26Z" fill="#000" opacity=".9"/>
+    </svg>
+    <span class="site-logo-text">RAVYNN</span>
+  </a>
   <nav class="header-nav">
     <a href="collection.html?c=new-drops">New Drops</a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
@@ -100,10 +110,10 @@
     <button data-close-menu class="mobile-menu-close">×</button>
   </div>
   <div class="mobile-menu-thumbs">
-    <a href="collection.html?c=new-drops" class="mobile-menu-thumb"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/43_cf8f97cd-e027-479b-bb74-09babb8c9976.png" alt="New Drops"><span>New Drops</span></a>
-    <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/40.png" alt="Graphic Tees"><span>Graphic</span></a>
-    <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/11_1.png" alt="Oversized"><span>Oversized</span></a>
-    <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://cdn.shopify.com/s/files/1/1002/3282/3065/files/2_2.png" alt="Under ₹999"><span>₹999</span></a>
+    <a href="collection.html?c=new-drops" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/sfv.png" alt="New Drops"><span>New Drops</span></a>
+    <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees"><span>Graphic</span></a>
+    <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/SBF.png" alt="Oversized"><span>Oversized</span></a>
+    <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999"><span>₹999</span></a>
   </div>
   <nav class="mobile-menu-nav">
     <a href="collection.html?c=new-drops">New Arrivals <span class="menu-new-badge">NEW</span></a>
