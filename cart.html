@@ -58,6 +58,34 @@
 .coupon-input { flex:1; border:1.5px solid #ddd; padding:10px 12px; font-size:13px; font-family:inherit; letter-spacing:.5px; text-transform:uppercase; }
 .coupon-input:focus { outline:none; border-color:#000; }
 .coupon-apply-btn { background:#000; color:#fff; border:none; padding:10px 18px; font-size:12px; font-weight:700; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
+.footer-gray{background:#f5f2f0;border-top:1px solid #e8e8e8}
+.footer-top{padding:36px 20px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:767px){.footer-top{grid-template-columns:1fr 1fr;gap:24px}}
+.footer-top-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;color:#000}
+.footer-top-links{display:flex;flex-direction:column;gap:9px}
+.footer-top-links a{font-size:13px;color:#555;text-decoration:none}
+.footer-top-links a:hover{color:#000}
+.footer-popular{padding:0 20px 32px;max-width:1200px;margin:0 auto}
+.footer-popular-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;color:#000}
+.footer-popular-tags{display:flex;flex-wrap:wrap}
+.footer-popular-tag{font-size:13px;color:#555;text-decoration:none}
+.footer-popular-tag:hover{color:#000}
+.footer-popular-tag::after{content:"    ·    ";color:#bbb;white-space:pre}
+.footer-popular-tag:last-child::after{content:""}
+.site-footer{background:#fff}
+.footer-inner{padding:36px 20px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:767px){.footer-inner{grid-template-columns:1fr 1fr;gap:20px}}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.footer-col ul li a{font-size:13px;color:#555;text-decoration:none}
+.footer-col ul li a:hover{color:#000}
+.footer-social-row{padding:0 20px 20px;max-width:1200px;margin:0 auto;display:flex;gap:14px}
+.footer-social-row a{color:#000;display:flex}
+.footer-social-row a svg{width:20px;height:20px}
+.footer-bottom{border-top:1px solid #e8e8e8;padding:16px 20px;text-align:center}
+.footer-copy{font-size:12px;color:#888;margin-bottom:4px}
+.footer-made{font-size:12px;color:#bbb}
+.footer-made a{color:#bbb;text-decoration:none}
 </style>
 </head>
 <body data-template="cart">
@@ -181,31 +209,80 @@
 
 <!-- Footer -->
 <footer class="site-footer">
+  <div class="footer-gray">
+    <div class="footer-top">
+      <div>
+        <h3 class="footer-top-title">Top Categories</h3>
+        <div class="footer-top-links">
+          <a href="collection.html?c=new-drops">New Drops</a>
+          <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
+          <a href="collection.html?c=graphic-tees">Graphic Tees</a>
+          <a href="collection.html?c=under-999">Under ₹999</a>
+          <a href="collection.html">Shop All</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-top-title">Quick Links</h3>
+        <div class="footer-top-links">
+          <a href="collection.html?c=new-drops">New Drops</a>
+          <a href="faq.html">FAQ</a>
+          <a href="return-policy.html">Return Policy</a>
+          <a href="terms.html">Privacy Policy</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-popular">
+      <h3 class="footer-popular-title">Popular Searches</h3>
+      <div class="footer-popular-tags">
+        <a href="collection.html?q=oversized" class="footer-popular-tag">oversized t-shirt</a>
+        <a href="collection.html?c=graphic-tees" class="footer-popular-tag">graphic tees</a>
+        <a href="collection.html?c=under-999" class="footer-popular-tag">t-shirts under 999</a>
+        <a href="collection.html?c=new-drops" class="footer-popular-tag">new drops</a>
+        <a href="collection.html" class="footer-popular-tag">streetwear tees</a>
+      </div>
+    </div>
+  </div>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="footer-logo">RAVYNN</a>
-      <p class="footer-tagline">New Era. New Rules.</p>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Shop</h3>
+      <ul>
+        <li><a href="collection.html?c=new-drops">New Drops</a></li>
+        <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
+        <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
+        <li><a href="collection.html?c=under-999">Under ₹999</a></li>
+        <li><a href="collection.html">Shop All</a></li>
+      </ul>
     </div>
-    <div class="footer-nav">
-      <div class="footer-col">
-        <h3 class="footer-col-title">Shop</h3>
-        <ul>
-          <li><a href="collection.html?c=new-drops">New Drops</a></li>
-          <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
-          <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
-          <li><a href="collection.html?c=under-999">Under ₹999</a></li>
-          <li><a href="collection.html">Shop All</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3 class="footer-col-title">Help</h3>
-        <ul>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="shipping.html">Shipping Policy</a></li>
-          <li><a href="return-policy.html">Return Policy</a></li>
-        </ul>
-      </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Help</h3>
+      <ul>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="shipping.html">Shipping Policy</a></li>
+        <li><a href="return-policy.html">Return &amp; Refund Policy</a></li>
+      </ul>
     </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">Company</h3>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="terms.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3 class="footer-col-title">RAVYNN</h3>
+      <ul>
+        <li><a href="collection.html">All Products</a></li>
+        <li><a href="collection.html?c=new-drops">New Drops</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-social-row">
+    <a href="https://instagram.com/ravynn_official" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
   </div>
   <div class="footer-bottom">
     <p class="footer-copy">© 2026 Ravynn. All rights reserved.</p>
