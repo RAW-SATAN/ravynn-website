@@ -33,14 +33,14 @@
 .product-thumb.active, .product-thumb:hover { border-color:#000; }
 .product-thumb img { width:100%; height:100%; object-fit:cover; }
 .product-main-wrap { flex:1; aspect-ratio:3/4; overflow:hidden; border-radius:3px; background:#f5f5f5; }
-.product-main-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+.product-main-wrap img { width:100%; height:100%; object-fit:contain; display:block; }
 /* ── Mobile Gallery ── */
 .mobile-gallery { display:none; position:relative; overflow:hidden; background:#f5f5f5; }
 @media(max-width:767px){ .mobile-gallery { display:block; } }
 .mobile-slides { display:flex; transition:none; }
 .mobile-slide { min-width:100%; aspect-ratio:3/4; display:none; }
 .mobile-slide.active { display:block; }
-.mobile-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+.mobile-slide img { width:100%; height:100%; object-fit:contain; display:block; }
 .mobile-slide-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.9); border:none; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; }
 .mobile-slide-prev { left:10px; }
 .mobile-slide-next { right:10px; }
