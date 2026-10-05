@@ -463,7 +463,7 @@ function fdt(iso){ try{ return new Date(iso).toLocaleString('en-IN',{day:'2-digi
 function fshort(iso){ try{ return new Date(iso).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}); }catch(e){ return ''; } }
 function badge(s){
   var map={pending:'b-pending',confirmed:'b-confirmed',processing:'b-processing',shipped:'b-shipped',delivered:'b-delivered',cancelled:'b-cancelled'};
-  var lbl=(s||'pending').replace(/_/g,' ').replace(/\w/g,function(c){ return c.toUpperCase(); });
+  var lbl=(s||'pending').replace(/_/g,' ').split(' ').map(function(w){return w?w[0].toUpperCase()+w.slice(1):w;}).join(' ');
   return '<span class="bdg '+(map[s]||'b-pending')+'">'+lbl+'</span>';
 }
 
@@ -530,7 +530,7 @@ function paintAnalyticsCharts(){
 function paintRecent(){
   var list=orders.slice(0,5);
   if(!list.length){ document.getElementById('recent-wrap').innerHTML='<div class="empty">No orders yet.</div>'; return; }
-  document.getElementById('recent-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ return '<tr onclick="openDrawer(''+o._id+'')"><td><strong>#'+(o.orderId||o._id)+'</strong><div style="font-size:11px;color:var(--muted)">'+fdt(o.createdAt)+'</div></td><td><div style="font-weight:500">'+(o.customer&&o.customer.name||'&mdash;')+'</div><div style="font-size:11px;color:var(--muted)">'+(o.customer&&o.customer.city||'')+'</div></td><td><strong>'+inr(o.total)+'</strong></td><td style="color:var(--muted);text-transform:capitalize">'+(o.paymentMethod||'&mdash;')+'</td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
+  document.getElementById('recent-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ return '<tr onclick="openDrawer(\''+o._id+'\')"><td><strong>#'+(o.orderId||o._id)+'</strong><div style="font-size:11px;color:var(--muted)">'+fdt(o.createdAt)+'</div></td><td><div style="font-weight:500">'+(o.customer&&o.customer.name||'&mdash;')+'</div><div style="font-size:11px;color:var(--muted)">'+(o.customer&&o.customer.city||'')+'</div></td><td><strong>'+inr(o.total)+'</strong></td><td style="color:var(--muted);text-transform:capitalize">'+(o.paymentMethod||'&mdash;')+'</td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
   paintDashCharts();
 }
 
@@ -543,7 +543,7 @@ function paintOrders(){
     return true;
   });
   if(!list.length){ document.getElementById('ord-wrap').innerHTML='<div class="empty">No orders.</div>'; return; }
-  document.getElementById('ord-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order #</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ var items=(o.items||[]).map(function(i){ return (i.qty||1)+'× '+(i.title||'').slice(0,20); }).join(', '); return '<tr onclick="openDrawer(''+o._id+'')"><td><strong>#'+(o.orderId||o._id)+'</strong></td><td style="color:var(--muted);font-size:12px">'+fdt(o.createdAt)+'</td><td><div style="font-weight:500">'+(o.customer&&o.customer.name||'&mdash;')+'</div><div style="font-size:11px;color:var(--muted)">'+(o.customer&&o.customer.phone||'')+'</div></td><td style="font-size:12px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+items+'</td><td><strong>'+inr(o.total)+'</strong>'+(o.coupon?'<div style="font-size:10px;color:var(--green)">🏷 '+o.coupon+'</div>':'')+'</td><td style="text-transform:capitalize;color:var(--muted)">'+(o.paymentMethod||'&mdash;')+'</td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
+  document.getElementById('ord-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order #</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ var items=(o.items||[]).map(function(i){ return (i.qty||1)+'× '+(i.title||'').slice(0,20); }).join(', '); return '<tr onclick="openDrawer(\''+o._id+'\')"><td><strong>#'+(o.orderId||o._id)+'</strong></td><td style="color:var(--muted);font-size:12px">'+fdt(o.createdAt)+'</td><td><div style="font-weight:500">'+(o.customer&&o.customer.name||'&mdash;')+'</div><div style="font-size:11px;color:var(--muted)">'+(o.customer&&o.customer.phone||'')+'</div></td><td style="font-size:12px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+items+'</td><td><strong>'+inr(o.total)+'</strong>'+(o.coupon?'<div style="font-size:10px;color:var(--green)">🏷 '+o.coupon+'</div>':'')+'</td><td style="text-transform:capitalize;color:var(--muted)">'+(o.paymentMethod||'&mdash;')+'</td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
 }
 
 // ── products ───────────────────────────────────────────────────
@@ -580,7 +580,7 @@ function paintCoupons(){
   document.getElementById('c-r15').textContent='Used '+r15.length+' time'+(r15.length!==1?'s':'')+' · Discount: '+inr(r15.reduce(function(s,o){ return s+(o.discount||0); },0));
   var list=orders.filter(function(o){ return o.coupon; });
   if(!list.length){ document.getElementById('coup-wrap').innerHTML='<div class="empty">No coupon orders yet.</div>'; return; }
-  document.getElementById('coup-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order</th><th>Customer</th><th>Coupon</th><th>Discount</th><th>Total</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ return '<tr onclick="openDrawer(''+o._id+'')"><td><strong>#'+(o.orderId||o._id)+'</strong></td><td>'+(o.customer&&o.customer.name||'&mdash;')+'</td><td><code style="background:var(--gray);padding:2px 7px;border-radius:4px;font-size:12px">'+o.coupon+'</code></td><td style="color:var(--green);font-weight:600">−'+inr(o.discount||0)+'</td><td><strong>'+inr(o.total)+'</strong></td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
+  document.getElementById('coup-wrap').innerHTML='<table class="tbl"><thead><tr><th>Order</th><th>Customer</th><th>Coupon</th><th>Discount</th><th>Total</th><th>Status</th></tr></thead><tbody>'+list.map(function(o){ return '<tr onclick="openDrawer(\''+o._id+'\')"><td><strong>#'+(o.orderId||o._id)+'</strong></td><td>'+(o.customer&&o.customer.name||'&mdash;')+'</td><td><code style="background:var(--gray);padding:2px 7px;border-radius:4px;font-size:12px">'+o.coupon+'</code></td><td style="color:var(--green);font-weight:600">−'+inr(o.discount||0)+'</td><td><strong>'+inr(o.total)+'</strong></td><td>'+badge(o.status)+'</td></tr>'; }).join('')+'</tbody></table>';
 }
 
 // ── drawer ─────────────────────────────────────────────────────
