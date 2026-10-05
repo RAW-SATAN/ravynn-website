@@ -461,7 +461,7 @@ function initFirebase() {
 }
 
 function loadProducts() {
-  fetch('../products.json').then(r => r.json())
+  fetch('./assets/products.json').then(r => r.json())
     .then(d => { products = d; if (curTab === 'products') paintProducts(); })
     .catch(() => {});
 }
