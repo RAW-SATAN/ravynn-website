@@ -13,14 +13,14 @@
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f1f2f4;min-height:100vh}
 
 /* ── Login ── */
-#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 100%)}
-.login-box{background:#fff;border-radius:12px;padding:44px 40px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;z-index:10}
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 100%);position:fixed;inset:0;z-index:9999;pointer-events:auto}
+.login-box{background:#fff;border-radius:12px;padding:44px 40px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;z-index:10000;pointer-events:auto}
 .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .login-logo-text{font-size:20px;font-weight:800;letter-spacing:4px;color:#000}
 .login-sub{font-size:12px;color:#888;margin-bottom:32px;letter-spacing:.3px}
 .login-field label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#555;display:block;margin-bottom:6px}
-.login-field input{width:100%;border:1.5px solid #e1e1e1;padding:12px 14px;font-size:14px;font-family:inherit;border-radius:8px;outline:none;margin-bottom:16px;transition:border-color .15s}
-.login-field input:focus{border-color:#000}
+.login-field input{width:100%;border:1.5px solid #e1e1e1;padding:12px 14px;font-size:14px;font-family:inherit;border-radius:8px;margin-bottom:16px;transition:border-color .15s;pointer-events:auto;position:relative;z-index:1}
+.login-field input:focus{border-color:#000;outline:2px solid rgba(0,0,0,.15);outline-offset:2px}
 .login-btn{width:100%;background:#000;color:#fff;border:none;padding:14px;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;border-radius:8px;transition:background .15s}
 .login-btn:hover{background:#222}
 .login-err{font-size:12px;color:#e53e3e;margin-top:10px;display:none;text-align:center}
@@ -196,11 +196,13 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f1f
       <div class="login-logo-text">RAVYNN</div>
     </div>
     <div class="login-sub">Admin Dashboard &middot; Secure Login</div>
-    <div class="login-field">
-      <label for="login-pw">Password</label>
-      <input type="password" id="login-pw" placeholder="Enter admin password" autocomplete="current-password" autofocus>
-    </div>
-    <button class="login-btn" id="login-btn" type="button">Sign In &rarr;</button>
+    <form id="login-form" onsubmit="doLogin();return false;" autocomplete="off">
+      <div class="login-field">
+        <label for="login-pw">Password</label>
+        <input type="password" id="login-pw" name="admin_pw" placeholder="Enter admin password" autocomplete="new-password">
+      </div>
+      <button class="login-btn" type="submit">Sign In &rarr;</button>
+    </form>
     <div class="login-err" id="login-err">Incorrect password. Try again.</div>
   </div>
 </div>
@@ -435,8 +437,6 @@ function badgeHTML(s) {
 }
 
 // ── Login ─────────────────────────────────────────────────────────────────
-document.getElementById('login-btn').onclick = doLogin;
-document.getElementById('login-pw').onkeydown = e => e.key==='Enter' && doLogin();
 function doLogin(){
   if(document.getElementById('login-pw').value === ADMIN_PASSWORD){
     sessionStorage.setItem('rv_admin','1'); showApp();
