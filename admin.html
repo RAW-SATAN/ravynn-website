@@ -661,8 +661,7 @@ document.getElementById('csv-btn').addEventListener('click',function(){
     var items=(o.items||[]).map(function(i){ return (i.qty||1)+'x '+(i.title||'')+' ('+(i.size||'')+')'; }).join(' | ');
     rows.push([o.orderId||o._id,fdt(o.createdAt),o.customer&&o.customer.name,o.customer&&o.customer.phone,o.customer&&o.customer.address,o.customer&&o.customer.city,o.customer&&o.customer.pincode,o.customer&&o.customer.state,items,o.subtotal,o.discount||0,o.coupon||'',o.shipping||0,o.total,o.paymentMethod,o.status,o.tracking||'']);
   });
-  var csv=rows.map(function(r){ return r.map(function(c){ return '"'+String(c||'').replace(/"/g,'""')+'"'; }).join(','); }).join('
-');
+  var csv=rows.map(function(r){ return r.map(function(c){ return '"'+String(c||'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
   var a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='ravynn-orders-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
 });
 
