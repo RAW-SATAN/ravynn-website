@@ -352,6 +352,20 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         <div class="co-pay-panel" id="panel-card">
           <p>Secure payment via Razorpay. You'll be redirected to complete payment.</p>
         </div>
+
+        <!-- PhonePe -->
+        <div class="co-pay-opt" data-pay="phonepe" onclick="selectPay('phonepe')">
+          <input type="radio" name="payment" value="phonepe">
+          <span class="co-pay-opt-label">PhonePe</span>
+          <div class="co-pay-opt-icons">
+            <span class="pay-badge" style="background:#5f259f;color:#fff">PhonePe</span>
+            <span class="pay-badge">UPI</span>
+            <span class="pay-badge">Cards</span>
+          </div>
+        </div>
+        <div class="co-pay-panel" id="panel-phonepe">
+          <p>Pay securely via PhonePe — UPI, cards, net banking &amp; wallets. You'll be redirected to complete payment.</p>
+        </div>
       </div>
 
       <button class="co-cta" id="btn-place-order">Pay &amp; Place Order</button>
@@ -444,6 +458,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 const WA_NUMBER = '918512045784'; // apna number yahan
 const UPI_ID    = 'ravynn@upi';   // apna UPI ID yahan
 const RAZORPAY_KEY = '';          // Razorpay key (optional)
+const PHONEPE_FUNCTION_URL = 'https://us-central1-ravynn-orders.cloudfunctions.net/initiatePayment';
 const VALID_COUPONS = {
   'WELCOME10': { pct: 10, label: '10% off (WELCOME10)' },
   'RAVYNN15':  { pct: 15, label: '15% off (RAVYNN15)'  },
@@ -608,7 +623,8 @@ function selectPay(type) {
   // Update CTA label
   const cta = document.getElementById('btn-place-order');
   if (type === 'cod')  cta.textContent = 'Place Order — Cash on Delivery';
-  if (type === 'upi')  cta.textContent = 'I have paid via UPI';
+  if (type === 'upi')      cta.textContent = 'I have paid via UPI';
+  if (type === 'phonepe')  cta.textContent = 'Pay with PhonePe →';
   if (type === 'card') cta.textContent = 'Pay with Card / Net Banking';
 }
 
@@ -766,7 +782,7 @@ document.getElementById('btn-to-payment').addEventListener('click', () => {
   goTo(3);
 });
 
-document.getElementById('btn-place-order').addEventListener('click', () => {
+document.getElementById('btn-place-order').addEventListener('click', async () => {
   const payMethod = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
   const { orderNum, msg } = buildWAMsg(payMethod);
 
@@ -783,10 +799,68 @@ document.getElementById('btn-place-order').addEventListener('click', () => {
     const { total } = calcTotals();
     const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=RAVYNN&am=${total}&cu=INR&tn=Order ${orderNum}`;
     window.open(upiLink, '_blank');
+    showConfirmation(orderNum, payMethod);
+    return;
+  }
+
+  if (payMethod === 'phonepe') {
+    await initiatePhonePe(orderNum, msg);
+    return;
   }
 
   showConfirmation(orderNum, payMethod);
 });
+
+async function initiatePhonePe(orderNum, msg) {
+  const btn = document.getElementById('btn-place-order');
+  btn.disabled = true;
+  btn.textContent = 'Redirecting to PhonePe…';
+
+  const { total } = calcTotals();
+  const name  = document.getElementById('inp-fname').value.trim() + ' ' + document.getElementById('inp-lname').value.trim();
+  const phone = document.getElementById('inp-phone').value.trim();
+
+  // Save pending order first
+  await saveOrderToFirebase({
+    orderId: orderNum,
+    paymentMethod: 'phonepe',
+    paymentStatus: 'pending',
+    status: 'pending',
+    customer: {
+      name, phone,
+      email: document.getElementById('inp-email').value.trim(),
+      address: document.getElementById('inp-addr1').value.trim() + (document.getElementById('inp-addr2').value ? ', ' + document.getElementById('inp-addr2').value : ''),
+      city: document.getElementById('inp-city').value.trim(),
+      state: document.getElementById('inp-state').value,
+      pincode: document.getElementById('inp-pincode').value.trim()
+    },
+    items: cartItems,
+    ...calcTotals(),
+    shippingMethod: selectedShipping,
+    coupon: appliedCoupon?.code || null
+  });
+
+  try {
+    const res = await fetch(PHONEPE_FUNCTION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: total, orderId: orderNum, phone, name })
+    });
+    const data = await res.json();
+
+    if (data.redirectUrl) {
+      window.location.href = data.redirectUrl;
+    } else {
+      alert('PhonePe error: ' + (data.error || 'Unknown error. Try another payment method.'));
+      btn.disabled = false;
+      btn.textContent = 'Pay with PhonePe →';
+    }
+  } catch (e) {
+    alert('Could not connect to payment gateway. Try again or use another method.');
+    btn.disabled = false;
+    btn.textContent = 'Pay with PhonePe →';
+  }
+}
 
 document.getElementById('co-apply-btn').addEventListener('click', applyCoupon);
 document.getElementById('co-coupon').addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });

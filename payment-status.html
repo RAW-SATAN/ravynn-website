@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment Status — RAVYNN</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fafafa;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:1rem}
+.card{background:#fff;border:1px solid #e6e6e6;border-radius:12px;
+  padding:3rem 2.5rem;max-width:440px;width:100%;text-align:center}
+.icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;margin:0 auto 1.5rem;font-size:32px}
+.icon-loading{background:#f5f5f5;animation:pulse 1.5s ease-in-out infinite}
+.icon-success{background:#f0fdf4}
+.icon-fail{background:#fef2f2}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.spin{width:32px;height:32px;border:3px solid #e6e6e6;border-top-color:#000;
+  border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+h1{font-size:22px;font-weight:700;margin-bottom:.5rem}
+p{font-size:14px;color:#666;line-height:1.6}
+.order-num{display:inline-block;margin-top:1rem;padding:.4rem .9rem;
+  background:#f5f5f5;border-radius:6px;font-size:13px;font-weight:700;
+  font-family:monospace;letter-spacing:.5px}
+.btn{display:inline-block;margin-top:1.5rem;padding:.75rem 1.75rem;
+  background:#000;color:#fff;text-decoration:none;border-radius:6px;
+  font-size:13px;font-weight:700;letter-spacing:.5px;transition:opacity .15s}
+.btn:hover{opacity:.8}
+.btn-ghost{background:#f5f5f5;color:#333;margin-left:.5rem}
+.detail{margin-top:1.25rem;font-size:12px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="icon icon-loading" id="icon">
+    <div class="spin"></div>
+  </div>
+  <h1 id="ttl">Verifying Payment…</h1>
+  <p id="msg">Please wait while we confirm your payment with PhonePe.</p>
+  <div id="extra"></div>
+</div>
+
+<script>
+const VERIFY_URL = 'https://us-central1-ravynn-orders.cloudfunctions.net/verifyPayment';
+
+const params = new URLSearchParams(location.search);
+const txnId  = params.get('txn');
+const orderId = params.get('order');
+
+async function verify() {
+  if (!txnId) { showFail('Missing transaction ID.'); return; }
+
+  try {
+    const r = await fetch(`${VERIFY_URL}?txnId=${encodeURIComponent(txnId)}&orderId=${encodeURIComponent(orderId||'')}}`);
+    const data = await r.json();
+
+    if (data.success) {
+      showSuccess(orderId, data.amount);
+    } else {
+      showFail(`Payment ${data.state || 'could not be verified'}. If money was debited, it will be refunded in 5–7 days.`);
+    }
+  } catch (e) {
+    // Retry once after 3s (PhonePe might be slow)
+    setTimeout(async () => {
+      try {
+        const r = await fetch(`${VERIFY_URL}?txnId=${encodeURIComponent(txnId)}&orderId=${encodeURIComponent(orderId||'')}`);
+        const data = await r.json();
+        if (data.success) showSuccess(orderId, data.amount);
+        else showFail('Could not confirm payment. Contact us on WhatsApp.');
+      } catch { showFail('Network error. Contact us on WhatsApp.'); }
+    }, 3000);
+  }
+}
+
+function showSuccess(orderId, amountPaise) {
+  document.getElementById('icon').className = 'icon icon-success';
+  document.getElementById('icon').innerHTML = '✓';
+  document.getElementById('ttl').textContent = 'Payment Successful!';
+  document.getElementById('msg').textContent = 'Your order has been confirmed. You\'ll receive a WhatsApp update soon.';
+  document.getElementById('extra').innerHTML = `
+    ${orderId ? `<div class="order-num">Order #${orderId}</div>` : ''}
+    ${amountPaise ? `<div class="detail">Amount paid: ₹${(amountPaise/100).toLocaleString('en-IN')}</div>` : ''}
+    <a href="collection.html" class="btn">Continue Shopping</a>
+  `;
+}
+
+function showFail(reason) {
+  document.getElementById('icon').className = 'icon icon-fail';
+  document.getElementById('icon').innerHTML = '✕';
+  document.getElementById('ttl').textContent = 'Payment Failed';
+  document.getElementById('msg').textContent = reason || 'Your payment could not be processed.';
+  document.getElementById('extra').innerHTML = `
+    <a href="checkout.html" class="btn">Try Again</a>
+    <a href="https://wa.me/91YOURNUMBER?text=Payment failed for order ${orderId||''}" class="btn btn-ghost">WhatsApp Us</a>
+  `;
+}
+
+// Start verification
+verify();
+</script>
+</body>
+</html>

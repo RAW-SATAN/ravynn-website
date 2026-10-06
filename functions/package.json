@@ -1,0 +1,12 @@
+{
+  "name": "ravynn-functions",
+  "description": "RAVYNN Firebase Cloud Functions",
+  "scripts": { "deploy": "firebase deploy --only functions" },
+  "engines": { "node": "18" },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.11.0",
+    "firebase-functions": "^4.5.0",
+    "axios": "^1.6.0"
+  }
+}
