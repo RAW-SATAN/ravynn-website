@@ -44,7 +44,7 @@ p{font-size:14px;color:#666;line-height:1.6}
 </div>
 
 <script>
-const VERIFY_URL = 'https://us-central1-ravynn-orders.cloudfunctions.net/verifyPayment';
+const VERIFY_URL = '/api/verify-payment';
 
 const params = new URLSearchParams(location.search);
 const txnId  = params.get('txn');
