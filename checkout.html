@@ -463,8 +463,16 @@ const VALID_COUPONS = {
   'WELCOME10': { pct: 10, label: '10% off (WELCOME10)' },
   'RAVYNN15':  { pct: 15, label: '15% off (RAVYNN15)'  },
 };
-const SHIP_RATES = { standard: 99, express: 149 };
-const FREE_SHIP_THRESHOLD = 999;
+
+// ── Dynamic shipping (loaded from /api/shipping) ─────────────
+let SHIP_CONFIG = { standard_rate: 0, express_rate: 99, free_threshold: 0, cod_extra: 0 };
+fetch('/api/shipping').then(r => r.json()).then(c => { SHIP_CONFIG = c; renderSidebar(); }).catch(() => {});
+
+function getShipRate(method, subtotal) {
+  const t = SHIP_CONFIG.free_threshold ?? 0;
+  if (t === 0 || subtotal >= t) return 0;
+  return method === 'express' ? (SHIP_CONFIG.express_rate ?? 99) : (SHIP_CONFIG.standard_rate ?? 0);
+}
 
 // ── State ────────────────────────────────────────────────────
 let currentStep = 1;
@@ -482,7 +490,7 @@ function calcTotals() {
   const sub = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
   const disc = appliedCoupon ? Math.round(sub * appliedCoupon.pct / 100) : 0;
   const afterDisc = sub - disc;
-  const ship = afterDisc >= FREE_SHIP_THRESHOLD ? 0 : SHIP_RATES[selectedShipping];
+  const ship = getShipRate(selectedShipping, afterDisc);
   return { sub, disc, afterDisc, ship, total: afterDisc + ship };
 }
 
@@ -508,12 +516,13 @@ function renderSidebar() {
 
   // Free shipping bar
   const bar = document.getElementById('sidebar-ship-bar');
-  if (sub < FREE_SHIP_THRESHOLD && sub > 0) {
+  const threshold = SHIP_CONFIG.free_threshold ?? 0;
+  if (threshold > 0 && sub < threshold && sub > 0) {
     bar.style.display = 'block';
-    bar.textContent = `🚚 Add ${fmt(FREE_SHIP_THRESHOLD - sub)} more for free shipping!`;
-  } else if (sub >= FREE_SHIP_THRESHOLD) {
+    bar.textContent = `🚚 Add ${fmt(threshold - sub)} more for free shipping!`;
+  } else if (threshold === 0 || sub >= threshold) {
     bar.style.display = 'block';
-    bar.textContent = '🎉 You\'ve got free shipping!';
+    bar.textContent = '🎉 Free shipping on your order!';
     bar.style.background = '#e8f5e9';
   } else { bar.style.display = 'none'; }
 
@@ -531,9 +540,9 @@ function renderSidebar() {
   document.getElementById('sum-total').textContent = fmt(calcTotals().total);
   document.getElementById('toggle-total').textContent = fmt(calcTotals().total);
 
-  // Standard shipping free label
+  // Standard shipping price label
   const stdEl = document.getElementById('std-price');
-  if (stdEl) stdEl.innerHTML = sub >= FREE_SHIP_THRESHOLD ? '<span style="color:#2d7a3e">FREE</span>' : fmt(99);
+  if (stdEl) { const r = getShipRate('standard', sub); stdEl.innerHTML = r === 0 ? '<span style="color:#2d7a3e">FREE</span>' : fmt(r); }
 }
 
 // ── Step navigation ───────────────────────────────────────────

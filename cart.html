@@ -321,19 +321,9 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
   window.location.href = 'checkout.html';
 });
 
-// Free shipping meter update
+// Free shipping meter — driven by ShippingConfig in theme.js
 (function() {
-  function updateShipMeter() {
-    const total = JSON.parse(localStorage.getItem('ravynn_cart') || '[]').reduce((s,i) => s + i.price*i.qty, 0);
-    const rem = Math.max(0, 999 - total);
-    const el = document.getElementById('free-ship-remaining');
-    const box = document.querySelector('.summary-free-shipping');
-    if (el && box) {
-      if (rem <= 0) { box.textContent = '🎉 You got free shipping!'; box.style.background='#e8f5e9'; }
-      else { box.innerHTML = `🚚 Add ₹<span id="free-ship-remaining">${rem.toLocaleString('en-IN')}</span> more for free shipping!`; }
-    }
-  }
-  document.addEventListener('DOMContentLoaded', () => { setTimeout(updateShipMeter, 100); });
+  document.addEventListener('DOMContentLoaded', () => { /* handled by CartPage via ShippingConfig */ });
   // Coupon apply (cosmetic only — no actual discount backend)
   document.querySelector('.coupon-apply-btn')?.addEventListener('click', function() {
     const code = document.querySelector('.coupon-input')?.value?.trim()?.toUpperCase();

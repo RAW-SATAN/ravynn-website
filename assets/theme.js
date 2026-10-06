@@ -343,10 +343,43 @@ class ProductPage {
 }
 
 /* ============================================================
+   SHIPPING CONFIG (dynamic from /api/shipping)
+   ============================================================ */
+const ShippingConfig = {
+  _cache: null,
+  async get() {
+    if (this._cache) return this._cache;
+    try {
+      const r = await fetch('/api/shipping');
+      this._cache = await r.json();
+    } catch {
+      this._cache = { standard_rate: 0, express_rate: 99, free_threshold: 0, cod_extra: 0 };
+    }
+    return this._cache;
+  },
+  calc(subtotal, config) {
+    const c = config || {};
+    const t = c.free_threshold ?? 0;
+    if (t === 0 || subtotal >= t) return 0;
+    return c.standard_rate ?? 0;
+  },
+  freeMsg(subtotal, config) {
+    const c = config || {};
+    const t = c.free_threshold ?? 0;
+    if (t === 0 || subtotal >= t) return null;
+    return `🚚 Add ₹${(t - subtotal).toLocaleString('en-IN')} more for free shipping!`;
+  }
+};
+
+/* ============================================================
    CART PAGE
    ============================================================ */
 class CartPage {
-  constructor() { this.render(); }
+  constructor() { this._init(); }
+  async _init() {
+    this._config = await ShippingConfig.get();
+    this.render();
+  }
   render() {
     const itemsEl = $('.cart-items-list'), summaryEl = $('.cart-summary-box');
     if (!itemsEl) return;
@@ -371,11 +404,18 @@ class CartPage {
       </div>
     </div>`).join('');
     if (summaryEl) {
-      const sub = Cart.total(), ship = sub >= 999 ? 0 : 99;
+      const sub = Cart.total();
+      const ship = ShippingConfig.calc(sub, this._config);
       summaryEl.style.display = '';
       summaryEl.querySelector('.summary-subtotal').textContent = Products.fmt(sub);
       summaryEl.querySelector('.summary-shipping').textContent = ship === 0 ? 'FREE' : Products.fmt(ship);
       summaryEl.querySelector('.summary-total').textContent = Products.fmt(sub + ship);
+      const bar = summaryEl.querySelector('.summary-free-shipping');
+      if (bar) {
+        const msg = ShippingConfig.freeMsg(sub, this._config);
+        if (msg) { bar.innerHTML = msg; bar.style.display = ''; bar.style.background = '#e8f5e9'; bar.style.color = '#2d7a3e'; }
+        else { bar.textContent = '🎉 Free shipping on your order!'; bar.style.display = ''; bar.style.background = '#e8f5e9'; }
+      }
     }
     $$('.qty-btn').forEach(btn => btn.addEventListener('click', () => {
       const key = btn.dataset.key, item = Cart.get().find(i => i.key === key);
