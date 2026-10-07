@@ -115,6 +115,47 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .pp-add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .pp-select{border:1.5px solid #d4d4d4;padding:9px 10px;border-radius:5px;font-size:13px;font-family:inherit;outline:none;background:#fff;flex:1;min-width:180px}
 .ship-notice{background:#fff8e1;border:1px solid #fde68a;color:#92400e;font-size:12px;padding:10px 14px;border-radius:5px;margin-bottom:20px}
+
+/* ── Products tab ── */
+.prod-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.prod-add-btn{background:#000;color:#fff;border:none;padding:10px 18px;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;border-radius:5px;display:flex;align-items:center;gap:6px}
+.prod-add-btn:hover{background:#222}
+.prod-import-btn{background:#fff;color:#000;border:1.5px solid #e8e8e8;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;border-radius:5px}
+.prod-import-btn:hover{border-color:#000}
+.prod-search{border:1.5px solid #e8e8e8;padding:9px 14px;border-radius:5px;font-size:13px;font-family:inherit;outline:none;min-width:200px}
+.prod-search:focus{border-color:#000}
+.prod-thumb{width:44px;height:44px;object-fit:cover;border-radius:3px;background:#f5f5f5}
+.prod-avail-toggle{position:relative;display:inline-block;width:36px;height:20px}
+.prod-avail-toggle input{opacity:0;width:0;height:0}
+.prod-avail-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:20px;transition:.2s}
+.prod-avail-slider:before{position:absolute;content:"";height:14px;width:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+input:checked+.prod-avail-slider{background:#000}
+input:checked+.prod-avail-slider:before{transform:translateX(16px)}
+.prod-action-btn{background:none;border:1.5px solid #e8e8e8;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px;transition:all .15s}
+.prod-action-btn:hover{border-color:#000}
+.prod-del-btn{color:#e53e3e;border-color:#fecaca}
+.prod-del-btn:hover{background:#fef2f2;border-color:#e53e3e}
+
+/* Product modal */
+.prod-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.prod-modal-overlay.open{display:flex}
+.prod-modal{background:#fff;border-radius:8px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:28px}
+.prod-modal h3{font-size:16px;font-weight:700;margin-bottom:20px}
+.prod-field{margin-bottom:16px}
+.prod-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:6px}
+.prod-field input,.prod-field textarea,.prod-field select{width:100%;border:1.5px solid #d4d4d4;padding:10px 12px;font-size:14px;border-radius:5px;font-family:inherit;outline:none}
+.prod-field input:focus,.prod-field textarea:focus,.prod-field select:focus{border-color:#000}
+.prod-field textarea{min-height:80px;resize:vertical}
+.prod-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prod-check-group{display:flex;flex-wrap:wrap;gap:8px}
+.prod-check-label{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;background:#f5f5f5;padding:5px 10px;border-radius:4px;user-select:none}
+.prod-check-label input{margin:0}
+.prod-modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid #e8e8e8}
+.prod-save-btn{background:#000;color:#fff;border:none;padding:11px 22px;font-size:13px;font-weight:700;cursor:pointer;border-radius:5px}
+.prod-save-btn:hover{background:#222}
+.prod-cancel-btn{background:#fff;color:#000;border:1.5px solid #e8e8e8;padding:11px 22px;font-size:13px;font-weight:600;cursor:pointer;border-radius:5px}
+.prod-cancel-btn:hover{border-color:#000}
+.prod-imgs-help{font-size:11px;color:#aaa;margin-top:4px}
 </style>
 </head>
 <body>
@@ -145,6 +186,10 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
         <button class="adm-nav-btn active" onclick="showTab('orders')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
           Orders
+        </button>
+        <button class="adm-nav-btn" onclick="showTab('products')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Products
         </button>
         <button class="adm-nav-btn" onclick="showTab('shipping')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -187,6 +232,37 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
             <tbody id="orders-tbody"></tbody>
           </table>
           <div class="adm-empty" id="orders-empty" style="display:none">No orders found.</div>
+        </div>
+      </div>
+
+      <!-- ── PRODUCTS TAB ── -->
+      <div class="adm-tab" id="tab-products">
+        <div class="prod-header-row">
+          <div>
+            <div class="adm-section-title">Products</div>
+            <div class="adm-section-sub" style="margin:0">Add, edit, or remove products from your store.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="text" class="prod-search" id="prod-search" placeholder="Search products…" oninput="renderProductTable()">
+            <button class="prod-import-btn" onclick="importProductsFromJSON()">Import from JSON</button>
+            <button class="prod-add-btn" onclick="openProductModal()">+ Add Product</button>
+          </div>
+        </div>
+
+        <div class="adm-table-wrap">
+          <div class="adm-loading" id="products-loading">Loading products…</div>
+          <table class="adm-table" id="products-table" style="display:none">
+            <thead><tr>
+              <th style="width:60px">Image</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Type</th>
+              <th>Available</th>
+              <th>Actions</th>
+            </tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+          <div class="adm-empty" id="products-empty" style="display:none">No products found. Click "Import from JSON" to seed from products.json, or "Add Product" to create one.</div>
         </div>
       </div>
 
@@ -280,6 +356,93 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
   <div id="drawer-content"></div>
 </div>
 
+<!-- Product modal -->
+<div class="prod-modal-overlay" id="prod-modal-overlay" onclick="if(event.target===this)closeProdModal()">
+  <div class="prod-modal">
+    <h3 id="prod-modal-title">Add Product</h3>
+    <input type="hidden" id="prod-edit-id">
+
+    <div class="prod-field-row">
+      <div class="prod-field">
+        <label>Title *</label>
+        <input type="text" id="pm-title" placeholder="Product name" oninput="autoHandle()">
+      </div>
+      <div class="prod-field">
+        <label>Handle (URL slug) *</label>
+        <input type="text" id="pm-handle" placeholder="my-product-name">
+      </div>
+    </div>
+
+    <div class="prod-field-row">
+      <div class="prod-field">
+        <label>Price (₹) *</label>
+        <input type="number" id="pm-price" placeholder="699" min="0">
+      </div>
+      <div class="prod-field">
+        <label>Compare-at Price (₹)</label>
+        <input type="number" id="pm-compare" placeholder="999 (leave blank if no discount)" min="0">
+      </div>
+    </div>
+
+    <div class="prod-field">
+      <label>Type</label>
+      <select id="pm-type">
+        <option value="Graphic Tees">Graphic Tees</option>
+        <option value="Oversized Essentials">Oversized Essentials</option>
+        <option value="Statement Tees">Statement Tees</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="prod-field">
+      <label>Collections</label>
+      <div class="prod-check-group" id="pm-collections">
+        <label class="prod-check-label"><input type="checkbox" value="all" checked> All</label>
+        <label class="prod-check-label"><input type="checkbox" value="new-drops"> New Drops</label>
+        <label class="prod-check-label"><input type="checkbox" value="graphic-tees"> Graphic Tees</label>
+        <label class="prod-check-label"><input type="checkbox" value="oversized-essentials"> Oversized Essentials</label>
+        <label class="prod-check-label"><input type="checkbox" value="statement-tees"> Statement Tees</label>
+        <label class="prod-check-label"><input type="checkbox" value="anime-pop-culture"> Anime & Pop Culture</label>
+        <label class="prod-check-label"><input type="checkbox" value="under-999"> Under ₹999</label>
+      </div>
+    </div>
+
+    <div class="prod-field">
+      <label>Sizes</label>
+      <div class="prod-check-group" id="pm-sizes">
+        <label class="prod-check-label"><input type="checkbox" value="S" checked> S</label>
+        <label class="prod-check-label"><input type="checkbox" value="M" checked> M</label>
+        <label class="prod-check-label"><input type="checkbox" value="L" checked> L</label>
+        <label class="prod-check-label"><input type="checkbox" value="XL" checked> XL</label>
+        <label class="prod-check-label"><input type="checkbox" value="XXL"> XXL</label>
+      </div>
+    </div>
+
+    <div class="prod-field">
+      <label>Image URLs (one per line)</label>
+      <textarea id="pm-images" placeholder="https://cdn.shopify.com/...&#10;https://cdn.shopify.com/..." rows="4"></textarea>
+      <div class="prod-imgs-help">First image is the main display image. Use Shopify CDN, Google Drive (direct link), or any image URL.</div>
+    </div>
+
+    <div class="prod-field">
+      <label>Description (HTML allowed)</label>
+      <textarea id="pm-description" placeholder="<p>Product description here.</p><p><strong>Fabric:</strong> 100% Cotton, 240 GSM</p>" rows="4"></textarea>
+    </div>
+
+    <div class="prod-field">
+      <label style="display:flex;align-items:center;gap:10px">
+        <label class="prod-avail-toggle"><input type="checkbox" id="pm-available" checked><span class="prod-avail-slider"></span></label>
+        Available for purchase
+      </label>
+    </div>
+
+    <div class="prod-modal-footer">
+      <button class="prod-cancel-btn" onclick="closeProdModal()">Cancel</button>
+      <button class="prod-save-btn" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
 <script>
 let ADMIN_KEY = '';
 let allOrders = [];
@@ -302,6 +465,7 @@ function doLogin() {
       document.getElementById('admin-panel').style.display = 'block';
       processOrders(data.orders || []);
       loadShipping();
+      loadProducts();
     })
     .catch(e => {
       document.getElementById('login-err').textContent = e.message === 'Wrong password' ? 'Incorrect password.' : 'Connection error. Try again.';
@@ -322,7 +486,6 @@ function doLogout() {
 window.addEventListener('DOMContentLoaded', () => {
   const saved = sessionStorage.getItem('ravynn_admin_key');
   if (saved) { document.getElementById('admin-key-input').value = saved; doLogin(); }
-  loadProducts();
 });
 
 // ── Navigation ────────────────────────────────────────────────
@@ -330,7 +493,7 @@ function showTab(name) {
   document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.adm-nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  document.querySelectorAll(`.adm-nav-btn`).forEach(b => { if(b.textContent.trim().toLowerCase().startsWith(name)) b.classList.add('active'); });
+  document.querySelectorAll('.adm-nav-btn').forEach(b => { if(b.textContent.trim().toLowerCase().startsWith(name)) b.classList.add('active'); });
 }
 
 // ── Orders ────────────────────────────────────────────────────
@@ -406,9 +569,19 @@ function openDrawer(orderId) {
     <div class="adm-detail-row"><span class="adm-detail-label">Amount</span><span><strong>₹${Number(o.amount||0).toLocaleString('en-IN')}</strong></span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Customer</span><span>${o.customer_name||'—'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Phone</span><span>${o.customer_phone||'—'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Payment</span><span>${o.phonepe_txn_id ? 'PhonePe' : o.notes?.includes('UPI') ? 'UPI' : 'COD'}</span></div>
+    <div class="adm-detail-row"><span class="adm-detail-label">Notes</span><span style="font-size:12px">${o.notes||'—'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">TxnID</span><span style="font-size:11px;word-break:break-all">${o.phonepe_txn_id||'—'}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Created</span><span>${date}</span></div>
     <div class="adm-detail-row"><span class="adm-detail-label">Paid at</span><span>${paidAt}</span></div>
+    ${o.address && typeof o.address === 'object' ? `
+    <div style="margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.5px;color:#888;text-transform:uppercase;margin-bottom:8px">Delivery Address</div>
+    <div style="background:#f5f5f5;border-radius:5px;padding:12px;font-size:13px;line-height:1.6">
+      ${o.address.name || o.customer_name || ''}<br>
+      ${o.address.address || ''}<br>
+      ${o.address.city || ''}${o.address.pincode ? ' – ' + o.address.pincode : ''}<br>
+      ${o.address.state || ''}
+    </div>` : ''}
     <div style="margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.5px;color:#888;text-transform:uppercase;margin-bottom:8px">Items</div>
     ${items || '<div style="color:#aaa;font-size:13px">No item details</div>'}
     ${o.customer_phone ? `<div style="margin-top:20px"><a href="https://wa.me/91${o.customer_phone}?text=Hi%20${encodeURIComponent(o.customer_name||'')}%2C%20your%20RAVYNN%20order%20%23${o.id}%20is%20confirmed!" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:10px 18px;border-radius:5px;font-size:13px;font-weight:700;text-decoration:none">
@@ -528,19 +701,222 @@ async function deletePP(handle) {
   renderPP();
 }
 
-// Load products into per-product selector
+// Load products into per-product selector (shipping tab) + product tab
+let allProducts = [];
+
 async function loadProducts() {
+  try {
+    const r = await fetch('/api/products', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const d = await r.json();
+    allProducts = d.products || [];
+    // Populate shipping per-product selector
+    const sel = document.getElementById('pp-product');
+    sel.innerHTML = '<option value="">Select product…</option>';
+    allProducts.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.handle;
+      opt.textContent = (p.title || '').replace(/^RAVYNN\s+/,'').slice(0, 50);
+      sel.appendChild(opt);
+    });
+    renderProductTable();
+  } catch (e) {
+    // Fallback to products.json for shipping selector
+    try {
+      const r = await fetch('assets/products.json');
+      const d = await r.json();
+      const sel = document.getElementById('pp-product');
+      sel.innerHTML = '<option value="">Select product…</option>';
+      (d.products || []).forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.handle;
+        opt.textContent = p.title.replace(/^RAVYNN\s+/,'').slice(0, 50);
+        sel.appendChild(opt);
+      });
+    } catch {}
+    document.getElementById('products-loading').textContent = 'Could not load products from database.';
+  }
+}
+
+function renderProductTable() {
+  const q = (document.getElementById('prod-search')?.value || '').toLowerCase();
+  const filtered = q ? allProducts.filter(p => p.title?.toLowerCase().includes(q) || p.handle?.toLowerCase().includes(q)) : allProducts;
+
+  const loading = document.getElementById('products-loading');
+  const table   = document.getElementById('products-table');
+  const empty   = document.getElementById('products-empty');
+
+  loading.style.display = 'none';
+  if (!filtered.length) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  document.getElementById('products-tbody').innerHTML = filtered.map(p => {
+    const img = Array.isArray(p.images) && p.images[0] ? `<img src="${p.images[0]}" class="prod-thumb" loading="lazy">` : '<div class="prod-thumb" style="display:inline-block"></div>';
+    const price = '₹' + Number(p.price || 0).toLocaleString('en-IN');
+    const compare = p.compare_at_price ? '<span style="text-decoration:line-through;color:#aaa;font-size:11px;margin-left:4px">₹' + Number(p.compare_at_price).toLocaleString('en-IN') + '</span>' : '';
+    return `<tr>
+      <td>${img}</td>
+      <td><strong style="font-size:13px">${(p.title || '').replace(/^RAVYNN\s+/,'').slice(0,60)}</strong><br><span style="color:#aaa;font-size:11px">${p.handle || ''}</span></td>
+      <td>${price}${compare}</td>
+      <td style="color:#888;font-size:12px">${p.type || '—'}</td>
+      <td>
+        <label class="prod-avail-toggle" onclick="toggleAvailable(${p.id}, this)">
+          <input type="checkbox" ${p.available ? 'checked' : ''} readonly onclick="return false">
+          <span class="prod-avail-slider"></span>
+        </label>
+      </td>
+      <td>
+        <button class="prod-action-btn" onclick="openProductModal(${p.id})" style="margin-right:6px">Edit</button>
+        <button class="prod-action-btn prod-del-btn" onclick="deleteProduct(${p.id},'${(p.title||'').replace(/'/g,'')}')">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function toggleAvailable(id, label) {
+  const p = allProducts.find(x => x.id === id);
+  if (!p) return;
+  p.available = !p.available;
+  await fetch('/api/products', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+    body: JSON.stringify({ ...p, available: p.available })
+  });
+  renderProductTable();
+}
+
+async function deleteProduct(id, title) {
+  if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  await fetch('/api/products?id=' + id, { method: 'DELETE', headers: { 'x-admin-key': ADMIN_KEY } });
+  allProducts = allProducts.filter(p => p.id !== id);
+  renderProductTable();
+}
+
+function openProductModal(id) {
+  const modal = document.getElementById('prod-modal-overlay');
+  const p = id ? allProducts.find(x => x.id === id) : null;
+
+  document.getElementById('prod-modal-title').textContent = p ? 'Edit Product' : 'Add Product';
+  document.getElementById('prod-edit-id').value = p ? p.id : '';
+  document.getElementById('pm-title').value = p ? p.title : '';
+  document.getElementById('pm-handle').value = p ? p.handle : '';
+  document.getElementById('pm-price').value = p ? p.price : '';
+  document.getElementById('pm-compare').value = p ? (p.compare_at_price || '') : '';
+  document.getElementById('pm-type').value = p ? (p.type || 'Graphic Tees') : 'Graphic Tees';
+  document.getElementById('pm-description').value = p ? (p.description || '') : '';
+  document.getElementById('pm-available').checked = p ? p.available !== false : true;
+  document.getElementById('pm-images').value = p && Array.isArray(p.images) ? p.images.join('\n') : '';
+
+  // Collections checkboxes
+  const colVals = p && Array.isArray(p.collections) ? p.collections : ['all'];
+  document.querySelectorAll('#pm-collections input').forEach(cb => { cb.checked = colVals.includes(cb.value); });
+
+  // Sizes checkboxes
+  const sizeVals = p && Array.isArray(p.sizes) ? p.sizes : ['S','M','L','XL'];
+  document.querySelectorAll('#pm-sizes input').forEach(cb => { cb.checked = sizeVals.includes(cb.value); });
+
+  modal.classList.add('open');
+}
+
+function closeProdModal() {
+  document.getElementById('prod-modal-overlay').classList.remove('open');
+}
+
+function autoHandle() {
+  const id = document.getElementById('prod-edit-id').value;
+  if (id) return; // Don't auto-change handle when editing
+  const title = document.getElementById('pm-title').value;
+  document.getElementById('pm-handle').value = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+async function saveProduct() {
+  const id = document.getElementById('prod-edit-id').value;
+  const title = document.getElementById('pm-title').value.trim();
+  const handle = document.getElementById('pm-handle').value.trim();
+  const price = Number(document.getElementById('pm-price').value);
+  if (!title || !handle || !price) return alert('Title, handle, and price are required.');
+
+  const compare = document.getElementById('pm-compare').value;
+  const images = document.getElementById('pm-images').value.split('\n').map(u => u.trim()).filter(Boolean);
+  const collections = Array.from(document.querySelectorAll('#pm-collections input:checked')).map(cb => cb.value);
+  const sizes = Array.from(document.querySelectorAll('#pm-sizes input:checked')).map(cb => cb.value);
+
+  const body = {
+    handle, title, price,
+    compare_at_price: compare ? Number(compare) : null,
+    type: document.getElementById('pm-type').value,
+    collections, images, sizes,
+    available: document.getElementById('pm-available').checked,
+    description: document.getElementById('pm-description').value.trim()
+  };
+
+  const btn = document.querySelector('.prod-save-btn');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+
+  try {
+    let r;
+    if (id) {
+      r = await fetch('/api/products', { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY }, body: JSON.stringify({ id: parseInt(id), ...body }) });
+    } else {
+      r = await fetch('/api/products', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY }, body: JSON.stringify(body) });
+    }
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Save failed');
+
+    if (id) {
+      const idx = allProducts.findIndex(p => p.id === parseInt(id));
+      if (idx !== -1) allProducts[idx] = d.product;
+    } else {
+      allProducts.unshift(d.product);
+    }
+    renderProductTable();
+    closeProdModal();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  } finally {
+    btn.textContent = 'Save Product';
+    btn.disabled = false;
+  }
+}
+
+async function importProductsFromJSON() {
+  if (!confirm('This will import all products from assets/products.json into the database. Existing products with the same handle will be updated. Continue?')) return;
+  const btn = document.querySelector('.prod-import-btn');
+  btn.textContent = 'Importing…';
+  btn.disabled = true;
   try {
     const r = await fetch('assets/products.json');
     const d = await r.json();
-    const sel = document.getElementById('pp-product');
-    (d.products || []).forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.handle;
-      opt.textContent = p.title.replace(/^RAVYNN\s+/,'').slice(0, 50);
-      sel.appendChild(opt);
-    });
-  } catch {}
+    const list = d.products || [];
+    let done = 0;
+    for (const p of list) {
+      await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+        body: JSON.stringify({
+          handle: p.handle, title: p.title, price: p.price,
+          compare_at_price: p.compare_at_price || null,
+          type: p.type || '', collections: p.collections || [],
+          images: p.images || [], sizes: p.sizes || ['S','M','L','XL'],
+          available: p.available !== false, description: p.description || ''
+        })
+      });
+      done++;
+      btn.textContent = `Importing… ${done}/${list.length}`;
+    }
+    await loadProducts();
+    btn.textContent = `Imported ${done} products ✓`;
+    setTimeout(() => { btn.textContent = 'Import from JSON'; btn.disabled = false; }, 3000);
+  } catch (e) {
+    alert('Import failed: ' + e.message);
+    btn.textContent = 'Import from JSON';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>

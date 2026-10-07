@@ -43,6 +43,21 @@ const Products = {
   async load() {
     if (this.all.length) return;
     try {
+      const apiRes = await fetch('/api/products');
+      if (apiRes.ok) {
+        const data = await apiRes.json();
+        if (data.products && data.products.length) {
+          this.all = data.products.map(p => ({
+            ...p,
+            collections: p.collections || [],
+            images: Array.isArray(p.images) ? p.images : [],
+            sizes: Array.isArray(p.sizes) ? p.sizes : ['S','M','L','XL']
+          }));
+          return;
+        }
+      }
+    } catch {}
+    try {
       const res = await fetch('assets/products.json');
       const data = await res.json();
       this.all = data.products;
