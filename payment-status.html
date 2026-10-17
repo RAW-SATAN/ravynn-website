@@ -54,7 +54,7 @@ async function verify() {
   if (!txnId) { showFail('Missing transaction ID.'); return; }
 
   try {
-    const r = await fetch(`${VERIFY_URL}?txnId=${encodeURIComponent(txnId)}&orderId=${encodeURIComponent(orderId||'')}}`);
+    const r = await fetch(`${VERIFY_URL}?txnId=${encodeURIComponent(txnId)}&orderId=${encodeURIComponent(orderId||'')}`);
     const data = await r.json();
 
     if (data.success) {
@@ -94,7 +94,7 @@ function showFail(reason) {
   document.getElementById('msg').textContent = reason || 'Your payment could not be processed.';
   document.getElementById('extra').innerHTML = `
     <a href="checkout.html" class="btn">Try Again</a>
-    <a href="https://wa.me/91YOURNUMBER?text=Payment failed for order ${orderId||''}" class="btn btn-ghost">WhatsApp Us</a>
+    <a href="https://wa.me/918512045784?text=Payment failed for order ${orderId||''}" class="btn btn-ghost">WhatsApp Us</a>
   `;
 }
 

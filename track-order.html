@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Order — RAVYNN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111}
+.announcement-bar{background:#000;color:#fff;text-align:center;font-size:12px;font-weight:500;letter-spacing:.5px;padding:10px 40px;position:relative}
+.site-header{border-bottom:1px solid #e8e8e8;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:center;position:relative}
+.header-left{position:absolute;left:20px}
+.header-menu-btn{background:none;border:none;cursor:pointer;padding:6px;display:flex;align-items:center}
+.site-logo{text-decoration:none}
+.header-right{position:absolute;right:20px;display:flex;gap:4px}
+.header-icon-btn{background:none;border:none;cursor:pointer;padding:6px;display:flex;align-items:center;text-decoration:none;color:#000}
+.header-icon-btn svg{width:22px;height:22px}
+.page-hero{background:#f5f2eb;padding:48px 20px 36px;text-align:center;border-bottom:1px solid #e8e8e8}
+.page-hero h1{font-size:clamp(22px,4vw,36px);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.page-hero p{font-size:14px;color:#555}
+.page-content{max-width:500px;margin:0 auto;padding:40px 20px 80px}
+.track-form{background:#fff;border:1.5px solid #e8e8e8;border-radius:12px;padding:28px 24px}
+.track-form h2{font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#555;margin-bottom:6px}
+.field input{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.field input:focus{border-color:#000}
+.track-btn{width:100%;background:#000;color:#fff;border:none;padding:14px;font-size:14px;font-weight:700;letter-spacing:.5px;cursor:pointer;border-radius:8px;margin-top:4px}
+.track-btn:hover{background:#222}
+.result{margin-top:24px;display:none}
+.result.show{display:block}
+.order-card{border:1.5px solid #e8e8e8;border-radius:10px;padding:18px 16px;margin-bottom:12px}
+.order-id{font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:4px}
+.order-meta{font-size:12px;color:#888;margin-bottom:12px}
+.order-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.status-pending{background:#fff3cd;color:#856404}
+.status-confirmed{background:#d1e7dd;color:#0a3622}
+.status-shipped{background:#cfe2ff;color:#084298}
+.status-delivered{background:#d1e7dd;color:#0a3622}
+.order-items{margin-top:12px;border-top:1px solid #f0f0f0;padding-top:12px}
+.order-item{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;color:#444}
+.order-total{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0}
+.no-order{text-align:center;padding:40px 20px;color:#888}
+.no-order svg{width:48px;height:48px;stroke:#ccc;margin-bottom:12px}
+.error-msg{color:#e53e3e;font-size:13px;margin-top:12px;text-align:center}
+.wa-help{text-align:center;margin-top:24px;padding-top:20px;border-top:1px solid #f0f0f0}
+.wa-help p{font-size:13px;color:#888;margin-bottom:10px}
+.wa-btn{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
+/* Mobile bottom nav */
+@media(max-width:767px){
+  .mobile-bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8e8e8;z-index:100;height:60px}
+  .mobile-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:#888;font-size:9px;font-weight:600;letter-spacing:.5px;gap:4px}
+  .mobile-nav-item svg{width:20px;height:20px}
+  .mobile-nav-item.active{color:#000}
+  .mobile-nav-center{background:#000;color:#fff;border-radius:50%;width:44px;height:44px;margin-top:-22px;flex:none;font-size:8px;font-weight:800;letter-spacing:1px}
+}
+@media(min-width:768px){.mobile-bottom-nav{display:none}}
+.wa-float{position:fixed;bottom:80px;right:20px;z-index:999}
+.wa-float a{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#25D366;border-radius:50%;box-shadow:0 4px 16px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s}
+.wa-float a:hover{transform:scale(1.1)}
+@media(min-width:768px){.wa-float{bottom:30px}}
+</style>
+</head>
+<body>
+<div class="announcement-bar">FREE SHIPPING ON EVERY ORDER | USE CODE: <strong>WELCOME10</strong> FOR 10% OFF YOUR FIRST ORDER</div>
+<header class="site-header">
+  <div class="header-left">
+    <button class="header-menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+  <a href="index.html" class="site-logo">
+    <img src="https://ravynn.in/cdn/shop/files/ChatGPT_Image_May_27__2026__05_29_39_PM-removebg-preview.png" alt="RAVYNN" style="height:42px;width:auto;display:block">
+  </a>
+  <div class="header-right">
+    <a href="cart.html" class="header-icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>Track Your Order</h1>
+  <p>Enter your order ID and phone number to see your order status.</p>
+</div>
+
+<div class="page-content">
+  <div class="track-form">
+    <h2>Order Lookup</h2>
+    <div class="field">
+      <label>Order ID</label>
+      <input type="text" id="track-order-id" placeholder="e.g. RVN-2024-1234" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" id="track-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric">
+    </div>
+    <button class="track-btn" id="track-btn">Track Order</button>
+    <div class="error-msg" id="track-error" style="display:none"></div>
+  </div>
+
+  <div class="result" id="track-result">
+    <div id="track-result-content"></div>
+    <div class="wa-help">
+      <p>Need help with your order?</p>
+      <a class="wa-btn" href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20order." target="_blank">
+        <svg viewBox="0 0 32 32" width="18" height="18" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<nav class="mobile-bottom-nav">
+  <a href="index.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="collection.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Explore</span>
+  </a>
+  <a href="collection.html?c=new-drops" class="mobile-nav-item mobile-nav-center">
+    <span style="font-size:8px;font-weight:800;letter-spacing:1px">NEW</span>
+  </a>
+  <a href="cart.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Cart</span>
+  </a>
+  <a href="track-order.html" class="mobile-nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
+  </a>
+</nav>
+
+<div class="wa-float"><a href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20have%20a%20question%20about%20my%20order." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg></a></div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDEjCb9nYzHxlm7fmHmLi9BsHb2P1wVYGk",
+  authDomain: "ravynn-orders.firebaseapp.com",
+  databaseURL: "https://ravynn-orders-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ravynn-orders",
+  storageBucket: "ravynn-orders.appspot.com",
+  messagingSenderId: "987654321",
+  appId: "1:987654321:web:abc123"
+};
+
+let app, db;
+try {
+  app = initializeApp(firebaseConfig);
+  db = getDatabase(app);
+} catch(e) {}
+
+const STATUS_MAP = {
+  pending:   { label: 'Order Placed',  cls: 'status-pending',   icon: '📦' },
+  confirmed: { label: 'Confirmed',     cls: 'status-confirmed', icon: '✅' },
+  shipped:   { label: 'Shipped',       cls: 'status-shipped',   icon: '🚚' },
+  delivered: { label: 'Delivered',     cls: 'status-delivered', icon: '🎉' },
+};
+
+function fmt(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
+
+async function trackOrder() {
+  const orderId = document.getElementById('track-order-id').value.trim().toUpperCase();
+  const phone   = document.getElementById('track-phone').value.trim().replace(/\D/g,'');
+  const errEl   = document.getElementById('track-error');
+  const resultEl = document.getElementById('track-result');
+  const contentEl = document.getElementById('track-result-content');
+
+  errEl.style.display = 'none';
+  if (!orderId) { errEl.textContent = 'Please enter your Order ID.'; errEl.style.display = 'block'; return; }
+  if (!phone || phone.length !== 10) { errEl.textContent = 'Please enter a valid 10-digit phone number.'; errEl.style.display = 'block'; return; }
+
+  const btn = document.getElementById('track-btn');
+  btn.textContent = 'Searching...';
+  btn.disabled = true;
+
+  try {
+    let order = null;
+    // Try Neon DB via API first
+    try {
+      const res = await fetch(`/api/orders?id=${encodeURIComponent(orderId)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.order && String(data.order.customer_phone).replace(/\D/g,'').slice(-10) === phone) {
+          order = data.order;
+          order._source = 'neon';
+        }
+      }
+    } catch(e) {}
+
+    // Fallback: try Firebase
+    if (!order && db) {
+      const snap = await get(ref(db, `orders/${orderId}`));
+      if (snap.exists()) {
+        const d = snap.val();
+        if (String(d.customer_phone || d.phone || '').replace(/\D/g,'').slice(-10) === phone) {
+          order = d;
+          order._source = 'firebase';
+        }
+      }
+    }
+
+    if (!order) {
+      contentEl.innerHTML = `<div class="no-order">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <p style="font-weight:700;font-size:14px;margin-bottom:6px">Order not found</p>
+        <p style="font-size:13px">Check your Order ID and phone number, or contact us on WhatsApp.</p>
+      </div>`;
+      resultEl.classList.add('show');
+      return;
+    }
+
+    const status = order.payment_status || order.status || 'pending';
+    const s = STATUS_MAP[status] || STATUS_MAP.pending;
+    const items = Array.isArray(order.items) ? order.items : (order.items ? JSON.parse(order.items) : []);
+    const addr  = typeof order.address === 'object' ? order.address : (order.address ? JSON.parse(order.address) : {});
+
+    contentEl.innerHTML = `<div class="order-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+        <div>
+          <div class="order-id">${s.icon} Order #${order.id || orderId}</div>
+          <div class="order-meta">Placed on ${order.created_at ? new Date(order.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : 'recently'}</div>
+        </div>
+        <span class="order-status ${s.cls}">${s.label}</span>
+      </div>
+      ${order.tracking_id ? `<div style="background:#f0f8ff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px">
+        📍 Tracking ID: <strong>${order.tracking_id}</strong>
+        ${order.courier ? ` (${order.courier})` : ''}
+      </div>` : ''}
+      <div class="order-items">
+        ${items.map(i => `<div class="order-item"><span>${i.title || i.name}${i.size ? ` — ${i.size}` : ''} × ${i.qty||1}</span><span>${fmt((i.price||0)*(i.qty||1))}</span></div>`).join('')}
+        <div class="order-total"><span>Total</span><span>${fmt(order.amount || 0)}</span></div>
+      </div>
+      ${addr.address ? `<div style="margin-top:12px;font-size:12px;color:#666;border-top:1px solid #f0f0f0;padding-top:10px">📍 ${addr.name || ''}, ${addr.address}, ${addr.city} – ${addr.pincode}</div>` : ''}
+    </div>`;
+    resultEl.classList.add('show');
+  } catch(e) {
+    errEl.textContent = 'Something went wrong. Please try again or contact us on WhatsApp.';
+    errEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'Track Order';
+    btn.disabled = false;
+  }
+}
+
+document.getElementById('track-btn').addEventListener('click', trackOrder);
+document.getElementById('track-phone').addEventListener('keydown', e => { if (e.key === 'Enter') trackOrder(); });
+document.getElementById('track-order-id').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('track-phone').focus(); });
+</script>
+</body>
+</html>

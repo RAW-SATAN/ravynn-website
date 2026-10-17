@@ -218,6 +218,18 @@ class CollectionPage {
         });
       });
       this.sortSel?.addEventListener('change', () => this.render());
+      // Collection tab pills (All / New Drops / Graphic / etc.)
+      $$('[data-col]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('[data-col]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const col = btn.dataset.col || 'all';
+          this.activeFilters = {};
+          $$('.filter-option').forEach(b => b.classList.remove('active'));
+          this.products = Products.byCollection(col);
+          this.render();
+        });
+      });
     });
   }
   filter(list) {
