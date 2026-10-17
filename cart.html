@@ -58,6 +58,11 @@
 .coupon-input { flex:1; border:1.5px solid #ddd; padding:10px 12px; font-size:13px; font-family:inherit; letter-spacing:.5px; text-transform:uppercase; }
 .coupon-input:focus { outline:none; border-color:#000; }
 .coupon-apply-btn { background:#000; color:#fff; border:none; padding:10px 18px; font-size:12px; font-weight:700; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
+/* Snitch-style coupon toast */
+#cart-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#111;color:#fff;padding:14px 22px;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.3px;display:flex;align-items:center;gap:10px;z-index:9999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.35)}
+#cart-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#cart-toast.error{background:#c0392b}
+#cart-toast .toast-icon{font-size:16px}
 .footer-gray{background:#f5f2f0;border-top:1px solid #e8e8e8}
 .footer-top{padding:36px 20px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media(max-width:767px){.footer-top{grid-template-columns:1fr 1fr;gap:24px}}
@@ -200,9 +205,9 @@
     </div>
     <button class="checkout-btn">PLACE ORDER</button>
     <div class="cart-trust">
-      <div class="cart-trust-item"><span>✓</span> Secure checkout</div>
-      <div class="cart-trust-item"><span>↩</span> Easy 7-day returns</div>
-      <div class="cart-trust-item"><span>🚚</span> Cash on delivery available</div>
+      <div class="cart-trust-item"><span>&#10003;</span> Secure checkout</div>
+      <div class="cart-trust-item"><span>&#8617;</span> Easy 7-day returns</div>
+      <div class="cart-trust-item"><span>&#128666;</span> Cash on delivery available</div>
     </div>
   </aside>
 </div>
@@ -323,13 +328,36 @@ document.querySelector('.checkout-btn')?.addEventListener('click', function() {
 
 // Free shipping meter — driven by ShippingConfig in theme.js
 (function() {
-  document.addEventListener('DOMContentLoaded', () => { /* handled by CartPage via ShippingConfig */ });
-  // Coupon apply (cosmetic only — no actual discount backend)
+  // Load valid coupons (hardcoded + admin coupons)
+  let validCoupons = new Set(['WELCOME10','FIRSTORDER','RAVYNN10','RAVYNN15','TRYRAVYNN5','FLAT50']);
+  fetch('/api/admin-settings?key=coupons').then(r=>r.json()).then(d=>{
+    if (Array.isArray(d.value)) d.value.filter(c=>c.active!==false).forEach(c=>validCoupons.add(c.code));
+  }).catch(()=>{});
+
+  function showCartToast(msg, isError) {
+    let t = document.getElementById('cart-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'cart-toast';
+      t.innerHTML = '<span class="toast-icon"></span><span class="toast-msg"></span>';
+      document.body.appendChild(t);
+    }
+    t.querySelector('.toast-icon').textContent = isError ? '❌' : '✓';
+    t.querySelector('.toast-msg').textContent = msg;
+    t.className = isError ? 'error' : '';
+    requestAnimationFrame(() => { requestAnimationFrame(() => { t.classList.add('show'); }); });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.classList.remove('show'); }, 3500);
+  }
+
   document.querySelector('.coupon-apply-btn')?.addEventListener('click', function() {
     const code = document.querySelector('.coupon-input')?.value?.trim()?.toUpperCase();
-    const valid = ['TRYRAVYNN5','RAVYNN10'];
-    if (valid.includes(code)) { alert(`Coupon "${code}" applied! Discount will be reflected at checkout.`); }
-    else if (code) { alert('Invalid coupon code. Please try again.'); }
+    if (!code) return;
+    if (validCoupons.has(code)) { showCartToast('✓ Coupon "' + code + '" applied! Discount at checkout.', false); }
+    else { showCartToast('Invalid coupon code. Please try again.', true); }
+  });
+  document.querySelector('.coupon-input')?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.querySelector('.coupon-apply-btn')?.click();
   });
 })();
 </script>
