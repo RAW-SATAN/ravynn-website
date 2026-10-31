@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     if (!orderId) return res.status(400).json({ error: 'orderId required' });
 
     const sql = neon(process.env.DATABASE_URL);
+    const paymentStatus = (!payment_method || payment_method === 'cod') ? 'pending' : 'paid';
     const notes = [
       payment_method ? `Payment: ${payment_method.toUpperCase()}` : 'COD',
       coupon ? `Coupon: ${coupon}` : null,
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
     await sql`
       INSERT INTO orders (id, payment_status, amount, customer_name, customer_phone, items, address, notes)
       VALUES (
-        ${orderId}, 'pending', ${Number(amount)},
+        ${orderId}, ${paymentStatus}, ${Number(amount)},
         ${customer_name || ''}, ${customer_phone || ''},
         ${JSON.stringify(items || [])},
         ${JSON.stringify(address || {})},
@@ -29,6 +30,20 @@ export default async function handler(req, res) {
       )
       ON CONFLICT (id) DO NOTHING
     `;
+
+    try {
+      const { createDelhiveryShipment } = await import('./delhivery.js');
+      const dResult = await createDelhiveryShipment({ id: orderId, amount, customer_name, customer_phone, items, address, payment_status: paymentStatus });
+      const pkg = dResult.packages && dResult.packages[0];
+      if (pkg && pkg.waybill) {
+        await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS awb_number text`;
+        await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS delhivery_status text`;
+        await sql`UPDATE orders SET awb_number = ${pkg.waybill}, delhivery_status = 'booked' WHERE id = ${orderId}`;
+      }
+    } catch (dErr) {
+      console.error('auto delhivery:', dErr.message);
+    }
+
     return res.json({ success: true });
   } catch (err) {
     console.error('orders-cod:', err.message);

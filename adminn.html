@@ -332,7 +332,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <table class="adm-table" id="orders-table" style="display:none">
             <thead><tr>
               <th>Order</th>
-              <th>Customer</th>
+              <th>Product / Customer</th>
               <th>Amount</th>
               <th>Payment</th>
               <th>Status</th>
@@ -747,10 +747,22 @@ function renderOrderRows(orders) {
     const payBadge = o.payment_status === 'paid' ? 'badge-paid' : o.payment_status === 'failed' ? 'badge-failed' : 'badge-pending';
     const fulfill = o.fulfillment_status || 'unfulfilled';
     const fulfillBadge = fulfill === 'shipped' ? 'badge-shipped' : 'badge-unfulfilled';
-    const items = Array.isArray(o.items) ? o.items.length + ' item' + (o.items.length !== 1 ? 's' : '') : '-';
+    const itemCount = Array.isArray(o.items) ? o.items.length : 0;
+    const firstItem = itemCount > 0 ? o.items[0] : null;
+    const prod = firstItem ? allProducts.find(p => p.id === firstItem.id || p.title === firstItem.title) : null;
+    const prodImg = prod && prod.images && prod.images[0] ? prod.images[0] : '';
+    const prodHandle = prod ? prod.handle : '';
+    const prodTitle = firstItem ? (firstItem.title||'').replace(/^RAVYNN\s+/i,'').slice(0,38) : '-';
+    const moreItems = itemCount > 1 ? ` <span style="color:#aaa">+${itemCount-1}</span>` : '';
+    const prodLink = prodHandle
+      ? `<a href="/product.html?p=${prodHandle}" target="_blank" onclick="event.stopPropagation()" style="color:#000;text-decoration:none;font-weight:600;font-size:12px">${prodTitle}${moreItems}</a>`
+      : `<span style="font-weight:600;font-size:12px">${prodTitle}${moreItems}</span>`;
+    const imgEl = prodImg
+      ? `<img src="${prodImg}" style="width:38px;height:38px;object-fit:cover;border-radius:4px;border:1px solid #e8e8e8;flex-shrink:0" loading="lazy">`
+      : `<div style="width:38px;height:38px;background:#f5f5f5;border-radius:4px;flex-shrink:0"></div>`;
     return `<tr onclick="openDrawer('${o.id}')">
-      <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${items}</span></td>
-      <td>${o.customer_name || '-'}<br><span style="color:#aaa;font-size:11px">${o.customer_phone || ''}</span></td>
+      <td><strong>#${o.id}</strong><br><span style="color:#aaa;font-size:11px">${itemCount} item${itemCount!==1?'s':''}</span></td>
+      <td><div style="display:flex;align-items:center;gap:9px">${imgEl}<div>${prodLink}<br><span style="color:#888;font-size:11px">${o.customer_name||'-'}</span></div></div></td>
       <td><strong>\u20B9${Number(o.amount||0).toLocaleString('en-IN')}</strong></td>
       <td style="text-transform:capitalize">${payVia(o)}</td>
       <td><span class="adm-badge ${payBadge}">${o.payment_status||'pending'}</span></td>
@@ -835,6 +847,18 @@ function openDrawer(orderId) {
       </div>
     </div>
 
+    <div class="fulfill-section" style="margin-top:16px">
+      <h4>Delhivery</h4>
+      ${o.awb_number ? `<div style="font-size:12px;color:#1565c0;margin-bottom:8px">AWB: <strong>${o.awb_number}</strong></div>` : ''}
+      ${o.delhivery_status ? `<div style="margin-bottom:8px"><span class="adm-badge" style="background:${o.delhivery_status==='delivered'?'#2e7d32':o.delhivery_status==='cancelled'?'#c62828':o.delhivery_status==='booked'?'#1565c0':'#e65100'};color:#fff">${o.delhivery_status}</span></div>` : ''}
+      <div class="fulfill-row" style="flex-wrap:wrap;gap:8px">
+        ${o.awb_number ? `
+          <button class="fulfill-btn" onclick="trackDlv('${o.id}','${o.awb_number}')" style="background:#1565c0">Track</button>
+          <button class="fulfill-btn" onclick="cancelDlv('${o.id}','${o.awb_number}')" style="background:#c62828">Cancel</button>
+        ` : `<button class="fulfill-btn" onclick="bookDlv('${o.id}')" style="background:#e65100">Book on Delhivery</button>`}
+      </div>
+    </div>
+
     ${o.customer_phone ? `<div style="margin-top:20px"><a href="https://wa.me/91${o.customer_phone}?text=Hi%20${encodeURIComponent(o.customer_name||'')}%2C%20your%20RAVYNN%20order%20%23${o.id}%20is%20confirmed!" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:10px 18px;border-radius:5px;font-size:13px;font-weight:700;text-decoration:none">
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.524 5.843L.057 23.25l5.538-1.451A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.656-.497-5.187-1.363l-.371-.22-3.288.862.877-3.205-.24-.391A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       WhatsApp Customer
@@ -905,6 +929,71 @@ async function updateFulfillment(orderId, status, tracking) {
 function closeDrawer() {
   document.getElementById('order-drawer').classList.remove('open');
   document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+async function bookDlv(orderId) {
+  const order = allOrders.find(x => String(x.id) === String(orderId));
+  if (!order) return;
+  if (!confirm('Book shipment on Delhivery for order #' + order.id + '?')) return;
+  try {
+    const r = await fetch('/api/delhivery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'create', order })
+    });
+    const d = await r.json();
+    if (d.success) {
+      const o = allOrders.find(x => String(x.id) === String(order.id));
+      if (o) { o.awb_number = d.waybill; o.delhivery_status = 'booked'; }
+      alert('Booked! AWB: ' + d.waybill);
+      closeDrawer();
+      renderOrderRows(allOrders);
+    } else {
+      alert('Delhivery error: ' + (d.error || JSON.stringify(d)));
+    }
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+async function trackDlv(orderId, awb) {
+  try {
+    const r = await fetch('/api/delhivery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'track', waybill: awb, orderId })
+    });
+    const d = await r.json();
+    if (d.success) {
+      const o = allOrders.find(x => String(x.id) === String(orderId));
+      if (o) o.delhivery_status = d.status;
+      alert('Status: ' + (d.statusText || d.status));
+      closeDrawer();
+      renderOrderRows(allOrders);
+      openDrawer(orderId);
+    } else {
+      alert('Track error: ' + JSON.stringify(d));
+    }
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+async function cancelDlv(orderId, awb) {
+  if (!confirm('Cancel Delhivery shipment ' + awb + '?')) return;
+  try {
+    const r = await fetch('/api/delhivery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ action: 'cancel', waybill: awb, orderId })
+    });
+    const d = await r.json();
+    if (d.success) {
+      const o = allOrders.find(x => String(x.id) === String(orderId));
+      if (o) o.delhivery_status = 'cancelled';
+      alert('Cancelled on Delhivery');
+      closeDrawer();
+      renderOrderRows(allOrders);
+    } else {
+      alert('Cancel error: ' + JSON.stringify(d));
+    }
+  } catch (e) { alert('Error: ' + e.message); }
 }
 
 // -- Customers -------------------------------------------------
