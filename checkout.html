@@ -11,7 +11,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff;min-height:100vh}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Header &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Header  */
 .co-header{display:grid;grid-template-columns:1fr 420px;border-bottom:1px solid #e6e6e6;background:#fff;}
 .co-header-left{display:flex;align-items:center;justify-content:flex-end;padding:0 48px 0 24px;height:60px}
 .co-header-right{display:flex;align-items:center;justify-content:flex-end;padding:0 32px;height:60px;background:#fafafa;border-left:1px solid #e6e6e6}
@@ -20,29 +20,29 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-secure svg{width:14px;height:14px}
 @media(max-width:900px){.co-header{grid-template-columns:1fr;}.co-header-left{justify-content:space-between;padding:0 20px}.co-header-right{display:none}}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Layout &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Layout  */
 .co-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 60px)}
 @media(max-width:900px){.co-layout{grid-template-columns:1fr;display:flex;flex-direction:column-reverse}}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Left: Main &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
-.co-main{padding:40px 48px 60px;max-width:660px;margin-left:auto;width:100%}
+/*  Left: Main  */
+.co-main{padding:40px 48px 60px;max-width:640px;margin:0 auto;width:100%}
 @media(max-width:900px){.co-main{padding:24px 20px 80px;max-width:100%;margin:0}}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Breadcrumb &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Breadcrumb  */
 .co-breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:#999;margin-bottom:28px;flex-wrap:wrap}
 .co-breadcrumb a{color:#999;text-decoration:none}
 .co-breadcrumb a:hover{color:#000}
 .co-breadcrumb .active{color:#1a1a1a;font-weight:600}
 .co-breadcrumb-sep{color:#ccc}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Steps &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Steps  */
 .co-step{display:none}
 .co-step.active{display:block}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Section titles &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Section titles  */
 .co-section-title{font-size:16px;font-weight:700;margin-bottom:16px;letter-spacing:.3px}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Form &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Form  */
 .co-field{margin-bottom:12px;position:relative}
 .co-field label{display:block;font-size:12px;color:#666;margin-bottom:5px;font-weight:500}
 .co-field input,.co-field select,.co-field textarea{width:100%;border:1.5px solid #d4d4d4;padding:12px 14px;font-size:14px;font-family:inherit;border-radius:6px;outline:none;background:#fff;transition:border-color .15s}
@@ -53,11 +53,11 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:480px){.co-row{grid-template-columns:1fr}}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Address summary box &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Address summary box  */
 .co-address-box{border:1.5px solid #e6e6e6;border-radius:6px;padding:14px 16px;font-size:13px;color:#444;line-height:1.7;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .co-address-box a{font-size:12px;color:#555;text-decoration:underline;white-space:nowrap;flex-shrink:0}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Shipping options &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Shipping options  */
 .co-ship-opts{border:1.5px solid #e6e6e6;border-radius:6px;overflow:hidden;margin-bottom:20px}
 .co-ship-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #e6e6e6;transition:background .1s}
 .co-ship-opt:last-child{border-bottom:none}
@@ -68,7 +68,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-ship-opt-eta{font-size:12px;color:#888;margin-top:2px}
 .co-ship-opt-price{font-size:13px;font-weight:600}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Payment methods &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Payment methods  */
 .co-pay-opts{border:1.5px solid #e6e6e6;border-radius:6px;overflow:hidden;margin-bottom:20px}
 .co-pay-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #e6e6e6;transition:background .1s}
 .co-pay-opt:last-child{border-bottom:none}
@@ -79,14 +79,14 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-pay-opt-icons{margin-left:auto;display:flex;gap:6px;align-items:center}
 .pay-badge{background:#f0f0f0;border-radius:3px;padding:3px 7px;font-size:10px;font-weight:700;letter-spacing:.5px;color:#555}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Pay sub-panels &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Pay sub-panels  */
 .co-pay-panel{display:none;padding:0 16px 16px;background:#fafafa;border-top:1px solid #e6e6e6}
 .co-pay-panel.open{display:block}
 .co-pay-panel p{font-size:13px;color:#555;line-height:1.6;margin-top:12px}
 .upi-id-display{font-weight:700;font-size:15px;color:#000;letter-spacing:.5px;margin:8px 0}
 .upi-copy-btn{background:#000;color:#fff;border:none;padding:8px 18px;font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;border-radius:4px;margin-top:4px}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Coupon &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Coupon  */
 .co-coupon-row{display:flex;gap:8px;margin-bottom:20px}
 .co-coupon-input{flex:1;border:1.5px solid #d4d4d4;padding:11px 14px;font-size:13px;font-family:inherit;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;outline:none}
 .co-coupon-input:focus{border-color:#000}
@@ -95,7 +95,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-coupon-msg.ok{color:#2d7a3e}
 .co-coupon-msg.err{color:#e53e3e}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; CTA button &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  CTA button  */
 .co-cta{display:block;width:100%;background:#000;color:#fff;border:none;padding:16px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:6px;margin-top:8px;transition:background .15s}
 .co-cta:hover{background:#222}
 .co-cta:disabled{background:#bbb;cursor:not-allowed}
@@ -103,7 +103,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-back-link:hover{color:#000}
 .co-back-link svg{width:14px;height:14px}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Right: Summary &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Right: Summary  */
 .co-sidebar{background:#fafafa;border-left:1px solid #e6e6e6;padding:40px 32px 40px}
 @media(max-width:900px){.co-sidebar{border-left:none;border-bottom:1px solid #e6e6e6;padding:20px}}
 
@@ -117,24 +117,36 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 @media(max-width:900px){.co-sidebar-inner{display:none;padding:16px 20px 20px}}
 @media(max-width:900px){.co-sidebar-inner.open{display:block}}
 
-.co-order-items{margin-bottom:20px}
-.co-order-item{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
-.co-item-img{width:64px;height:80px;border-radius:4px;overflow:hidden;background:#f0f0f0;flex-shrink:0;position:relative}
-.co-item-img img{width:100%;height:100%;object-fit:cover}
-.co-item-qty-badge{position:absolute;top:-6px;right:-6px;background:#555;color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.co-item-details{flex:1}
-.co-item-name{font-size:13px;font-weight:600;line-height:1.4;color:#1a1a1a}
-.co-item-variant{font-size:12px;color:#888;margin-top:3px}
-.co-item-price{font-size:13px;font-weight:700;margin-left:auto;white-space:nowrap}
+.co-order-items{margin-bottom:4px}
+.co-order-item{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.co-item-img{width:76px;height:94px;border-radius:10px;overflow:visible;background:#f5f5f5;flex-shrink:0;position:relative}
+.co-item-img img{width:76px;height:94px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 2px 10px rgba(0,0,0,.1);border:1px solid #efefef}
+.co-item-qty-badge{position:absolute;top:-8px;right:-8px;background:#111;color:#fff;border-radius:50%;width:22px;height:22px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(0,0,0,.3);z-index:1}
+.co-item-details{flex:1;min-width:0;padding-top:2px}
+.co-item-name{font-size:13px;font-weight:600;line-height:1.45;color:#111;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.co-item-variant{font-size:11px;color:#aaa;margin-top:4px;text-transform:uppercase;letter-spacing:.3px}
+.co-item-price{font-size:14px;font-weight:700;color:#111;white-space:nowrap;padding-top:2px}
+.co-upsell-wrap{margin-top:4px}
+.co-upsell-title{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#bbb;margin-bottom:14px}
+.co-upsell-item{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.co-upsell-img{width:52px;height:64px;border-radius:7px;object-fit:cover;flex-shrink:0;background:#f5f5f5;border:1px solid #efefef}
+.co-upsell-info{flex:1;min-width:0}
+.co-upsell-name{font-size:12px;font-weight:600;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.co-upsell-price{font-size:12px;color:#888;margin-top:2px}
+.co-upsell-add{background:#111;color:#fff;border:none;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.3px;cursor:pointer;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.co-upsell-add.added{background:#1e7e3e;cursor:default}
 
-.co-divider{border:none;border-top:1px solid #e6e6e6;margin:16px 0}
-.co-sum-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;color:#555}
-.co-sum-row.total{font-size:16px;font-weight:700;color:#000;margin-top:4px}
-.co-sum-row .co-free{color:#2d7a3e;font-weight:600}
-.co-discount-row{color:#2d7a3e}
-.co-free-ship-bar{background:#e8f5e9;color:#2d7a3e;font-size:12px;padding:8px 12px;border-radius:4px;text-align:center;margin-bottom:16px}
+.co-divider{border:none;border-top:1px solid #ebebeb;margin:18px 0}
+.co-sum-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px;color:#555;align-items:center}
+.co-sum-row.total{font-size:19px;font-weight:800;color:#000;margin-top:6px;margin-bottom:0}
+.co-sum-row .co-free{color:#1e7e3e;font-weight:700}
+.co-discount-row{color:#1e7e3e;font-weight:600}
+.co-discount-row #sum-discount-label{display:inline-flex;align-items:center;gap:6px}
+.co-discount-row #sum-discount-val{font-weight:700}
+#sum-savings-note{font-size:11px;color:#1e7e3e;font-weight:600;background:#edf7f0;padding:7px 12px;border-radius:6px;margin-top:10px;text-align:center;display:none;border:1px solid #c5e8d1}
+.co-free-ship-bar{background:linear-gradient(135deg,#eaf7ec,#f2fbf3);color:#1e7e3e;font-size:12px;font-weight:600;padding:10px 14px;border-radius:8px;text-align:center;margin-bottom:18px;border:1px solid #c8ecd4;letter-spacing:.1px}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Confirmation &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Confirmation  */
 .co-confirm{text-align:center;padding:40px 0}
 .co-confirm-icon{width:64px;height:64px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
 .co-confirm-icon svg{width:32px;height:32px;color:#fff}
@@ -146,7 +158,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 .co-continue-btn{display:inline-block;background:#000;color:#fff;padding:14px 32px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:6px}
 .co-whatsapp-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;padding:14px 24px;font-size:13px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;margin-right:10px;margin-bottom:10px;border:none;cursor:pointer}
 
-/* &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; Trust &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; */
+/*  Trust  */
 .co-trust{margin-top:24px;display:flex;flex-direction:column;gap:8px}
 .co-trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:#888}
 .co-trust-item svg{width:14px;height:14px;flex-shrink:0}
@@ -169,21 +181,21 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
 <div class="co-layout">
 
-  <!-- &#8218;&#238;&#196;&#8218;&#238;&#196; LEFT: Main form area &#8218;&#238;&#196;&#8218;&#238;&#196; -->
+  <!--  LEFT: Main form area  -->
   <main class="co-main">
 
     <!-- Breadcrumb -->
     <div class="co-breadcrumb" id="co-breadcrumb">
       <a href="cart.html">Cart</a>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span class="active" id="bc-contact">Contact</span>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span id="bc-shipping">Shipping</span>
-      <span class="co-breadcrumb-sep">&#8218;&#196;&#8747;</span>
+      <span class="co-breadcrumb-sep">&#8250;</span>
       <span id="bc-payment">Payment</span>
     </div>
 
-    <!-- &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; STEP 1: Contact & Address &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; -->
+    <!--  STEP 1: Contact & Address  -->
     <div class="co-step active" id="step-contact">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-field" id="f-phone">
@@ -245,7 +257,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </a>
     </div>
 
-    <!-- &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; STEP 2: Shipping &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; -->
+    <!--  STEP 2: Shipping  -->
     <div class="co-step" id="step-shipping">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-address-box" id="contact-box">
@@ -285,7 +297,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </span>
     </div>
 
-    <!-- &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; STEP 3: Payment &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; -->
+    <!--  STEP 3: Payment  -->
     <div class="co-step" id="step-payment">
       <h2 class="co-section-title">Contact</h2>
       <div class="co-address-box">
@@ -312,63 +324,32 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
       <h2 class="co-section-title" style="margin-top:20px">Payment</h2>
       <div class="co-pay-opts">
+        <!-- Razorpay -->
+        <div class="co-pay-opt selected" data-pay="card" onclick="selectPay('card')">
+          <input type="radio" name="payment" value="card" checked>
+          <span class="co-pay-opt-label">Pay Online</span>
+          <div class="co-pay-opt-icons">
+            <span class="pay-badge">UPI</span>
+            <span class="pay-badge">Cards</span>
+            <span class="pay-badge">NetBanking</span>
+          </div>
+        </div>
+        <div class="co-pay-panel open" id="panel-card">
+          <p>Pay via UPI, Cards, Net Banking or Wallets &#8212; powered by Razorpay. 100% secure.</p>
+        </div>
+
         <!-- COD -->
-        <div class="co-pay-opt selected" data-pay="cod" onclick="selectPay('cod')">
-          <input type="radio" name="payment" value="cod" checked>
+        <div class="co-pay-opt" data-pay="cod" onclick="selectPay('cod')">
+          <input type="radio" name="payment" value="cod">
           <span class="co-pay-opt-label">Cash on Delivery</span>
           <div class="co-pay-opt-icons"><span class="pay-badge">COD</span></div>
         </div>
-        <div class="co-pay-panel open" id="panel-cod">
+        <div class="co-pay-panel" id="panel-cod">
           <p>Pay with cash when your order arrives. No extra charges.</p>
-        </div>
-
-        <!-- UPI -->
-        <div class="co-pay-opt" data-pay="upi" onclick="selectPay('upi')">
-          <input type="radio" name="payment" value="upi">
-          <span class="co-pay-opt-label">UPI</span>
-          <div class="co-pay-opt-icons">
-            <span class="pay-badge">GPay</span>
-            <span class="pay-badge">PhonePe</span>
-            <span class="pay-badge">Paytm</span>
-          </div>
-        </div>
-        <div class="co-pay-panel" id="panel-upi">
-          <p>Pay via UPI. Open any UPI app and pay to:</p>
-          <div class="upi-id-display" id="upi-id-display">ravynn@upi</div>
-          <p style="font-size:12px;color:#888">After payment, take a screenshot and WhatsApp it to us for order confirmation.</p>
-          <button class="upi-copy-btn" onclick="copyUPI()">Copy UPI ID</button>
-        </div>
-
-        <!-- Card / Netbanking via Razorpay -->
-        <div class="co-pay-opt" data-pay="card" onclick="selectPay('card')">
-          <input type="radio" name="payment" value="card">
-          <span class="co-pay-opt-label">Card / Net Banking</span>
-          <div class="co-pay-opt-icons">
-            <span class="pay-badge">Visa</span>
-            <span class="pay-badge">MC</span>
-            <span class="pay-badge">Rupay</span>
-          </div>
-        </div>
-        <div class="co-pay-panel" id="panel-card">
-          <p>Secure payment via Razorpay. You'll be redirected to complete payment.</p>
-        </div>
-
-        <!-- PhonePe -->
-        <div class="co-pay-opt" data-pay="phonepe" onclick="selectPay('phonepe')">
-          <input type="radio" name="payment" value="phonepe">
-          <span class="co-pay-opt-label">PhonePe</span>
-          <div class="co-pay-opt-icons">
-            <span class="pay-badge" style="background:#5f259f;color:#fff">PhonePe</span>
-            <span class="pay-badge">UPI</span>
-            <span class="pay-badge">Cards</span>
-          </div>
-        </div>
-        <div class="co-pay-panel" id="panel-phonepe">
-          <p>Pay securely via PhonePe &#8212; UPI, cards, net banking &amp; wallets. You'll be redirected to complete payment.</p>
         </div>
       </div>
 
-      <button class="co-cta" id="btn-place-order">Pay &amp; Place Order</button>
+      <button class="co-cta" id="btn-place-order">Pay with Razorpay &#8594;</button>
       <span class="co-back-link" onclick="goTo(2)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         Return to shipping
@@ -381,7 +362,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Easy 7-day returns
+          Easy 7-day exchange
         </div>
         <div class="co-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -390,7 +371,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
       </div>
     </div>
 
-    <!-- &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; STEP 4: Confirmation &#8218;&#238;&#196;&#8218;&#238;&#196;&#8218;&#238;&#196; -->
+    <!--  STEP 4: Confirmation  -->
     <div class="co-step" id="step-confirm">
       <div class="co-confirm">
         <div class="co-confirm-icon">
@@ -412,7 +393,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
 
   </main>
 
-  <!-- &#8218;&#238;&#196;&#8218;&#238;&#196; RIGHT: Order Summary &#8218;&#238;&#196;&#8218;&#238;&#196; -->
+  <!--  RIGHT: Order Summary  -->
   <aside class="co-sidebar">
     <!-- Mobile toggle -->
     <button class="co-summary-toggle" id="summary-toggle" onclick="toggleSummary()">
@@ -448,24 +429,32 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         <span>Total</span>
         <span id="sum-total">&#8377;0</span>
       </div>
-      <div style="font-size:11px;color:#aaa;margin-top:6px">Including all taxes</div>
+      <div id="sum-savings-note"></div>
+      <div style="font-size:11px;color:#aaa;margin-top:8px">Including all taxes</div>
+      <div class="co-upsell-wrap" id="co-upsell-wrap" style="display:none">
+        <hr class="co-divider" style="margin-top:20px">
+        <div class="co-upsell-title">Complete the look</div>
+        <div id="co-upsell-items"></div>
+      </div>
     </div>
   </aside>
 </div>
 
 <script>
 //  Config 
-const WA_NUMBER = '918512045784'; // apna number yahan
+const WA_NUMBER = '919220565322'; // apna number yahan
 const UPI_ID    = 'ravynn@upi';   // apna UPI ID yahan
-const RAZORPAY_KEY = '';          // Razorpay key (optional)
-const PHONEPE_FUNCTION_URL = '/api/initiate-payment';
+const RAZORPAY_KEY = 'rzp_live_Tp1eGSspVzsUwx';
 let VALID_COUPONS = {
-  'WELCOME10':  { pct: 10, label: '10% off' },
-  'RAVYNN15':   { pct: 15, label: '15% off' },
-  'TRYSNITCH5': { pct: 5,  label: '5% off'  },
+  'WELCOME10':  { pct: 10, label: '10% off', first_order_only: true },
+  'FIRSTORDER': { pct: 10, label: '10% off', first_order_only: true },
   'RAVYNN10':   { pct: 10, label: '10% off' },
+  'RAVYNN15':   { pct: 15, label: '15% off', not_first_order: true },
+  'RAVYNN20':   { pct: 20, label: '20% off', not_first_order: true },
+  'TRYRAVYNN5': { pct: 5,  label: '5% off'  },
+  'TRYSNITCH5': { pct: 5,  label: '5% off'  },
   'DIWALI50':   { pct: 50, label: '50% off' },
-  'RAVYNN20':   { pct: 20, label: '20% off' },
+  'FLAT50':     { fixed: 50, label: String.fromCharCode(8377) + '50 off' },
 };
 // Load coupons from admin settings (overrides/extends hardcoded list)
 fetch('/api/admin-settings?key=coupons').then(r => r.json()).then(d => {
@@ -485,7 +474,7 @@ fetch('/api/shipping').then(r => r.json()).then(c => { SHIP_CONFIG = c; renderSi
 
 function getShipRate(method, subtotal) {
   const t = SHIP_CONFIG.free_threshold ?? 0;
-  if (t === 0 || subtotal >= t) return 0;
+  if (t > 0 && subtotal >= t) return 0;
   return method === 'express' ? (SHIP_CONFIG.express_rate ?? 99) : (SHIP_CONFIG.standard_rate ?? 0);
 }
 
@@ -517,39 +506,45 @@ function renderSidebar() {
   const { sub, disc, ship, total } = calcTotals();
 
   // Items
-  document.getElementById('sidebar-items').innerHTML = cartItems.map(item => `
-    <div class="co-order-item">
-      <div class="co-item-img">
-        <img src="${item.image}" alt="${item.title}" loading="lazy">
-        <span class="co-item-qty-badge">${item.qty}</span>
-      </div>
-      <div class="co-item-details">
-        <div class="co-item-name">${item.title.replace(/^RAVYNN\s+/,'')}</div>
-        <div class="co-item-variant">Size: ${item.size}</div>
-      </div>
-      <div class="co-item-price">${fmt(item.price * item.qty)}</div>
-    </div>
-  `).join('');
+  document.getElementById('sidebar-items').innerHTML = cartItems.map(item => {
+    const shortName = item.title.replace(/^RAVYNN\s+/,'').split(' ').slice(0,7).join(' ');
+    return '<div class="co-order-item">' +
+      '<div class="co-item-img">' +
+        '<img src="' + item.image + '" alt="" loading="lazy">' +
+        '<span class="co-item-qty-badge">' + item.qty + '</span>' +
+      '</div>' +
+      '<div class="co-item-details">' +
+        '<div class="co-item-name">' + shortName + '</div>' +
+        '<div class="co-item-variant">Size: ' + item.size + '</div>' +
+      '</div>' +
+      '<div class="co-item-price">' + fmt(item.price * item.qty) + '</div>' +
+    '</div>';
+  }).join('');
 
   // Free shipping bar
   const bar = document.getElementById('sidebar-ship-bar');
   const threshold = SHIP_CONFIG.free_threshold ?? 0;
   if (threshold > 0 && sub < threshold && sub > 0) {
     bar.style.display = 'block';
-    bar.textContent = `\uF8FF\u00FC\u00F6\u00F6 Add ${fmt(threshold - sub)} more for free shipping!`;
+    bar.textContent = String.fromCodePoint(128666) + ' Add ' + fmt(threshold - sub) + ' more for free shipping!';
   } else if (threshold === 0 || sub >= threshold) {
     bar.style.display = 'block';
-    bar.textContent = '\uF8FF\u00FC\u00E9\u00E2 Free shipping on your order!';
+    bar.textContent = String.fromCodePoint(127881) + ' Free shipping on your order!';
     bar.style.background = '#e8f5e9';
   } else { bar.style.display = 'none'; }
 
   // Summary rows
   document.getElementById('sum-subtotal').textContent = fmt(sub);
+  var savNote = document.getElementById('sum-savings-note');
   if (disc > 0) {
     document.getElementById('sum-discount-row').style.display = 'flex';
     document.getElementById('sum-discount-label').textContent = appliedCoupon.label;
     document.getElementById('sum-discount-val').textContent = '\u2212' + fmt(disc);
-  } else { document.getElementById('sum-discount-row').style.display = 'none'; }
+    if (savNote) { savNote.style.display = 'block'; savNote.textContent = String.fromCharCode(10003) + ' You\'re saving ' + fmt(disc) + ' on this order!'; }
+  } else {
+    document.getElementById('sum-discount-row').style.display = 'none';
+    if (savNote) savNote.style.display = 'none';
+  }
 
   document.getElementById('sum-shipping').innerHTML = ship === 0
     ? '<span class="co-free">FREE</span>'
@@ -562,7 +557,58 @@ function renderSidebar() {
   if (stdEl) { const r = getShipRate('standard', sub); stdEl.innerHTML = r === 0 ? '<span style="color:#2d7a3e">FREE</span>' : fmt(r); }
 }
 
-//  Step navigation 
+// -- UPSELL / COMPLETE THE LOOK --
+var _upsellProds = [];
+(function() {
+  function tryFetch(url, key) {
+    fetch(url).then(function(r){return r.json();}).then(function(d){
+      _upsellProds = d[key] || [];
+      renderUpsell();
+    }).catch(function(){});
+  }
+  tryFetch('/api/products', 'products');
+})();
+
+function renderUpsell() {
+  var wrap = document.getElementById('co-upsell-wrap');
+  var itemsEl = document.getElementById('co-upsell-items');
+  if (!wrap || !itemsEl || !_upsellProds.length) return;
+  var inCart = cartItems.map(function(i){ return i.handle; });
+  var recs = _upsellProds.filter(function(p){ return inCart.indexOf(p.handle) === -1; }).slice(0, 2);
+  if (!recs.length) { wrap.style.display = 'none'; return; }
+  itemsEl.innerHTML = recs.map(function(p) {
+    var name = (p.title || '').replace(/^RAVYNN\s+/, '').split(' ').slice(0, 6).join(' ');
+    var img = (p.images && p.images[0]) ? p.images[0] : '';
+    var h = (p.handle || '').replace(/'/g, '');
+    var t = (p.title || '').replace(/'/g, '').replace(/"/g, '');
+    return '<div class="co-upsell-item">' +
+      '<img class="co-upsell-img" src="' + img + '" alt="" loading="lazy">' +
+      '<div class="co-upsell-info">' +
+        '<div class="co-upsell-name">' + name + '</div>' +
+        '<div class="co-upsell-price">' + fmt(p.price) + '</div>' +
+      '</div>' +
+      '<button class="co-upsell-add" id="uadd-' + h + '" onclick="upsellAdd(\'' + h + '\',\'' + img + '\',\'' + t + '\',' + p.price + ')">+ Add</button>' +
+    '</div>';
+  }).join('');
+  wrap.style.display = 'block';
+}
+
+function upsellAdd(handle, image, title, price) {
+  var btn = document.getElementById('uadd-' + handle);
+  if (btn && btn.classList.contains('added')) return;
+  try {
+    var cart = JSON.parse(localStorage.getItem('ravynn_cart') || '[]');
+    var existing = cart.find(function(i){ return i.handle === handle && i.size === 'M'; });
+    if (existing) { existing.qty++; }
+    else { cart.push({handle: handle, image: image, title: title, size: 'M', price: Number(price), qty: 1}); }
+    localStorage.setItem('ravynn_cart', JSON.stringify(cart));
+    cartItems = cart;
+    if (btn) { btn.textContent = String.fromCharCode(10003) + ' Added'; btn.classList.add('added'); }
+    renderSidebar();
+  } catch(e) {}
+}
+
+//  Step navigation
 function goTo(step) {
   document.getElementById('step-contact').classList.remove('active');
   document.getElementById('step-shipping').classList.remove('active');
@@ -649,9 +695,7 @@ function selectPay(type) {
   // Update CTA label
   const cta = document.getElementById('btn-place-order');
   if (type === 'cod')  cta.textContent = 'Place Order \u2014 Cash on Delivery';
-  if (type === 'upi')      cta.textContent = 'I have paid via UPI';
-  if (type === 'phonepe')  cta.textContent = 'Pay with PhonePe \u2192';
-  if (type === 'card') cta.textContent = 'Pay with Card / Net Banking';
+  if (type === 'card') cta.innerHTML   = 'Pay with Razorpay &#8594;';
 }
 
 //  UPI copy 
@@ -671,7 +715,7 @@ function showCouponPopup(coupon, savedAmt) {
   pop.id = 'coupon-popup';
   pop.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:16px;padding:28px 32px;text-align:center;z-index:9999;box-shadow:0 8px 40px rgba(0,0,0,.18);min-width:260px;animation:popIn .25s ease';
   pop.innerHTML = `<style>@keyframes popIn{from{transform:translate(-50%,-50%) scale(.85);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}</style>
-  <div style="font-size:36px;margin-bottom:8px">\uF8FF\u00FC\u00E9\u00E2</div>
+  <div style="font-size:36px;margin-bottom:8px">&#127881;</div>
   <div style="font-weight:800;font-size:15px;letter-spacing:.5px;color:#000;margin-bottom:4px">${coupon.code} applied!</div>
   <div style="font-size:28px;font-weight:800;color:#2d7a3e;margin:8px 0">You saved \u20B9${savedAmt}</div>
   <div style="font-size:12px;color:#888;margin-bottom:16px">with this coupon</div>
@@ -740,7 +784,7 @@ function buildWAMsg(payMethod) {
 
   return {
     orderNum,
-    msg: `\uF8FF\u00FC\u00F5\u00E7\u00D4\u220F\u00E8 *New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
+    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
   };
 }
 
@@ -805,6 +849,15 @@ async function showConfirmation(orderNum, payMethod) {
   };
 
   localStorage.removeItem('ravynn_cart');
+  sessionStorage.removeItem('applied_coupon');
+  // Save customer details for next checkout autofill
+  try {
+    localStorage.setItem('ravynn_customer', JSON.stringify({ phone, name, addr1, addr2, city, pin, state }));
+  } catch(e) {}
+  var upsellWrap = document.getElementById('co-upsell-wrap');
+  if (upsellWrap) upsellWrap.style.display = 'none';
+  var sidebar = document.querySelector('.co-sidebar');
+  if (sidebar) sidebar.style.display = 'none';
   goTo(4);
 }
 
@@ -842,8 +895,33 @@ function toggleSummary() {
 }
 
 //  Event listeners 
-document.getElementById('btn-to-shipping').addEventListener('click', () => {
+document.getElementById('btn-to-shipping').addEventListener('click', async () => {
   if (!validateContact()) return;
+  // Check first-order coupon restriction via backend
+  if (appliedCoupon && appliedCoupon.not_first_order) {
+    const phone = document.getElementById('inp-phone').value.trim().replace(/\D/g, '').slice(-10);
+    try {
+      const chk = await fetch('/api/check-returning-customer?phone=' + phone).then(r => r.json());
+      if (!chk.is_returning) {
+        appliedCoupon = null;
+        var _ci = document.getElementById('co-coupon'); if (_ci) _ci.value = '';
+        var _cm = document.getElementById('co-coupon-msg');
+        if (_cm) { _cm.className = 'co-coupon-msg err'; _cm.textContent = 'This coupon is valid for returning customers only.'; }
+        sessionStorage.removeItem('applied_coupon');
+        renderSidebar();
+        return;
+      }
+    } catch(e) {
+      // Block on error to prevent misuse
+      appliedCoupon = null;
+      var _ci2 = document.getElementById('co-coupon'); if (_ci2) _ci2.value = '';
+      var _cm2 = document.getElementById('co-coupon-msg');
+      if (_cm2) { _cm2.className = 'co-coupon-msg err'; _cm2.textContent = 'Could not verify coupon eligibility. Please try again.'; }
+      sessionStorage.removeItem('applied_coupon');
+      renderSidebar();
+      return;
+    }
+  }
   fillSummaries();
   goTo(2);
 });
@@ -851,8 +929,6 @@ document.getElementById('btn-to-shipping').addEventListener('click', () => {
 document.getElementById('btn-to-payment').addEventListener('click', () => {
   selectedShipping = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   fillShippingSummary();
-  // Update UPI ID
-  document.getElementById('upi-id-display').textContent = UPI_ID;
   goTo(3);
 });
 
@@ -869,72 +945,9 @@ document.getElementById('btn-place-order').addEventListener('click', async () =>
     return;
   }
 
-  if (payMethod === 'upi') {
-    const { total } = calcTotals();
-    const upiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=RAVYNN&am=${total}&cu=INR&tn=Order ${orderNum}`;
-    window.open(upiLink, '_blank');
-    showConfirmation(orderNum, payMethod);
-    return;
-  }
-
-  if (payMethod === 'phonepe') {
-    await initiatePhonePe(orderNum, msg);
-    return;
-  }
-
   showConfirmation(orderNum, payMethod);
 });
 
-async function initiatePhonePe(orderNum, msg) {
-  const btn = document.getElementById('btn-place-order');
-  btn.disabled = true;
-  btn.textContent = 'Redirecting to PhonePe\u2026';
-
-  const { total } = calcTotals();
-  const name  = document.getElementById('inp-fname').value.trim() + ' ' + document.getElementById('inp-lname').value.trim();
-  const phone = document.getElementById('inp-phone').value.trim();
-
-  // Save pending order first
-  await saveOrderToFirebase({
-    orderId: orderNum,
-    paymentMethod: 'phonepe',
-    paymentStatus: 'pending',
-    status: 'pending',
-    customer: {
-      name, phone,
-      email: document.getElementById('inp-email').value.trim(),
-      address: document.getElementById('inp-addr1').value.trim() + (document.getElementById('inp-addr2').value ? ', ' + document.getElementById('inp-addr2').value : ''),
-      city: document.getElementById('inp-city').value.trim(),
-      state: document.getElementById('inp-state').value,
-      pincode: document.getElementById('inp-pincode').value.trim()
-    },
-    items: cartItems,
-    ...calcTotals(),
-    shippingMethod: selectedShipping,
-    coupon: appliedCoupon?.code || null
-  });
-
-  try {
-    const res = await fetch(PHONEPE_FUNCTION_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: total, orderId: orderNum, phone, name })
-    });
-    const data = await res.json();
-
-    if (data.redirectUrl) {
-      window.location.href = data.redirectUrl;
-    } else {
-      alert('PhonePe error: ' + (data.error || 'Unknown error. Try another payment method.'));
-      btn.disabled = false;
-      btn.textContent = 'Pay with PhonePe \u2192';
-    }
-  } catch (e) {
-    alert('Could not connect to payment gateway. Try again or use another method.');
-    btn.disabled = false;
-    btn.textContent = 'Pay with PhonePe \u2192';
-  }
-}
 
 document.getElementById('co-apply-btn').addEventListener('click', applyCoupon);
 document.getElementById('co-coupon').addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
@@ -957,12 +970,42 @@ document.getElementById('inp-pincode').addEventListener('blur', async function()
   } catch {}
 });
 
-//  Init 
+//  Init
 cartItems = getCart();
 if (!cartItems.length) {
   // Redirect to cart if empty
   window.location.href = 'cart.html';
 }
+// Autofill saved customer details
+try {
+  var _saved = JSON.parse(localStorage.getItem('ravynn_customer') || 'null');
+  if (_saved) {
+    var _set = function(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; };
+    _set('inp-phone', _saved.phone);
+    _set('inp-name', _saved.name);
+    _set('inp-addr1', _saved.addr1);
+    _set('inp-addr2', _saved.addr2);
+    _set('inp-pincode', _saved.pin);
+    _set('inp-city', _saved.city);
+    var stateEl = document.getElementById('inp-state');
+    if (stateEl && _saved.state) {
+      for (var _i = 0; _i < stateEl.options.length; _i++) {
+        if (stateEl.options[_i].text === _saved.state) { stateEl.selectedIndex = _i; break; }
+      }
+    }
+  }
+} catch(e) {}
+// Auto-apply coupon saved from cart page
+try {
+  var _stored = JSON.parse(sessionStorage.getItem('applied_coupon') || 'null');
+  if (_stored && _stored.code && VALID_COUPONS[_stored.code]) {
+    appliedCoupon = Object.assign({}, VALID_COUPONS[_stored.code], { code: _stored.code });
+    var _inp = document.getElementById('co-coupon');
+    var _msg = document.getElementById('co-coupon-msg');
+    if (_inp) _inp.value = _stored.code;
+    if (_msg) { _msg.className = 'co-coupon-msg ok'; _msg.textContent = String.fromCharCode(10003) + ' ' + appliedCoupon.label + ' applied!'; }
+  }
+} catch(e) {}
 renderSidebar();
 // Open sidebar by default on desktop
 if (window.innerWidth > 900) {
@@ -989,11 +1032,6 @@ if (FIREBASE_CONFIG.projectId) {
 }
 </script>
 
-<!-- Razorpay (loads only if key set) -->
-<script>
-if (typeof RAZORPAY_KEY !== 'undefined' && RAZORPAY_KEY) {
-  const s = document.createElement('script'); s.src = 'https://checkout.razorpay.com/v1/checkout.js'; document.head.appendChild(s);
-}
-</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>
