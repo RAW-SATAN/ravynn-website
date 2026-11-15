@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1870549064107037');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script src="assets/analytics-tracker.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account &mdash; RAVYNN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111;font-size:14px}
+.announcement-bar{background:#000;color:#fff;text-align:center;font-size:12px;font-weight:500;letter-spacing:.5px;padding:10px 40px}
+.site-header{border-bottom:1px solid #e8e8e8;height:60px;display:flex;align-items:center;justify-content:center;position:relative;padding:0 20px}
+.header-left{position:absolute;left:20px;display:flex;align-items:center}
+.header-right{position:absolute;right:20px;display:flex;gap:4px}
+.header-menu-btn,.header-icon-btn{background:none;border:none;cursor:pointer;padding:6px;display:flex;align-items:center;text-decoration:none;color:#000}
+.header-menu-btn svg,.header-icon-btn svg{width:22px;height:22px}
+
+/* Auth (Login / Sign Up) */
+.auth-wrap{max-width:440px;margin:48px auto;padding:0 20px 80px}
+.auth-card{border:1.5px solid #e8e8e8;border-radius:12px;overflow:hidden}
+.auth-tabs{display:flex;border-bottom:1.5px solid #e8e8e8}
+.auth-tab{flex:1;background:none;border:none;padding:14px;font-size:13px;font-weight:700;cursor:pointer;color:#999;font-family:inherit;letter-spacing:.3px;transition:all .15s;border-bottom:2.5px solid transparent;margin-bottom:-1.5px}
+.auth-tab.active{color:#000;border-bottom-color:#000;background:#fafafa}
+.auth-body{padding:24px 24px 28px}
+.auth-icon{width:48px;height:48px;background:#f5f5f5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.auth-title{font-size:18px;font-weight:800;letter-spacing:.3px;margin-bottom:5px}
+.auth-sub{font-size:13px;color:#888;margin-bottom:22px;line-height:1.6}
+.auth-panel{display:none}
+.auth-panel.active{display:block}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:7px}
+.field input{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:13px 14px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.field input:focus{border-color:#000}
+.btn-primary{width:100%;background:#000;color:#fff;border:none;padding:14px;font-size:14px;font-weight:700;letter-spacing:.5px;cursor:pointer;border-radius:8px;transition:background .2s;font-family:inherit}
+.btn-primary:hover{background:#222}
+.btn-primary:disabled{background:#aaa;cursor:not-allowed}
+.form-error{color:#e53e3e;font-size:13px;margin-top:12px;text-align:center;display:none}
+.form-success{color:#2e7d32;font-size:13px;margin-top:12px;text-align:center;display:none}
+.auth-link{font-size:12px;color:#777;text-align:center;margin-top:14px}
+.auth-link a{color:#000;font-weight:700;text-decoration:none;cursor:pointer}
+.auth-link a:hover{text-decoration:underline}
+.auth-divider{border:none;border-top:1px solid #f0f0f0;margin:18px 0}
+
+/* Dashboard */
+.dashboard{display:none;max-width:680px;margin:0 auto;padding:0 20px 100px}
+.dash-header{padding:24px 0 0;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #e8e8e8;padding-bottom:20px;margin-bottom:0}
+.dash-greet{font-size:16px;font-weight:800;margin-bottom:3px}
+.dash-sub{font-size:13px;color:#888}
+.btn-logout{background:none;border:1.5px solid #e0e0e0;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .2s;font-family:inherit;white-space:nowrap}
+.btn-logout:hover{border-color:#000;color:#000}
+
+/* Page loading */
+.page-loading{text-align:center;padding:100px 20px;color:#aaa;font-size:13px}
+.spinner{width:28px;height:28px;border:3px solid #eee;border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Tabs */
+.tabs{display:flex;border-bottom:1.5px solid #e8e8e8;margin:24px 0 0}
+.tab{flex:1;background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 4px;font-size:13px;font-weight:600;cursor:pointer;color:#888;transition:all .15s;letter-spacing:.2px;font-family:inherit;margin-bottom:-1.5px}
+.tab.active{color:#000;border-bottom-color:#000}
+.tab-panel{display:none;padding-top:24px}
+.tab-panel.active{display:block}
+
+/* Order cards */
+.order-card{border:1.5px solid #e8e8e8;border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
+.order-card:hover{border-color:#bbb}
+.oc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.oc-id{font-size:13px;font-weight:700;letter-spacing:.3px;margin-bottom:2px}
+.oc-date{font-size:12px;color:#999}
+.oc-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.status-badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.s-pending{background:#fff3cd;color:#856404}
+.s-confirmed{background:#d1e7dd;color:#0a3622}
+.s-shipped{background:#cfe2ff;color:#084298}
+.s-delivered{background:#d1e7dd;color:#0a3622}
+.s-cancelled{background:#f8d7da;color:#842029}
+.oc-arrow{color:#ccc;font-size:16px;line-height:1;transition:transform .2s}
+.order-card.expanded .oc-arrow{transform:rotate(90deg)}
+.oc-summary{margin-top:10px;font-size:12px;color:#777;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oc-total{margin-top:6px;font-size:13px;font-weight:700}
+
+/* Order detail */
+.order-detail{display:none;border:1.5px solid #111;border-radius:10px;padding:18px 16px;margin-bottom:10px;margin-top:-2px;border-top-left-radius:0;border-top-right-radius:0;border-top:none}
+.order-detail.open{display:block}
+.expanded{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:#111;border-color:#111}
+.od-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#aaa;margin-bottom:10px}
+
+/* Timeline */
+.timeline{display:flex;margin-bottom:4px}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.tl-step:not(:last-child)::after{content:'';position:absolute;top:11px;left:calc(50% + 12px);right:calc(-50% + 12px);height:2px;background:#e0e0e0;z-index:0}
+.tl-step.done:not(:last-child)::after{background:#000}
+.tl-dot{width:24px;height:24px;border-radius:50%;background:#e0e0e0;border:2px solid #e0e0e0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;margin-bottom:6px;flex-shrink:0}
+.tl-step.done .tl-dot{background:#000;border-color:#000}
+.tl-step.current .tl-dot{background:#fff;border:2.5px solid #000;box-shadow:0 0 0 3px rgba(0,0,0,.1)}
+.tl-lbl{font-size:9px;font-weight:600;color:#bbb;text-align:center;line-height:1.3}
+.tl-step.done .tl-lbl{color:#555}
+.tl-step.current .tl-lbl{color:#000;font-weight:700}
+
+/* Items table */
+.od-items{margin-bottom:14px}
+.od-item{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid #f3f3f3}
+.od-item:last-child{border-bottom:none}
+.od-item-n{flex:1;color:#333;margin-right:10px}
+.od-item-p{font-weight:600}
+.od-totals{background:#f8f8f8;border-radius:8px;padding:12px 14px;margin-bottom:14px}
+.od-tot-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.od-tot-row.grand{font-weight:700;font-size:14px;border-top:1px solid #e0e0e0;margin-top:6px;padding-top:8px}
+.od-disc{color:#2e7d32}
+.od-addr{font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;padding:12px 14px;border:1px solid #f0f0f0;border-radius:8px}
+.od-track{background:#eff6ff;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px}
+.od-cancelled{background:#fff0f0;border:1px solid #f8d7da;border-radius:8px;padding:12px 16px;font-size:13px;font-weight:600;color:#842029;text-align:center;margin-bottom:14px}
+
+/* Action buttons */
+.od-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.btn-action{border:1.5px solid #e0e0e0;background:#fff;padding:10px 18px;font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;transition:all .2s;font-family:inherit;letter-spacing:.2px}
+.btn-action:hover{border-color:#000;color:#000}
+.btn-cancel{border-color:#fcc;color:#c0392b}
+.btn-cancel:hover{border-color:#c0392b;background:#fff5f5}
+
+/* Wallet */
+.wallet-card{background:#000;color:#fff;border-radius:12px;padding:24px 20px;margin-bottom:20px}
+.wc-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;opacity:.6;margin-bottom:8px}
+.wc-amount{font-size:38px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
+.wc-sub{font-size:12px;opacity:.5}
+.section-title{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#888;margin-bottom:12px}
+.txn-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #f0f0f0}
+.txn-item:last-child{border-bottom:none}
+.txn-desc{font-size:13px;color:#333}
+.txn-date{font-size:11px;color:#bbb;margin-top:2px}
+.txn-amt{font-size:14px;font-weight:700}
+.txn-credit{color:#2e7d32}
+.txn-debit{color:#c62828}
+
+/* Profile */
+.pf-card{border:1.5px solid #e8e8e8;border-radius:10px;padding:16px;margin-bottom:10px}
+.pf-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#bbb;margin-bottom:5px}
+.pf-val{font-size:14px;font-weight:500;line-height:1.6}
+.pf-stats{background:#f8f8f8;border-radius:10px;padding:14px 16px;font-size:13px;color:#777;margin-bottom:16px}
+.pf-stat{display:inline-block;margin-right:20px;margin-bottom:4px}
+.pf-stat strong{color:#111;font-size:15px;font-weight:700}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:opacity .2s}
+.btn-wa:hover{opacity:.9}
+.pf-edit-btn{background:none;border:1.5px solid #e0e0e0;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;color:#555;font-family:inherit;transition:all .2s;margin-bottom:14px}
+.pf-edit-btn:hover{border-color:#000;color:#000}
+.pf-form{display:none;border:1.5px solid #e8e8e8;border-radius:10px;padding:18px;margin-bottom:14px}
+.pf-form.open{display:block}
+.pf-form label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.pf-form label:first-child{margin-top:0}
+.pf-form input,.pf-form select{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 12px;font-size:13px;font-family:inherit;box-sizing:border-box}
+.pf-form input:focus,.pf-form select:focus{outline:none;border-color:#000}
+.pf-save-btn{background:#000;color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:16px;letter-spacing:.5px}
+.pf-save-btn:disabled{background:#aaa}
+.pf-save-msg{font-size:12px;color:#2e7d32;margin-top:8px;display:none}
+
+/* Change password */
+.chpw-form{display:none;border:1.5px solid #e8e8e8;border-radius:10px;padding:18px;margin-bottom:14px}
+.chpw-form.open{display:block}
+.chpw-form label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.chpw-form label:first-child{margin-top:0}
+.chpw-form input{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 12px;font-size:13px;font-family:inherit;box-sizing:border-box}
+.chpw-form input:focus{outline:none;border-color:#000}
+.chpw-save-btn{background:#000;color:#fff;border:none;border-radius:7px;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:16px;letter-spacing:.5px}
+.chpw-save-btn:disabled{background:#aaa}
+.chpw-msg{font-size:12px;margin-top:8px;display:none}
+
+/* Empty / loading states */
+.empty-state{text-align:center;padding:50px 20px}
+.empty-state svg{stroke:#ddd;margin-bottom:16px}
+.empty-state p{font-size:14px;color:#aaa;margin-bottom:16px}
+.empty-state a{color:#000;text-decoration:none;font-weight:700}
+.loading{text-align:center;padding:50px 20px;color:#aaa;font-size:13px}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:26px 22px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:800;margin-bottom:4px}
+.modal-sub{font-size:13px;color:#888;margin-bottom:20px}
+.mfield{margin-bottom:14px}
+.mfield label{display:block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555;margin-bottom:6px}
+.mfield select,.mfield textarea{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;resize:none;background:#fff}
+.mfield select:focus,.mfield textarea:focus{border-color:#000}
+.modal-actions{display:flex;gap:10px;margin-top:6px}
+.modal-actions .btn-action{flex:1;text-align:center;padding:11px}
+.modal-actions .btn-primary{flex:1;width:auto;padding:11px}
+.modal-success{text-align:center;padding:8px 0}
+.success-icon{width:56px;height:56px;background:#f0fff4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:2px solid #c3e6cb}
+.modal-success h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.modal-success p{font-size:13px;color:#777;margin-bottom:20px;line-height:1.6}
+
+/* Bottom nav */
+@media(max-width:767px){
+  .mobile-bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8e8e8;z-index:100;height:60px}
+  .mobile-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:#888;font-size:9px;font-weight:600;letter-spacing:.5px;gap:4px}
+  .mobile-nav-item svg{width:20px;height:20px}
+  .mobile-nav-item.active{color:#000}
+  .mobile-nav-center{background:#000;color:#fff;border-radius:50%;width:44px;height:44px;margin-top:-22px;flex:none;font-size:8px;font-weight:800;letter-spacing:1px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+}
+@media(min-width:768px){.mobile-bottom-nav{display:none}}
+
+.wa-float{position:fixed;bottom:80px;right:20px;z-index:500}
+.wa-float a{display:flex;align-items:center;justify-content:center;width:50px;height:50px;background:#25D366;border-radius:50%;box-shadow:0 4px 14px rgba(37,211,102,.4);text-decoration:none;transition:transform .2s}
+.wa-float a:hover{transform:scale(1.1)}
+@media(min-width:768px){.wa-float{bottom:30px}}
+</style>
+</head>
+<body>
+
+<div class="announcement-bar">FREE SHIPPING ON EVERY ORDER &nbsp;|&nbsp; USE CODE: <strong>WELCOME10</strong> FOR 10% OFF YOUR FIRST ORDER</div>
+
+<header class="site-header">
+  <div class="header-left">
+    <button class="header-menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+  <a href="index.html">
+    <img src="https://ravynn-2.myshopify.com/cdn/shop/files/ChatGPT_Image_May_27__2026__05_29_39_PM-removebg-preview.png" alt="RAVYNN" style="height:42px;width:auto;display:block">
+  </a>
+  <div class="header-right">
+    <a href="cart.html" class="header-icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+  </div>
+</header>
+
+<!-- PAGE LOADING -->
+<div id="page-loading" class="page-loading">
+  <div class="spinner"></div>
+  Loading...
+</div>
+
+<!-- AUTH (Login / Sign Up) -->
+<div class="auth-wrap" id="auth-wrap" style="display:none">
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="tab-signup-btn" onclick="switchAuthTab('signup')">Create Account</button>
+    </div>
+
+    <!-- Login Panel -->
+    <div class="auth-body">
+      <div class="auth-panel active" id="panel-login">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="auth-title">Welcome back</div>
+        <div class="auth-sub">Login to view your orders, wallet and profile.</div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="l-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="l-pass" placeholder="Your password" autocomplete="current-password">
+        </div>
+        <button class="btn-primary" id="l-btn" onclick="doLogin()">Login</button>
+        <div class="form-error" id="l-error"></div>
+        <div class="auth-link" style="margin-top:10px"><a onclick="showForgot()">Forgot password?</a></div>
+      </div>
+
+      <!-- Sign Up Panel -->
+      <div class="auth-panel" id="panel-signup">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div class="auth-title">Create Account</div>
+        <div class="auth-sub">Join RAVYNN for faster checkout, order tracking and more.</div>
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="s-name" placeholder="Your full name" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="s-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" id="s-phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="s-pass" placeholder="Min. 6 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-primary" id="s-btn" onclick="doSignup()">Create Account</button>
+        <div class="form-error" id="s-error"></div>
+      </div>
+
+      <!-- Forgot Password Panel -->
+      <div class="auth-panel" id="panel-forgot">
+        <div class="auth-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="auth-title">Reset Password</div>
+        <div class="auth-sub">Enter your email and we'll send you a reset link.</div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="f-email" placeholder="you@example.com" inputmode="email">
+        </div>
+        <button class="btn-primary" id="f-btn" onclick="doForgot()">Send Reset Link</button>
+        <div class="form-error" id="f-error"></div>
+        <div class="form-success" id="f-success">Reset link sent! Check your inbox.</div>
+        <div class="auth-link"><a onclick="switchAuthTab('login')">&#8592; Back to Login</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-greet" id="dash-greet">Hello!</div>
+      <div class="dash-sub" id="dash-sub"></div>
+    </div>
+    <button class="btn-logout" id="btn-logout">Sign Out</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="orders">My Orders</button>
+    <button class="tab" data-tab="wallet">Wallet</button>
+    <button class="tab" data-tab="profile">Profile</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-orders">
+    <div id="orders-content"><div class="loading"><div class="spinner"></div>Loading orders...</div></div>
+  </div>
+  <div class="tab-panel" id="tab-wallet">
+    <div id="wallet-content"><div class="loading"><div class="spinner"></div>Loading wallet...</div></div>
+  </div>
+  <div class="tab-panel" id="tab-profile">
+    <div id="profile-content"><div class="loading"><div class="spinner"></div>Loading profile...</div></div>
+  </div>
+</div>
+
+<!-- REQUEST MODAL -->
+<div class="modal-overlay" id="req-modal">
+  <div class="modal" id="modal-inner"></div>
+</div>
+
+<nav class="mobile-bottom-nav">
+  <a href="index.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="collection.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Explore</span>
+  </a>
+  <a href="collection.html?c=new-drops" class="mobile-nav-item mobile-nav-center">
+    <span style="font-size:8px;font-weight:800;letter-spacing:1px">NEW</span>
+  </a>
+  <a href="cart.html" class="mobile-nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span>Cart</span>
+  </a>
+  <a href="customer.html" class="mobile-nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Account</span>
+  </a>
+</nav>
+
+<div class="wa-float">
+  <a href="https://wa.me/919220565322?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20account." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="26" height="26" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>
+  </a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyCLJ4PwOPprXEQ5wfzVWmdzcCe-2dAfM8U",
+  authDomain: "ravynn-orders.firebaseapp.com",
+  projectId: "ravynn-orders",
+  storageBucket: "ravynn-orders.firebasestorage.app",
+  messagingSenderId: "1043146014819",
+  appId: "1:1043146014819:web:b75c63746e60afaadaf856"
+});
+var db = firebase.firestore();
+var auth = firebase.auth();
+
+var STATE = { uid: '', phone: '', name: '', email: '', orders: [], profileName: '', profileAddress: {} };
+
+function rs(n) { return '₹' + Number(n || 0).toLocaleString('en-IN'); }
+function fdate(iso) {
+  if (!iso) return '';
+  try { return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; }
+}
+function sclass(s) {
+  return { pending:'s-pending', confirmed:'s-confirmed', shipped:'s-shipped', delivered:'s-delivered', cancelled:'s-cancelled' }[s] || 's-pending';
+}
+function slabel(s) {
+  return { pending:'Order Placed', confirmed:'Confirmed', shipped:'Shipped', delivered:'Delivered', cancelled:'Cancelled' }[s] || 'Pending';
+}
+function daysSince(iso) {
+  if (!iso) return 999;
+  return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+}
+function showErr(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideErr(id) {
+  var el = document.getElementById(id);
+  if (el) el.style.display = 'none';
+}
+
+// ---- AUTH TABS ----
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.auth-panel').forEach(function(p) { p.classList.remove('active'); });
+  if (tab === 'login') {
+    document.getElementById('tab-login-btn').classList.add('active');
+    document.getElementById('panel-login').classList.add('active');
+  } else if (tab === 'signup') {
+    document.getElementById('tab-signup-btn').classList.add('active');
+    document.getElementById('panel-signup').classList.add('active');
+  }
+}
+function showForgot() {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.auth-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('panel-forgot').classList.add('active');
+}
+
+// ---- LOGIN ----
+document.getElementById('l-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+function doLogin() {
+  var email = (document.getElementById('l-email').value || '').trim();
+  var pass  = (document.getElementById('l-pass').value  || '');
+  hideErr('l-error');
+  if (!email || !pass) { showErr('l-error', 'Please enter your email and password.'); return; }
+  var btn = document.getElementById('l-btn');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+  auth.signInWithEmailAndPassword(email, pass)
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Login';
+      var msg = 'Login failed. Please try again.';
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
+      else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Please try later.';
+      showErr('l-error', msg);
+    });
+}
+
+// ---- SIGN UP ----
+document.getElementById('s-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doSignup(); });
+function doSignup() {
+  var name  = (document.getElementById('s-name').value  || '').trim();
+  var email = (document.getElementById('s-email').value || '').trim();
+  var phone = (document.getElementById('s-phone').value || '').replace(/\D/g,'');
+  var pass  = (document.getElementById('s-pass').value  || '');
+  hideErr('s-error');
+  if (!name)  { showErr('s-error', 'Please enter your name.'); return; }
+  if (!email) { showErr('s-error', 'Please enter your email.'); return; }
+  if (!phone || phone.length !== 10) { showErr('s-error', 'Please enter a valid 10-digit phone number.'); return; }
+  if (pass.length < 6) { showErr('s-error', 'Password must be at least 6 characters.'); return; }
+  var btn = document.getElementById('s-btn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then(function(cred) {
+      var uid = cred.user.uid;
+      fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'register', uid: uid, name: name, email: email, phone: phone }) });
+      return db.collection('customers').doc(uid).set({
+        name: name, email: email, phone: phone,
+        createdAt: new Date().toISOString()
+      });
+    })
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Create Account';
+      var msg = 'Could not create account. Please try again.';
+      if (err.code === 'auth/email-already-in-use') msg = 'This email is already registered. Please login instead.';
+      else if (err.code === 'auth/invalid-email') msg = 'Please enter a valid email address.';
+      else if (err.code === 'auth/weak-password') msg = 'Password is too weak.';
+      showErr('s-error', msg);
+    });
+  // onAuthStateChanged will fire and mount dashboard automatically
+}
+
+// ---- FORGOT PASSWORD ----
+function doForgot() {
+  var email = (document.getElementById('f-email').value || '').trim();
+  hideErr('f-error');
+  document.getElementById('f-success').style.display = 'none';
+  if (!email) { showErr('f-error', 'Please enter your email address.'); return; }
+  var btn = document.getElementById('f-btn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  auth.sendPasswordResetEmail(email)
+    .then(function() {
+      btn.disabled = false; btn.textContent = 'Send Reset Link';
+      document.getElementById('f-success').style.display = 'block';
+    })
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Send Reset Link';
+      var msg = 'Could not send reset email.';
+      if (err.code === 'auth/user-not-found') msg = 'No account found with this email.';
+      showErr('f-error', msg);
+    });
+}
+
+// ---- AUTH STATE ----
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    // Logged in — load profile then orders
+    STATE.uid = user.uid;
+    STATE.email = user.email || '';
+    db.collection('customers').doc(user.uid).get()
+      .then(function(doc) {
+        if (doc.exists) {
+          var d = doc.data();
+          STATE.phone = d.phone || '';
+          STATE.name  = d.name  || '';
+          STATE.email = d.email || user.email || '';
+          STATE.profileName    = d.name || '';
+          STATE.profileAddress = { address: d.address||'', city: d.city||'', pincode: d.pincode||'', state: d.state||'' };
+        }
+        if (STATE.phone) {
+          return db.collection('orders').where('customer.phone', '==', STATE.phone).get();
+        }
+        return null;
+      })
+      .then(function(snap) {
+        if (snap) {
+          var orders = [];
+          snap.forEach(function(doc) { var d = doc.data(); d._docId = doc.id; orders.push(d); });
+          orders.sort(function(a, b) { return new Date(b.createdAt||0) - new Date(a.createdAt||0); });
+          STATE.orders = orders;
+          if (!STATE.name && orders.length && orders[0].customer) STATE.name = orders[0].customer.name || '';
+        }
+        showDashboard();
+      })
+      .catch(function() { showDashboard(); });
+  } else {
+    // Not logged in — show auth
+    document.getElementById('page-loading').style.display = 'none';
+    document.getElementById('auth-wrap').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+});
+
+function showDashboard() {
+  document.getElementById('page-loading').style.display = 'none';
+  document.getElementById('auth-wrap').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  var first = STATE.profileName ? STATE.profileName.split(' ')[0] : (STATE.name ? STATE.name.split(' ')[0] : null);
+  document.getElementById('dash-greet').textContent = first ? ('Hello, ' + first + '!') : 'Hello!';
+  document.getElementById('dash-sub').textContent = STATE.email;
+  renderOrders();
+  renderWallet();
+  renderProfile();
+}
+
+// ---- LOGOUT ----
+document.getElementById('btn-logout').addEventListener('click', function() {
+  auth.signOut().then(function() {
+    STATE = { uid:'', phone:'', name:'', email:'', orders:[], profileName:'', profileAddress:{} };
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('auth-wrap').style.display = 'block';
+    // reset tabs
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelector('[data-tab="orders"]').classList.add('active');
+    document.getElementById('tab-orders').classList.add('active');
+    switchAuthTab('login');
+  });
+});
+
+// ---- TABS ----
+document.querySelectorAll('.tab').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ---- ORDERS ----
+function renderOrders() {
+  var el = document.getElementById('orders-content');
+  if (!STATE.orders.length) {
+    el.innerHTML = '<div class="empty-state"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>No orders found yet.</p><a href="collection.html">Start Shopping &rarr;</a></div>';
+    return;
+  }
+  var html = '';
+  STATE.orders.forEach(function(o, i) {
+    var items = Array.isArray(o.items) ? o.items : [];
+    var summary = items.slice(0, 2).map(function(it) {
+      return (it.title || it.name || 'Item') + (it.size ? ' (' + it.size + ')' : '');
+    }).join(', ') + (items.length > 2 ? ' +' + (items.length - 2) + ' more' : '');
+    html += '<div class="order-card" id="oc-' + i + '" onclick="toggleDetail(' + i + ')">';
+    html += '<div class="oc-top"><div>';
+    html += '<div class="oc-id">' + (o.orderId || o._docId) + '</div>';
+    html += '<div class="oc-date">' + fdate(o.createdAt) + '</div>';
+    html += '</div><div class="oc-right">';
+    html += '<span class="status-badge ' + sclass(o.status) + '">' + slabel(o.status) + '</span>';
+    html += '<span class="oc-arrow">&#8250;</span>';
+    html += '</div></div>';
+    if (summary) html += '<div class="oc-summary">' + summary + '</div>';
+    html += '<div class="oc-total">' + rs(o.total) + '</div>';
+    html += '</div>';
+    html += '<div class="order-detail" id="od-' + i + '">' + buildDetail(o, i) + '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function toggleDetail(i) {
+  var card = document.getElementById('oc-' + i);
+  var detail = document.getElementById('od-' + i);
+  var open = detail.classList.contains('open');
+  document.querySelectorAll('.order-card').forEach(function(c) { c.classList.remove('expanded'); });
+  document.querySelectorAll('.order-detail').forEach(function(d) { d.classList.remove('open'); });
+  if (!open) { card.classList.add('expanded'); detail.classList.add('open'); }
+}
+
+function buildDetail(o, idx) {
+  var status = o.status || 'pending';
+  var items = Array.isArray(o.items) ? o.items : [];
+  var c = o.customer || {};
+  var canCancel = (status === 'pending' || status === 'confirmed');
+  var canReturn = (status === 'delivered') && daysSince(o.createdAt) <= 7;
+  var isCancelled = status === 'cancelled';
+  var html = '';
+
+  if (isCancelled) {
+    html += '<div class="od-cancelled">This order has been cancelled.</div>';
+  } else {
+    var steps = ['Order Placed', 'Confirmed', 'Shipped', 'Delivered'];
+    var keys = ['pending', 'confirmed', 'shipped', 'delivered'];
+    var cur = keys.indexOf(status);
+    html += '<div class="od-label" style="margin-bottom:14px">Order Status</div>';
+    html += '<div class="timeline" style="margin-bottom:20px">';
+    steps.forEach(function(step, si) {
+      var cls = si < cur ? 'done' : (si === cur ? 'current' : '');
+      html += '<div class="tl-step ' + cls + '"><div class="tl-dot">';
+      if (si < cur) html += '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>';
+      else if (si === cur) html += '<div style="width:8px;height:8px;background:#000;border-radius:50%"></div>';
+      html += '</div><div class="tl-lbl">' + step + '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  if (o.trackingId || o.tracking_id) {
+    html += '<div class="od-track" style="margin-bottom:14px">Tracking ID: <strong>' + (o.trackingId || o.tracking_id) + '</strong>' + (o.courier ? ' &mdash; ' + o.courier : '') + '</div>';
+  }
+
+  if (items.length) {
+    html += '<div class="od-label">Items</div><div class="od-items">';
+    items.forEach(function(it) {
+      var n = (it.title || it.name || 'Item') + (it.size ? ' &mdash; ' + it.size : '') + ' &times;' + (it.qty || 1);
+      html += '<div class="od-item"><span class="od-item-n">' + n + '</span><span class="od-item-p">' + rs((it.price || 0) * (it.qty || 1)) + '</span></div>';
+    });
+    html += '</div>';
+  }
+
+  html += '<div class="od-totals">';
+  html += '<div class="od-tot-row"><span>Subtotal</span><span>' + rs(o.subtotal) + '</span></div>';
+  if (o.discount > 0) html += '<div class="od-tot-row od-disc"><span>Discount' + (o.coupon ? ' (' + o.coupon + ')' : '') + '</span><span>-' + rs(o.discount) + '</span></div>';
+  html += '<div class="od-tot-row"><span>Shipping</span><span>' + (o.shipping === 0 || o.shipping === '0' ? 'FREE' : rs(o.shipping)) + '</span></div>';
+  html += '<div class="od-tot-row grand"><span>Total</span><span>' + rs(o.total) + '</span></div>';
+  html += '</div>';
+
+  if (c.name || c.address) {
+    html += '<div class="od-label">Delivery Address</div>';
+    html += '<div class="od-addr">' + [c.name, c.address, c.city, c.state, c.pincode].filter(Boolean).join(', ') + '</div>';
+  }
+
+  if (canCancel || canReturn) {
+    html += '<div class="od-actions">';
+    if (canCancel) html += '<button class="btn-action btn-cancel" onclick="openCancel(\'' + o._docId + '\',\'' + (o.orderId || '') + '\');event.stopPropagation()">Cancel Order</button>';
+    if (canReturn) html += '<button class="btn-action" onclick="openReturn(\'' + o._docId + '\',\'' + (o.orderId || '') + '\');event.stopPropagation()">Return / Replace</button>';
+    html += '</div>';
+  } else if (status === 'delivered' && !canReturn) {
+    html += '<div style="font-size:12px;color:#aaa;margin-top:4px">Return window (7 days) has passed.</div>';
+  }
+
+  return html;
+}
+
+// ---- WALLET ----
+function renderWallet() {
+  var el = document.getElementById('wallet-content');
+  if (!STATE.phone) {
+    el.innerHTML = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div><div class="wc-amount">' + rs(0) + '</div><div class="wc-sub">Redeemable at checkout</div></div>';
+    return;
+  }
+  db.collection('wallets').doc(STATE.phone).get()
+    .then(function(snap) {
+      var bal = 0, txns = [];
+      if (snap.exists) { var w = snap.data(); bal = w.balance || 0; txns = Array.isArray(w.transactions) ? w.transactions : []; }
+      var html = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div>';
+      html += '<div class="wc-amount">' + rs(bal) + '</div>';
+      html += '<div class="wc-sub">Redeemable at checkout</div></div>';
+      if (txns.length) {
+        html += '<div class="section-title">Transaction History</div><div>';
+        txns.slice().sort(function(a,b){return new Date(b.date||0)-new Date(a.date||0);}).forEach(function(t) {
+          var cr = t.type === 'credit' || t.amount > 0;
+          html += '<div class="txn-item"><div><div class="txn-desc">' + (t.description || (cr ? 'Wallet Credit' : 'Wallet Used')) + '</div><div class="txn-date">' + fdate(t.date) + '</div></div>';
+          html += '<div class="txn-amt ' + (cr ? 'txn-credit' : 'txn-debit') + '">' + (cr ? '+' : '-') + rs(Math.abs(t.amount)) + '</div></div>';
+        });
+        html += '</div>';
+      } else {
+        html += '<div style="text-align:center;padding:30px;color:#bbb;font-size:13px">No transactions yet.</div>';
+      }
+      el.innerHTML = html;
+    })
+    .catch(function() {
+      el.innerHTML = '<div class="wallet-card"><div class="wc-label">Store Wallet Balance</div><div class="wc-amount">' + rs(0) + '</div><div class="wc-sub">Redeemable at checkout</div></div>';
+    });
+}
+
+// ---- PROFILE ----
+function renderProfile() {
+  var el = document.getElementById('profile-content');
+  var orders = STATE.orders;
+  var totalSpent = orders.reduce(function(s, o) { return s + (o.total || 0); }, 0);
+  var dispName  = STATE.profileName || STATE.name || '';
+  var savedAddr = STATE.profileAddress || {};
+  var dispAddr  = savedAddr.address || '';
+  var dispCity  = savedAddr.city    || '';
+  var dispState = savedAddr.state   || '';
+  var dispPin   = savedAddr.pincode || '';
+
+  var stateOptions = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+  var stateOpts = stateOptions.map(function(s) { return '<option' + (s === dispState ? ' selected' : '') + '>' + s + '</option>'; }).join('');
+
+  var html = '';
+  if (dispName) html += '<div class="pf-card"><div class="pf-label">Name</div><div class="pf-val">' + dispName + '</div></div>';
+  html += '<div class="pf-card"><div class="pf-label">Email</div><div class="pf-val">' + STATE.email + '</div></div>';
+  if (STATE.phone) html += '<div class="pf-card"><div class="pf-label">Phone</div><div class="pf-val">+91 ' + STATE.phone + '</div></div>';
+  if (dispAddr) {
+    html += '<div class="pf-card"><div class="pf-label">Default Address</div>';
+    html += '<div class="pf-val">' + [dispAddr, dispCity, dispState, dispPin].filter(Boolean).join(', ') + '</div></div>';
+  }
+  html += '<div class="pf-stats"><span class="pf-stat">Orders: <strong>' + orders.length + '</strong></span><span class="pf-stat">Total Spent: <strong>' + rs(totalSpent) + '</strong></span></div>';
+
+  html += '<button class="pf-edit-btn" id="pf-toggle-btn" onclick="toggleProfileEdit()">Edit Profile &amp; Address</button>';
+  html += '<div class="pf-form" id="pf-edit-form">';
+  html += '<label>Full Name</label><input type="text" id="pf-name" value="' + (dispName||'') + '" placeholder="Your name">';
+  html += '<label>Phone Number</label><input type="tel" id="pf-phone" value="' + (STATE.phone||'') + '" placeholder="10-digit mobile" maxlength="10" inputmode="numeric">';
+  html += '<label>Address</label><input type="text" id="pf-addr" value="' + (dispAddr||'') + '" placeholder="House / Flat, Street">';
+  html += '<label>City</label><input type="text" id="pf-city" value="' + (dispCity||'') + '" placeholder="City">';
+  html += '<label>Pincode</label><input type="text" id="pf-pin" value="' + (dispPin||'') + '" placeholder="6-digit pincode" maxlength="6" inputmode="numeric">';
+  html += '<label>State</label><select id="pf-state"><option value="">Select state</option>' + stateOpts + '</select>';
+  html += '<button class="pf-save-btn" id="pf-save-btn" onclick="saveProfile()">Save Profile</button>';
+  html += '<div class="pf-save-msg" id="pf-save-msg">Profile saved!</div>';
+  html += '</div>';
+
+  // Change password section
+  html += '<button class="pf-edit-btn" id="chpw-toggle-btn" onclick="toggleChpw()" style="margin-top:4px">Change Password</button>';
+  html += '<div class="chpw-form" id="chpw-form">';
+  html += '<label>New Password</label><input type="password" id="chpw-new" placeholder="Min. 6 characters">';
+  html += '<label>Confirm Password</label><input type="password" id="chpw-conf" placeholder="Repeat password">';
+  html += '<button class="chpw-save-btn" id="chpw-btn" onclick="changePassword()">Update Password</button>';
+  html += '<div class="chpw-msg" id="chpw-msg"></div>';
+  html += '</div>';
+
+  html += '<a href="https://wa.me/919220565322?text=Hi%20Ravynn!%20I%20need%20help%20with%20my%20account." target="_blank" class="btn-wa" style="margin-top:16px"><svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.29 19.39c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg>Chat on WhatsApp</a>';
+  el.innerHTML = html;
+}
+
+function toggleProfileEdit() {
+  var form = document.getElementById('pf-edit-form');
+  var btn  = document.getElementById('pf-toggle-btn');
+  if (!form || !btn) return;
+  var open = form.classList.toggle('open');
+  btn.textContent = open ? 'Cancel' : 'Edit Profile & Address';
+}
+
+function saveProfile() {
+  var nameVal  = (document.getElementById('pf-name').value  || '').trim();
+  var phoneVal = (document.getElementById('pf-phone').value || '').replace(/\D/g,'');
+  var addrVal  = (document.getElementById('pf-addr').value  || '').trim();
+  var cityVal  = (document.getElementById('pf-city').value  || '').trim();
+  var pinVal   = (document.getElementById('pf-pin').value   || '').trim();
+  var stateVal = (document.getElementById('pf-state').value || '').trim();
+  var btn = document.getElementById('pf-save-btn');
+  var msg = document.getElementById('pf-save-msg');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  var profileData = { name: nameVal, phone: phoneVal, email: STATE.email, address: addrVal, city: cityVal, pincode: pinVal, state: stateVal, updatedAt: new Date().toISOString() };
+  db.collection('customers').doc(STATE.uid).set(profileData, { merge: true })
+    .then(function() {
+      STATE.profileName    = nameVal;
+      STATE.profileAddress = { address: addrVal, city: cityVal, pincode: pinVal, state: stateVal };
+      if (phoneVal && phoneVal.length === 10) STATE.phone = phoneVal;
+      btn.disabled = false; btn.textContent = 'Save Profile';
+      msg.style.display = 'block';
+      setTimeout(function() { msg.style.display = 'none'; }, 3000);
+      var first = nameVal ? nameVal.split(' ')[0] : null;
+      if (first) document.getElementById('dash-greet').textContent = 'Hello, ' + first + '!';
+    })
+    .catch(function() {
+      btn.disabled = false; btn.textContent = 'Save Profile';
+      alert('Could not save. Please try again.');
+    });
+}
+
+function toggleChpw() {
+  var form = document.getElementById('chpw-form');
+  var btn  = document.getElementById('chpw-toggle-btn');
+  if (!form || !btn) return;
+  var open = form.classList.toggle('open');
+  btn.textContent = open ? 'Cancel' : 'Change Password';
+}
+
+function changePassword() {
+  var np = (document.getElementById('chpw-new').value  || '');
+  var cp = (document.getElementById('chpw-conf').value || '');
+  var btn = document.getElementById('chpw-btn');
+  var msg = document.getElementById('chpw-msg');
+  msg.style.display = 'none';
+  if (np.length < 6) { msg.textContent = 'Password must be at least 6 characters.'; msg.className = 'chpw-msg'; msg.style.display = 'block'; msg.style.color = '#e53e3e'; return; }
+  if (np !== cp)     { msg.textContent = 'Passwords do not match.'; msg.className = 'chpw-msg'; msg.style.display = 'block'; msg.style.color = '#e53e3e'; return; }
+  btn.disabled = true; btn.textContent = 'Updating...';
+  var user = auth.currentUser;
+  if (!user) { btn.disabled = false; btn.textContent = 'Update Password'; return; }
+  user.updatePassword(np)
+    .then(function() {
+      btn.disabled = false; btn.textContent = 'Update Password';
+      document.getElementById('chpw-new').value = '';
+      document.getElementById('chpw-conf').value = '';
+      msg.textContent = 'Password updated successfully!';
+      msg.style.color = '#2e7d32';
+      msg.style.display = 'block';
+      setTimeout(function() { msg.style.display = 'none'; }, 4000);
+    })
+    .catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Update Password';
+      var m = 'Could not update password.';
+      if (err.code === 'auth/requires-recent-login') m = 'Please log out and log back in before changing your password.';
+      msg.textContent = m; msg.style.color = '#e53e3e'; msg.style.display = 'block';
+    });
+}
+
+// ---- CANCEL MODAL ----
+function openCancel(docId, orderId) {
+  var label = orderId || docId;
+  document.getElementById('modal-inner').innerHTML =
+    '<div class="modal-title">Cancel Order</div>' +
+    '<div class="modal-sub">Order #' + label + '</div>' +
+    '<div class="mfield"><label>Reason</label><select id="m-reason"><option value="">Select a reason</option><option>Changed my mind</option><option>Ordered by mistake</option><option>Found a better price elsewhere</option><option>Shipping time too long</option><option>Other</option></select></div>' +
+    '<div class="mfield"><label>Comments (optional)</label><textarea id="m-comment" rows="3" placeholder="Any additional details..."></textarea></div>' +
+    '<div class="modal-actions"><button class="btn-action" onclick="closeModal()">Go Back</button><button class="btn-primary" style="background:#c0392b" id="m-submit" onclick="submitRequest(\'cancel\',\'' + docId + '\',\'' + label + '\')">Cancel Order</button></div>';
+  document.getElementById('req-modal').classList.add('open');
+}
+
+// ---- RETURN MODAL ----
+function openReturn(docId, orderId) {
+  var label = orderId || docId;
+  document.getElementById('modal-inner').innerHTML =
+    '<div class="modal-title">Return / Replace</div>' +
+    '<div class="modal-sub">Order #' + label + '</div>' +
+    '<div class="mfield"><label>Request Type</label><select id="m-type"><option value="">Select type</option><option value="return">Return (Refund)</option><option value="replace">Replace (Exchange)</option></select></div>' +
+    '<div class="mfield"><label>Reason</label><select id="m-reason"><option value="">Select a reason</option><option>Wrong item delivered</option><option>Wrong size delivered</option><option>Damaged / defective item</option><option>Item not as described</option><option>Quality issue</option><option>Other</option></select></div>' +
+    '<div class="mfield"><label>Details (optional)</label><textarea id="m-comment" rows="3" placeholder="Describe the issue..."></textarea></div>' +
+    '<div class="modal-actions"><button class="btn-action" onclick="closeModal()">Go Back</button><button class="btn-primary" id="m-submit" onclick="submitRequest(\'return\',\'' + docId + '\',\'' + label + '\')">Submit Request</button></div>';
+  document.getElementById('req-modal').classList.add('open');
+}
+
+function submitRequest(type, docId, label) {
+  var reason = document.getElementById('m-reason') ? document.getElementById('m-reason').value : '';
+  var comment = document.getElementById('m-comment') ? document.getElementById('m-comment').value.trim() : '';
+  var reqType = type;
+  if (type === 'return') {
+    var t = document.getElementById('m-type') ? document.getElementById('m-type').value : '';
+    if (!t) { alert('Please select request type.'); return; }
+    reqType = t;
+  }
+  if (!reason) { alert('Please select a reason.'); return; }
+  var btn = document.getElementById('m-submit');
+  if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
+  db.collection('requests').add({
+    type: reqType, orderId: label, docId: docId,
+    phone: STATE.phone, email: STATE.email, name: STATE.name,
+    reason: reason, comment: comment,
+    createdAt: new Date().toISOString(), status: 'pending'
+  }).then(function() {
+    var typeLabel = reqType === 'cancel' ? 'cancellation' : (reqType === 'replace' ? 'replacement' : 'return');
+    document.getElementById('modal-inner').innerHTML =
+      '<div class="modal-success">' +
+      '<div class="success-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<h3>Request Submitted!</h3>' +
+      '<p>We\'ll review your ' + typeLabel + ' request and reach out within 24 hours.</p>' +
+      '<button class="btn-primary" onclick="closeModal()">Done</button>' +
+      '</div>';
+  }).catch(function() {
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit'; }
+    alert('Could not submit. Please contact us on WhatsApp.');
+  });
+}
+
+function closeModal() {
+  document.getElementById('req-modal').classList.remove('open');
+}
+document.getElementById('req-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+</script>
+</body>
+</html>

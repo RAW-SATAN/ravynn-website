@@ -2,9 +2,35 @@ import { neon } from '@neondatabase/serverless';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Key, x-admin-key');
   if (req.method === 'OPTIONS') return res.status(204).end();
+
+  const sql = neon(process.env.DATABASE_URL);
+
+  // Public: customer registration (no admin key needed)
+  if (req.method === 'POST' && req.body?.type === 'register') {
+    const { uid, name, email, phone } = req.body;
+    if (!uid || !email) return res.status(400).json({ error: 'uid and email required' });
+    try {
+      await sql`
+        CREATE TABLE IF NOT EXISTS registered_customers (
+          id BIGSERIAL PRIMARY KEY,
+          uid TEXT UNIQUE,
+          name TEXT,
+          email TEXT,
+          phone TEXT,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `;
+      await sql`
+        INSERT INTO registered_customers (uid, name, email, phone)
+        VALUES (${uid}, ${name||null}, ${email}, ${phone||null})
+        ON CONFLICT (uid) DO UPDATE SET name=EXCLUDED.name, email=EXCLUDED.email, phone=EXCLUDED.phone
+      `;
+    } catch {}
+    return res.json({ ok: true });
+  }
 
   const adminKey = req.headers['x-admin-key'];
   if (adminKey !== process.env.ADMIN_KEY) {
@@ -12,10 +38,25 @@ export default async function handler(req, res) {
   }
 
   try {
-    const sql = neon(process.env.DATABASE_URL);
-
     if (req.method === 'GET') {
-      const { limit = 200, status, id } = req.query;
+      const { limit = 200, status, id, type } = req.query;
+
+      if (type === 'customers') {
+        try {
+          await sql`CREATE TABLE IF NOT EXISTS registered_customers (id BIGSERIAL PRIMARY KEY, uid TEXT UNIQUE, name TEXT, email TEXT, phone TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`;
+        } catch {}
+        const rows = await sql`
+          SELECT rc.uid, rc.name, rc.email, rc.phone, rc.created_at,
+            COUNT(o.id) AS orders,
+            COALESCE(SUM(CASE WHEN o.payment_status='paid' THEN o.amount ELSE 0 END), 0) AS total_spent,
+            MAX(o.created_at) AS last_order
+          FROM registered_customers rc
+          LEFT JOIN orders o ON o.customer_phone = rc.phone
+          GROUP BY rc.uid, rc.name, rc.email, rc.phone, rc.created_at
+          ORDER BY rc.created_at DESC
+        `;
+        return res.json({ customers: rows });
+      }
 
       if (id) {
         const rows = await sql`SELECT * FROM orders WHERE id = ${id}`;
@@ -27,6 +68,10 @@ export default async function handler(req, res) {
         : await sql`SELECT * FROM orders ORDER BY created_at DESC LIMIT ${Number(limit)}`;
 
       return res.json({ orders: rows });
+    }
+
+    if (req.method === 'POST') {
+      return res.status(400).json({ error: 'Missing type' });
     }
 
     if (req.method === 'PATCH') {

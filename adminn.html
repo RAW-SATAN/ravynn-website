@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1870549064107037');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script src="assets/analytics-tracker.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - RAVYNN</title>
@@ -111,6 +129,45 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 .chart-range-btn.active{background:#000;color:#fff}
 .analytics-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:700px){.analytics-two-col{grid-template-columns:1fr}}
+/* -- Date filter -- */
+.ana-date-filter{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.ana-df-btn{padding:5px 14px;border:1px solid #e8e8e8;background:#fff;border-radius:5px;font-size:12px;cursor:pointer;font-weight:500;color:#333;transition:all .15s;white-space:nowrap}
+.ana-df-btn:hover,.ana-df-btn.active{background:#000;color:#fff;border-color:#000}
+.ana-df-sep{color:#ccc;font-size:16px;margin:0 2px}
+.ana-df-input{border:1px solid #e8e8e8;border-radius:5px;padding:4px 9px;font-size:12px;color:#333;font-family:inherit;cursor:pointer}
+.ana-df-input:focus{outline:none;border-color:#000}
+/* -- Traffic analytics -- */
+.ana-live-bar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:14px 20px;margin-bottom:20px}
+.ana-live-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;animation:pulse-dot 1.5s infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.ana-live-num{font-size:22px;font-weight:800}
+.ana-live-label{font-size:12px;color:#888;font-weight:600;letter-spacing:.5px}
+.ana-live-sep{width:1px;height:28px;background:#e8e8e8;margin:0 8px}
+.ana-traffic-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:900px){.ana-traffic-stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.ana-traffic-stats{grid-template-columns:repeat(2,1fr)}}
+.ana-tstat{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:14px 16px}
+.ana-tstat-val{font-size:20px;font-weight:700;margin-bottom:3px}
+.ana-tstat-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px}
+.ana-three-col{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:900px){.ana-three-col{grid-template-columns:1fr}}
+.ana-funnel{display:flex;flex-direction:column;gap:8px}
+.ana-funnel-step{display:flex;align-items:center;gap:10px}
+.ana-funnel-label{font-size:12px;color:#888;width:120px;flex-shrink:0}
+.ana-funnel-bar-wrap{flex:1;background:#f5f5f5;border-radius:3px;height:20px;overflow:hidden}
+.ana-funnel-bar{height:100%;border-radius:3px;background:#000;transition:width .4s}
+.ana-funnel-num{font-size:12px;font-weight:700;width:40px;text-align:right;flex-shrink:0}
+.ana-event-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
+.ana-event-row:last-child{border:none}
+.ana-event-type{padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.3px;flex-shrink:0}
+.ev-pageview{background:#e8f5e9;color:#2d7a3e}.ev-add_to_cart{background:#fff3e0;color:#b45309}
+.ev-checkout_start{background:#e3f2fd;color:#1565c0}.ev-purchase{background:#f3e8ff;color:#7c3aed}
+.ev-heartbeat{background:#f5f5f5;color:#999}.ev-view_content{background:#fef9c3;color:#a16207}
+.ana-source-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+.ana-source-row:last-child{border:none}
+.ana-src-bar{flex:1;height:6px;background:#f5f5f5;border-radius:3px;margin:0 12px;overflow:hidden}
+.ana-src-fill{height:100%;background:#000;border-radius:3px}
+.adm-section-divider{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#999;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid #f0f0f0}
 
 /* -- Discounts tab -- */
 .disc-add-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:20px 24px;margin-bottom:20px}
@@ -273,13 +330,104 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
       <!-- -- ANALYTICS TAB -- -->
       <div class="adm-tab active" id="tab-analytics">
         <div class="adm-section-title">Analytics</div>
-        <div class="adm-section-sub">Sales overview and performance</div>
+        <div class="adm-section-sub">Traffic, sales &amp; ad performance</div>
 
+        <!-- Live visitors -->
+        <div class="ana-live-bar">
+          <div class="ana-live-dot"></div>
+          <span class="ana-live-num" id="ana-live">–</span>
+          <span class="ana-live-label">Live Visitors</span>
+          <div class="ana-live-sep"></div>
+          <span style="font-size:12px;color:#888">updates every 30s</span>
+        </div>
+
+        <!-- Date filter -->
+        <div class="ana-date-filter">
+          <button class="ana-df-btn active" onclick="setAnaFilter('today',this)">Today</button>
+          <button class="ana-df-btn" onclick="setAnaFilter('yesterday',this)">Yesterday</button>
+          <button class="ana-df-btn" onclick="setAnaFilter('7d',this)">Last 7 Days</button>
+          <button class="ana-df-btn" onclick="setAnaFilter('30d',this)">Last 30 Days</button>
+          <span class="ana-df-sep">|</span>
+          <input type="date" id="ana-from-date" class="ana-df-input" onchange="setAnaFilter('custom',null)">
+          <span style="font-size:12px;color:#aaa">→</span>
+          <input type="date" id="ana-to-date" class="ana-df-input" onchange="setAnaFilter('custom',null)">
+        </div>
+
+        <!-- Period stats -->
+        <div class="adm-section-divider" id="ana-period-label">Today</div>
+        <div class="ana-traffic-stats">
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-vis">–</div><div class="ana-tstat-lbl">Visitors</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pv">–</div><div class="ana-tstat-lbl">Pageviews</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-atc">–</div><div class="ana-tstat-lbl">Add to Cart</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-co">–</div><div class="ana-tstat-lbl">Checkouts</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pur">–</div><div class="ana-tstat-lbl">Purchases</div></div>
+        </div>
+
+        <!-- Visitor chart -->
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head">
+            <h3>Visitors</h3>
+            <div class="chart-range-btns">
+              <button class="chart-range-btn traf-range active" onclick="setTrafficRange(7,this)">7 Days</button>
+              <button class="chart-range-btn traf-range" onclick="setTrafficRange(30,this)">30 Days</button>
+            </div>
+          </div>
+          <canvas id="traffic-chart" height="90"></canvas>
+        </div>
+
+        <!-- Sources + Devices + Funnel -->
+        <div class="ana-three-col">
+          <div class="analytics-chart-card" style="margin-bottom:0">
+            <div class="analytics-chart-head"><h3>Traffic Sources</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+            <div id="ana-sources-list"></div>
+          </div>
+          <div class="analytics-chart-card" style="margin-bottom:0">
+            <div class="analytics-chart-head"><h3>Device</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+            <canvas id="device-chart" height="130"></canvas>
+          </div>
+          <div class="analytics-chart-card" style="margin-bottom:0">
+            <div class="analytics-chart-head"><h3>Conversion Funnel</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+            <div class="ana-funnel" id="ana-funnel"></div>
+          </div>
+        </div>
+
+        <!-- Top Pages + Add to Cart -->
+        <div class="adm-section-divider">Page Performance</div>
+        <div class="analytics-two-col">
+          <div class="analytics-chart-card">
+            <div class="analytics-chart-head"><h3>Top Pages</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+            <div id="ana-pages-list"></div>
+          </div>
+          <div class="analytics-chart-card">
+            <div class="analytics-chart-head"><h3>Add to Cart</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+            <div id="ana-atc-list"></div>
+          </div>
+        </div>
+
+        <!-- UTM Campaigns -->
+        <div class="adm-section-divider">Campaigns (UTM)</div>
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head"><h3>UTM Campaigns</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
+          <div id="ana-campaigns-list"></div>
+        </div>
+
+        <!-- Recent events -->
+        <div class="adm-section-divider">Recent Events</div>
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head"><h3>Live Event Stream</h3>
+            <button class="chart-range-btn" onclick="loadTrafficAnalytics()" style="font-size:11px">↻ Refresh</button>
+            <!-- loadTrafficAnalytics() uses current anaFromDate/anaToDate -->
+          </div>
+          <div id="ana-events-list"></div>
+        </div>
+
+        <!-- Divider: Sales -->
+        <div class="adm-section-divider">Sales Overview</div>
         <div class="adm-stat-row" id="ana-stats">
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-total-rev">-</div><div class="adm-stat-label">Total Revenue</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-month-orders">-</div><div class="adm-stat-label">Orders This Month</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-avg">-</div><div class="adm-stat-label">Avg Order Value</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-products">-</div><div class="adm-stat-label">Active Products</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-total-rev">–</div><div class="adm-stat-label">Total Revenue</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-month-orders">–</div><div class="adm-stat-label">Orders This Month</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-avg">–</div><div class="adm-stat-label">Avg Order Value</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-products">–</div><div class="adm-stat-label">Active Products</div></div>
         </div>
 
         <div class="analytics-chart-card">
@@ -348,7 +496,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
       <!-- -- CUSTOMERS TAB -- -->
       <div class="adm-tab" id="tab-customers">
         <div class="adm-section-title">Customers</div>
-        <div class="adm-section-sub">All unique customers derived from orders</div>
+        <div class="adm-section-sub">All registered accounts + order customers</div>
 
         <div class="adm-filter-row">
           <input type="text" class="adm-search" id="customer-search" placeholder="Search by name or phone..." oninput="renderCustomers()" style="margin-left:0">
@@ -360,8 +508,10 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
             <thead><tr>
               <th>Name</th>
               <th>Phone</th>
+              <th>Email</th>
               <th>Orders</th>
               <th>Total Spent</th>
+              <th>Registered</th>
               <th>Last Order</th>
               <th>Action</th>
             </tr></thead>
@@ -662,6 +812,7 @@ function doLogin() {
       loadProducts();
       loadCoupons();
       setupImageZone();
+      initAnaFilter();
     })
     .catch(e => {
       document.getElementById('login-err').textContent = e.message === 'Wrong password' ? 'Incorrect password.' : 'Connection error. Try again.';
@@ -689,8 +840,8 @@ function showTab(name) {
   document.querySelectorAll('.adm-nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'analytics') renderAnalytics();
-  if (name === 'customers') renderCustomers();
+  if (name === 'analytics') { renderAnalytics(); initAnaFilter(); }
+  if (name === 'customers') { allRegisteredCustomers = null; renderCustomers(); }
 }
 
 // -- Image upload zone setup -----------------------------------
@@ -997,52 +1148,306 @@ async function cancelDlv(orderId, awb) {
 }
 
 // -- Customers -------------------------------------------------
-function renderCustomers() {
+let allRegisteredCustomers = null;
+
+async function loadRegisteredCustomers() {
+  if (allRegisteredCustomers !== null) return;
+  try {
+    const r = await fetch('/api/orders?type=customers', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const d = await r.json();
+    allRegisteredCustomers = d.customers || [];
+  } catch { allRegisteredCustomers = []; }
+}
+
+async function renderCustomers() {
   const q = (document.getElementById('customer-search')?.value || '').toLowerCase().trim();
   const loading = document.getElementById('customers-loading');
   const table = document.getElementById('customers-table');
   const empty = document.getElementById('customers-empty');
 
-  if (!allOrders.length) {
-    loading.style.display = 'block';
-    loading.textContent = 'No orders data. Go to Orders tab first.';
-    return;
-  }
-  loading.style.display = 'none';
+  loading.style.display = 'block';
+  loading.textContent = 'Loading customers...';
+  table.style.display = 'none';
+  empty.style.display = 'none';
 
-  // Group by phone
+  await loadRegisteredCustomers();
+
+  // Build map from registered customers (from Neon)
   const map = {};
+  (allRegisteredCustomers || []).forEach(rc => {
+    const key = rc.phone || rc.email || rc.uid;
+    map[key] = {
+      name: rc.name, phone: rc.phone, email: rc.email,
+      orders: Number(rc.orders || 0),
+      total: Number(rc.total_spent || 0),
+      registeredDate: rc.created_at ? new Date(rc.created_at) : null,
+      lastDate: rc.last_order ? new Date(rc.last_order) : null
+    };
+  });
+
+  // Merge order-only customers (not registered via account)
   allOrders.forEach(o => {
     const key = o.customer_phone || o.customer_name || 'unknown';
-    if (!map[key]) map[key] = { name: o.customer_name, phone: o.customer_phone, orders: 0, total: 0, lastDate: null };
-    map[key].orders++;
-    if (o.payment_status === 'paid') map[key].total += Number(o.amount || 0);
-    const d = new Date(o.created_at);
-    if (!map[key].lastDate || d > map[key].lastDate) map[key].lastDate = d;
+    if (!map[key]) {
+      map[key] = { name: o.customer_name, phone: o.customer_phone, email: null, orders: 0, total: 0, registeredDate: null, lastDate: null };
+    }
+    // For order-only entries not in registered_customers, count orders manually
+    if (!allRegisteredCustomers.find(rc => (rc.phone && rc.phone === o.customer_phone))) {
+      map[key].orders++;
+      if (o.payment_status === 'paid') map[key].total += Number(o.amount || 0);
+      const d = new Date(o.created_at);
+      if (!map[key].lastDate || d > map[key].lastDate) map[key].lastDate = d;
+    }
   });
 
   let customers = Object.values(map);
   if (q) customers = customers.filter(c =>
-    (c.name||'').toLowerCase().includes(q) || (c.phone||'').includes(q)
+    (c.name||'').toLowerCase().includes(q) ||
+    (c.phone||'').includes(q) ||
+    (c.email||'').toLowerCase().includes(q)
   );
-  customers.sort((a, b) => b.lastDate - a.lastDate);
+  customers.sort((a, b) => (b.registeredDate || b.lastDate || 0) - (a.registeredDate || a.lastDate || 0));
 
+  loading.style.display = 'none';
   if (!customers.length) { table.style.display = 'none'; empty.style.display = 'block'; return; }
   table.style.display = 'table';
   empty.style.display = 'none';
 
   document.getElementById('customers-tbody').innerHTML = customers.map(c => {
-    const date = c.lastDate ? c.lastDate.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '-';
+    const regDate = c.registeredDate ? c.registeredDate.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '<span style="color:#ccc">\u2014</span>';
+    const lastDate = c.lastDate ? c.lastDate.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '<span style="color:#ccc">\u2014</span>';
     const wa = c.phone ? `<a href="https://wa.me/91${c.phone}" target="_blank" style="color:#25D366;font-weight:700;text-decoration:none;font-size:12px">WhatsApp</a>` : '';
+    const badge = c.email ? '' : '';
     return `<tr>
       <td><strong>${c.name||'-'}</strong></td>
       <td>${c.phone||'-'}</td>
+      <td style="font-size:11px;color:#555">${c.email||'<span style="color:#ccc">\u2014</span>'}</td>
       <td>${c.orders}</td>
       <td><strong>\u20B9${c.total.toLocaleString('en-IN')}</strong></td>
-      <td style="color:#888;font-size:12px">${date}</td>
+      <td style="color:#888;font-size:12px">${regDate}</td>
+      <td style="color:#888;font-size:12px">${lastDate}</td>
       <td>${wa}</td>
     </tr>`;
   }).join('');
+}
+
+// -- Traffic Analytics -----------------------------------------
+let trafficChart = null, deviceChart = null, liveTimer = null;
+
+let anaFromDate = '', anaToDate = '';
+
+function initAnaFilter() {
+  // Default to "today" on first open
+  const todayBtn = document.querySelector('.ana-df-btn');
+  setAnaFilter('today', todayBtn);
+}
+
+function setAnaFilter(preset, btn) {
+  document.querySelectorAll('.ana-df-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const now = new Date();
+  const toDay = now.toISOString().slice(0,10);
+  if (preset === 'today') {
+    anaFromDate = toDay; anaToDate = toDay;
+    document.getElementById('ana-period-label').textContent = 'Today';
+  } else if (preset === 'yesterday') {
+    const y = new Date(now); y.setDate(y.getDate()-1);
+    anaFromDate = anaToDate = y.toISOString().slice(0,10);
+    document.getElementById('ana-period-label').textContent = 'Yesterday';
+  } else if (preset === '7d') {
+    const f = new Date(now); f.setDate(f.getDate()-6);
+    anaFromDate = f.toISOString().slice(0,10); anaToDate = toDay;
+    document.getElementById('ana-period-label').textContent = 'Last 7 Days';
+  } else if (preset === '30d') {
+    const f = new Date(now); f.setDate(f.getDate()-29);
+    anaFromDate = f.toISOString().slice(0,10); anaToDate = toDay;
+    document.getElementById('ana-period-label').textContent = 'Last 30 Days';
+  } else if (preset === 'custom') {
+    anaFromDate = document.getElementById('ana-from-date').value;
+    anaToDate = document.getElementById('ana-to-date').value;
+    if (!anaFromDate || !anaToDate) return;
+    document.getElementById('ana-period-label').textContent = anaFromDate + ' → ' + anaToDate;
+  }
+  if (preset !== 'custom') {
+    document.getElementById('ana-from-date').value = anaFromDate;
+    document.getElementById('ana-to-date').value = anaToDate;
+  }
+  const periodLabel = document.getElementById('ana-period-label')?.textContent || 'Selected period';
+  document.querySelectorAll('.ana-period-tag').forEach(el => el.textContent = periodLabel);
+  loadTrafficAnalytics();
+}
+
+async function anaFetch(type, extra) {
+  const url = `/api/analytics?type=${type}${extra||''}`;
+  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY } });
+  return r.json();
+}
+
+async function anaPFetch(type) {
+  const params = anaFromDate && anaToDate ? `&from=${anaFromDate}&to=${anaToDate}` : '';
+  const url = `/api/analytics?type=${type}${params}`;
+  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY } });
+  return r.json();
+}
+
+function fmt2(n) { return Number(n||0).toLocaleString('en-IN'); }
+
+async function loadTrafficAnalytics() {
+  try {
+    const [stats, sources, devices, funnel, pages, atc, campaigns, events] = await Promise.all([
+      anaPFetch('stats'), anaPFetch('sources'), anaPFetch('devices'),
+      anaPFetch('funnel'), anaPFetch('pages'), anaPFetch('atc'),
+      anaPFetch('campaigns'), anaFetch('events')
+    ]);
+
+    // Today stats
+    const t = stats.today || {};
+    document.getElementById('ana-today-vis').textContent = fmt2(t.visitors);
+    document.getElementById('ana-today-pv').textContent  = fmt2(t.pageviews);
+    document.getElementById('ana-today-atc').textContent = fmt2(t.add_to_cart);
+    document.getElementById('ana-today-co').textContent  = fmt2(t.checkouts);
+    document.getElementById('ana-today-pur').textContent = fmt2(t.purchases);
+
+    // Traffic chart (default 7d)
+    setTrafficRange(7, document.querySelector('.traf-range.active'));
+
+    // Sources
+    const srcEl = document.getElementById('ana-sources-list');
+    const srcList = sources.sources || [];
+    const maxSrc = srcList[0]?.visitors || 1;
+    srcEl.innerHTML = srcList.length
+      ? srcList.map(s => `<div class="ana-source-row">
+          <span style="font-size:12px;min-width:70px">${s.source}</span>
+          <div class="ana-src-bar"><div class="ana-src-fill" style="width:${Math.round(s.visitors/maxSrc*100)}%"></div></div>
+          <span style="font-size:12px;font-weight:700;min-width:28px;text-align:right">${fmt2(s.visitors)}</span>
+        </div>`).join('')
+      : '<p style="color:#aaa;font-size:13px">No data yet</p>';
+
+    // Device chart
+    const devData = devices.devices || [];
+    const dctx = document.getElementById('device-chart')?.getContext('2d');
+    if (dctx) {
+      if (deviceChart) deviceChart.destroy();
+      deviceChart = new Chart(dctx, {
+        type: 'doughnut',
+        data: {
+          labels: devData.map(d => d.device.charAt(0).toUpperCase()+d.device.slice(1)),
+          datasets: [{ data: devData.map(d => Number(d.visitors)), backgroundColor: ['#000','#aaa','#e8e8e8'], borderWidth: 0 }]
+        },
+        options: { responsive:true, plugins:{ legend:{ position:'bottom', labels:{ font:{ size:12 } } } } }
+      });
+    }
+
+    // Conversion funnel
+    const fn = funnel.funnel || {};
+    const fSteps = [
+      { label:'Visited', val: Number(fn.visited||0) },
+      { label:'Add to Cart', val: Number(fn.added_cart||0) },
+      { label:'Checkout', val: Number(fn.checkout_started||0) },
+      { label:'Purchased', val: Number(fn.purchased||0) }
+    ];
+    const maxF = fSteps[0]?.val || 1;
+    document.getElementById('ana-funnel').innerHTML = fSteps.map(s => `
+      <div class="ana-funnel-step">
+        <span class="ana-funnel-label">${s.label}</span>
+        <div class="ana-funnel-bar-wrap"><div class="ana-funnel-bar" style="width:${Math.round(s.val/maxF*100)}%"></div></div>
+        <span class="ana-funnel-num">${fmt2(s.val)}</span>
+      </div>`).join('');
+
+    // Top pages
+    const pgEl = document.getElementById('ana-pages-list');
+    const pgList = pages.pages || [];
+    const maxPg = pgList[0]?.views || 1;
+    pgEl.innerHTML = pgList.length
+      ? pgList.map(p => `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.page||'/'}</span>
+          <div style="width:80px;height:6px;background:#f5f5f5;border-radius:3px;overflow:hidden;flex-shrink:0"><div style="height:100%;background:#000;border-radius:3px;width:${Math.round(Number(p.views)/maxPg*100)}%"></div></div>
+          <span style="font-size:12px;font-weight:700;min-width:30px;text-align:right">${fmt2(p.views)}</span>
+        </div>`).join('')
+      : '<p style="color:#aaa;font-size:13px">No data yet</p>';
+
+    // Add to cart
+    const atcEl = document.getElementById('ana-atc-list');
+    const atcList = atc.atc || [];
+    atcEl.innerHTML = atcList.length
+      ? atcList.map(a => `<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px">
+          <span style="font-weight:600">${(a.product_name||'Unknown').replace(/^RAVYNN\s+/,'').slice(0,42)}</span>
+          <span style="color:#888">${fmt2(a.count)}x</span>
+        </div>`).join('')
+      : '<p style="color:#aaa;font-size:13px">No data yet</p>';
+
+    // UTM Campaigns
+    const camEl = document.getElementById('ana-campaigns-list');
+    const camList = campaigns.campaigns || [];
+    camEl.innerHTML = camList.length
+      ? `<table style="width:100%;border-collapse:collapse;font-size:12px">
+          <tr style="background:#f5f5f5"><th style="padding:8px 10px;text-align:left;font-weight:700">Campaign</th><th style="padding:8px 10px;text-align:left">Source</th><th style="padding:8px 10px;text-align:right">Visitors</th><th style="padding:8px 10px;text-align:right">Conversions</th></tr>
+          ${camList.map(c=>`<tr style="border-top:1px solid #f0f0f0"><td style="padding:8px 10px;font-weight:600">${c.utm_campaign||'–'}</td><td style="padding:8px 10px;color:#888">${c.utm_source||'–'}</td><td style="padding:8px 10px;text-align:right">${fmt2(c.visitors)}</td><td style="padding:8px 10px;text-align:right;color:#2d7a3e;font-weight:700">${fmt2(c.conversions)}</td></tr>`).join('')}
+        </table>`
+      : '<p style="color:#aaa;font-size:13px">No UTM campaigns tracked yet. Add ?utm_source=instagram&utm_campaign=post1 to your links.</p>';
+
+    // Event stream
+    const evEl = document.getElementById('ana-events-list');
+    const evList = events.events || [];
+    const evBadge = t => `<span class="ana-event-type ev-${t}">${t.replace('_',' ')}</span>`;
+    evEl.innerHTML = evList.length
+      ? evList.map(e => {
+          const time = new Date(e.created_at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+          const date = new Date(e.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+          return `<div class="ana-event-row">
+            ${evBadge(e.event_type)}
+            <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.product_name ? e.product_name.replace(/^RAVYNN\s+/,'').slice(0,36) : (e.page||'')}</span>
+            <span style="color:#aaa;flex-shrink:0">${e.device_type||''}</span>
+            <span style="color:#bbb;font-size:11px;flex-shrink:0;margin-left:8px">${date} ${time}</span>
+          </div>`;
+        }).join('')
+      : '<p style="color:#aaa;font-size:13px">No events yet. Events appear as visitors browse the site.</p>';
+
+  } catch (e) { console.error('analytics load error', e); }
+
+  // Live visitors — poll every 30s
+  clearInterval(liveTimer);
+  async function fetchLive() {
+    try {
+      const d = await anaFetch('live');
+      document.getElementById('ana-live').textContent = d.live ?? '–';
+    } catch {}
+  }
+  fetchLive();
+  liveTimer = setInterval(fetchLive, 30000);
+}
+
+async function setTrafficRange(days, btn) {
+  document.querySelectorAll('.traf-range').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  try {
+    const d = await anaFetch('chart', `&days=${days}`);
+    const rows = d.chart || [];
+    const labels = rows.map(r => {
+      const dt = new Date(r.date);
+      return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+    });
+    const visitors = rows.map(r => Number(r.visitors||0));
+    const pageviews = rows.map(r => Number(r.pageviews||0));
+    const ctx = document.getElementById('traffic-chart')?.getContext('2d');
+    if (!ctx) return;
+    if (trafficChart) trafficChart.destroy();
+    trafficChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Visitors', data: visitors, backgroundColor: '#000', borderRadius: 4 },
+          { label: 'Pageviews', data: pageviews, backgroundColor: '#d4d4d4', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position:'top', labels:{ font:{ size:11 } } } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  } catch {}
 }
 
 // -- Analytics -------------------------------------------------
