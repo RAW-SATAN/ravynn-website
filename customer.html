@@ -399,7 +399,7 @@ var auth = firebase.auth();
 
 var STATE = { uid: '', phone: '', name: '', email: '', orders: [], profileName: '', profileAddress: {} };
 
-function rs(n) { return '₹' + Number(n || 0).toLocaleString('en-IN'); }
+function rs(n) { return '‚Çπ' + Number(n || 0).toLocaleString('en-IN'); }
 function fdate(iso) {
   if (!iso) return '';
   try { return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; }
@@ -479,6 +479,8 @@ function doSignup() {
   auth.createUserWithEmailAndPassword(email, pass)
     .then(function(cred) {
       var uid = cred.user.uid;
+      fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'register', uid: uid, name: name, email: email, phone: phone }) });
       return db.collection('customers').doc(uid).set({
         name: name, email: email, phone: phone,
         createdAt: new Date().toISOString()
@@ -519,7 +521,7 @@ function doForgot() {
 // ---- AUTH STATE ----
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    // Logged in — load profile then orders
+    // Logged in ‚Äî load profile then orders
     STATE.uid = user.uid;
     STATE.email = user.email || '';
     db.collection('customers').doc(user.uid).get()
@@ -549,7 +551,7 @@ auth.onAuthStateChanged(function(user) {
       })
       .catch(function() { showDashboard(); });
   } else {
-    // Not logged in — show auth
+    // Not logged in ‚Äî show auth
     document.getElementById('page-loading').style.display = 'none';
     document.getElementById('auth-wrap').style.display = 'block';
     document.getElementById('dashboard').style.display = 'none';
