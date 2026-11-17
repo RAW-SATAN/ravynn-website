@@ -65,6 +65,35 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .mobile-slide-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:5px; }
 .mobile-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.5); border:none; padding:0; cursor:pointer; }
 .mobile-dot.active { background:#fff; }
+/* Mobile thumbnail strip */
+.mobile-thumb-strip { display:none; padding:10px 16px 0; overflow-x:auto; scrollbar-width:none; }
+@media(max-width:767px){ .mobile-thumb-strip { display:flex; gap:8px; } }
+.mobile-thumb-strip::-webkit-scrollbar { display:none; }
+.mobile-thumb-item { flex-shrink:0; width:60px; height:80px; border:2px solid transparent; border-radius:3px; overflow:hidden; cursor:pointer; background:#f5f5f5; }
+.mobile-thumb-item.active { border-color:#000; }
+.mobile-thumb-item img { width:100%; height:100%; object-fit:cover; display:block; }
+/* Reviews section */
+.review-stars { display:flex; gap:2px; color:#f5a623; font-size:18px; cursor:pointer; margin-bottom:8px; }
+.review-avg { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.review-avg-num { font-size:28px; font-weight:800; }
+.review-avg-label { font-size:12px; color:#888; }
+.review-item { border-bottom:1px solid #f0f0f0; padding:14px 0; }
+.review-item:last-child { border-bottom:none; }
+.review-item-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.review-item-name { font-size:13px; font-weight:700; }
+.review-item-date { font-size:11px; color:#aaa; }
+.review-item-stars { color:#f5a623; font-size:14px; margin-bottom:6px; }
+.review-item-body { font-size:13px; color:#444; line-height:1.6; }
+.review-form { margin-top:20px; border-top:1px solid #f0f0f0; padding-top:16px; }
+.review-form h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px; }
+.review-form-row { margin-bottom:10px; }
+.review-form-row label { font-size:12px; font-weight:600; display:block; margin-bottom:4px; }
+.review-form-row input, .review-form-row textarea { width:100%; border:1.5px solid #e0e0e0; padding:9px 12px; font-size:13px; font-family:inherit; border-radius:3px; outline:none; box-sizing:border-box; }
+.review-form-row input:focus, .review-form-row textarea:focus { border-color:#000; }
+.review-submit-btn { width:100%; background:#000; color:#fff; border:none; padding:12px; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; margin-top:4px; }
+.review-submit-btn:hover { background:#333; }
+.review-star-pick { display:flex; gap:4px; font-size:24px; color:#ddd; cursor:pointer; margin-bottom:8px; }
+.review-star-pick span.on { color:#f5a623; }
 /* -- Product Info -- */
 .product-info { }
 @media(max-width:767px){ .product-info { padding:16px 16px 0; } }
@@ -101,8 +130,9 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .add-to-bag-btn:hover { background:#222; }
 .add-to-bag-btn.added { background:#2d7a3e; }
 .add-to-bag-btn.shake { animation:shake .4s; }
-.buy-now-btn { display:block; width:100%; background:#fff; color:#000; border:1.5px solid #000; padding:15px; font-size:14px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s,color .2s; margin-bottom:16px; }
-.buy-now-btn:hover { background:#000; color:#fff; }
+.buy-now-btn { display:block; width:100%; background:linear-gradient(135deg,#ff6a00,#ff9d00); color:#fff; border:none; padding:16px; font-size:15px; font-weight:800; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-bottom:16px; border-radius:2px; box-shadow:0 4px 20px rgba(255,106,0,.35); animation:buyPulse 2.5s ease-in-out infinite; }
+.buy-now-btn:hover { background:linear-gradient(135deg,#e55f00,#f08c00); box-shadow:0 6px 28px rgba(255,106,0,.5); animation:none; }
+@keyframes buyPulse { 0%,100%{box-shadow:0 4px 20px rgba(255,106,0,.35)} 50%{box-shadow:0 4px 32px rgba(255,106,0,.65)} }
 /* ASK SID -- dark chat widget (ravynn.in style) */
 .ask-sid { background:#111; color:#fff; border-radius:10px; padding:14px 16px; margin-bottom:20px; }
 .ask-sid-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
@@ -273,6 +303,8 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
     </button>
     <div class="mobile-slide-dots"></div>
   </div>
+  <!-- Mobile thumbnail strip -->
+  <div class="mobile-thumb-strip" id="mobile-thumb-strip"></div>
 
   <!-- Desktop Gallery -->
   <div class="product-gallery" aria-label="Product images">
@@ -360,12 +392,12 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
         </div>
         <div class="product-accordion-body">Loading product details...</div>
       </div>
-      <div class="product-accordion">
+      <div class="product-accordion" id="reviews-accordion">
         <div class="product-accordion-header">
           Reviews <span class="product-accordion-icon">+</span>
         </div>
-        <div class="product-accordion-body">
-          <p style="color:#888;font-style:italic">No reviews yet. Be the first to review this product.</p>
+        <div class="product-accordion-body" id="reviews-body">
+          <p style="color:#888;font-style:italic">Loading reviews...</p>
         </div>
       </div>
       <div class="product-accordion">
@@ -503,11 +535,14 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 <script src="assets/theme.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
+  // Admin toggles
   fetch('/api/admin-settings?key=hide_atc').then(r=>r.json()).then(d=>{
-    if(d.value===true){
-      document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
-    }
+    if(d.value===true) document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
   }).catch(()=>{});
+  fetch('/api/admin-settings?key=hide_ask_sid').then(r=>r.json()).then(d=>{
+    if(d.value===true) { const s=document.querySelector('.ask-sid'); if(s) s.style.display='none'; }
+  }).catch(()=>{});
+
   await Products.load();
   function menuProductHTML(p) {
     const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
@@ -528,7 +563,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Buy Now \u2014 add to cart then go to cart page
+  // Buy Now
   document.getElementById('buy-now-btn')?.addEventListener('click', () => {
     if (!document.querySelector('.size-btn.active')) {
       document.querySelector('.add-to-bag-btn')?.click();
@@ -537,6 +572,99 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.add-to-bag-btn')?.click();
     setTimeout(() => { window.location.href = 'cart.html'; }, 150);
   });
+
+  // Mobile thumbnail strip
+  function initMobileThumbs() {
+    const strip = document.getElementById('mobile-thumb-strip');
+    const slides = document.querySelectorAll('.mobile-slide');
+    if (!strip || slides.length < 2) return;
+    strip.innerHTML = '';
+    slides.forEach((slide, i) => {
+      const img = slide.querySelector('img');
+      if (!img) return;
+      const thumb = document.createElement('div');
+      thumb.className = 'mobile-thumb-item' + (i === 0 ? ' active' : '');
+      thumb.innerHTML = `<img src="${img.src}" alt="" loading="lazy">`;
+      thumb.addEventListener('click', () => {
+        // sync with main carousel
+        const goEv = new CustomEvent('mobileGalleryGo', { detail: i });
+        document.dispatchEvent(goEv);
+        document.querySelectorAll('.mobile-thumb-item').forEach((t,ti) => t.classList.toggle('active', ti===i));
+      });
+      strip.appendChild(thumb);
+    });
+    // Listen for carousel changes to sync active thumb
+    document.addEventListener('mobileGalleryChange', e => {
+      document.querySelectorAll('.mobile-thumb-item').forEach((t,ti) => t.classList.toggle('active', ti===e.detail));
+    });
+  }
+  initMobileThumbs();
+
+  // Reviews
+  const handle = new URLSearchParams(location.search).get('p');
+  async function loadReviews() {
+    const body = document.getElementById('reviews-body');
+    if (!body || !handle) return;
+    try {
+      const r = await fetch(`/api/reviews?handle=${encodeURIComponent(handle)}`);
+      const { reviews } = await r.json();
+      const avg = reviews.length ? (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1) : null;
+      const stars = n => '\u2605'.repeat(n) + '\u2606'.repeat(5-n);
+      const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+      body.innerHTML = `
+        ${reviews.length ? `<div class="review-avg">
+          <div class="review-avg-num">${avg}</div>
+          <div><div style="color:#f5a623;font-size:18px">${'\u2605'.repeat(Math.round(avg))}${'\u2606'.repeat(5-Math.round(avg))}</div>
+          <div class="review-avg-label">${reviews.length} review${reviews.length>1?'s':''}</div></div>
+        </div>` : '<p style="color:#888;font-style:italic;margin-bottom:16px">No reviews yet. Be the first!</p>'}
+        ${reviews.map(rv=>`<div class="review-item">
+          <div class="review-item-header"><span class="review-item-name">${rv.name}</span><span class="review-item-date">${fmt(rv.created_at)}</span></div>
+          <div class="review-item-stars">${stars(rv.rating)}</div>
+          <div class="review-item-body">${rv.body}</div>
+        </div>`).join('')}
+        <div class="review-form" id="review-form-wrap">
+          <h4>Write a Review</h4>
+          <div class="review-form-row">
+            <label>Your Rating</label>
+            <div class="review-star-pick" id="star-pick">
+              <span data-v="1">\u2605</span><span data-v="2">\u2605</span><span data-v="3">\u2605</span><span data-v="4">\u2605</span><span data-v="5">\u2605</span>
+            </div>
+            <input type="hidden" id="rev-rating" value="0">
+          </div>
+          <div class="review-form-row"><label>Your Name</label><input type="text" id="rev-name" placeholder="Priya S." maxlength="60"></div>
+          <div class="review-form-row"><label>Your Review</label><textarea id="rev-body" rows="3" placeholder="What did you think of this product?" maxlength="1000"></textarea></div>
+          <button class="review-submit-btn" id="rev-submit">Submit Review</button>
+          <p id="rev-msg" style="margin-top:8px;font-size:12px;color:#2d7a3e;display:none"></p>
+        </div>`;
+      // Star picker interaction
+      const stars_el = document.querySelectorAll('#star-pick span');
+      const ratingInput = document.getElementById('rev-rating');
+      stars_el.forEach(s => {
+        s.addEventListener('mouseover', () => stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)));
+        s.addEventListener('mouseout', () => { const v = Number(ratingInput.value); stars_el.forEach((x,i) => x.classList.toggle('on', i < v)); });
+        s.addEventListener('click', () => { ratingInput.value = s.dataset.v; stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)); });
+      });
+      document.getElementById('rev-submit')?.addEventListener('click', async () => {
+        const rating = Number(ratingInput.value);
+        const name = document.getElementById('rev-name').value.trim();
+        const review_body = document.getElementById('rev-body').value.trim();
+        const msg = document.getElementById('rev-msg');
+        if (!rating) { msg.style.color='#c00'; msg.textContent='Please select a rating.'; msg.style.display='block'; return; }
+        if (!name) { msg.style.color='#c00'; msg.textContent='Please enter your name.'; msg.style.display='block'; return; }
+        if (!review_body) { msg.style.color='#c00'; msg.textContent='Please write your review.'; msg.style.display='block'; return; }
+        const btn = document.getElementById('rev-submit');
+        btn.disabled = true; btn.textContent = 'Submitting...';
+        const resp = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ product_handle: handle, name, rating, review_body }) });
+        const data = await resp.json();
+        msg.style.color = data.ok ? '#2d7a3e' : '#c00';
+        msg.textContent = data.message || data.error || 'Error';
+        msg.style.display = 'block';
+        if (data.ok) { document.getElementById('review-form-wrap').innerHTML = `<p style="color:#2d7a3e;font-weight:600;padding:12px 0">\u2713 Review submitted! It will appear after moderation.</p>`; }
+        else { btn.disabled = false; btn.textContent = 'Submit Review'; }
+      });
+    } catch(e) { console.error(e); }
+  }
+  loadReviews();
 });
 </script>
 <style>.wa-float{position:fixed;bottom:80px;right:20px;z-index:999}.wa-float a{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#25D366;border-radius:50%;box-shadow:0 4px 16px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s}.wa-float a:hover{transform:scale(1.1)}.wa-float svg{width:28px;height:28px;fill:#fff}@media(min-width:768px){.wa-float{bottom:30px}}</style>

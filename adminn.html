@@ -335,6 +335,10 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           Shipping
         </button>
+        <button class="adm-nav-btn" onclick="showTab('reviews')" id="nav-reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Reviews
+        </button>
       </nav>
     </aside>
 
@@ -629,6 +633,18 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           </label>
         </div>
 
+        <div class="store-toggle-card">
+          <div class="store-toggle-info">
+            <div class="store-toggle-title">Hide "Ask Sid" Widget</div>
+            <div class="store-toggle-desc">When ON, hides the Ask Sid AI assistant on all product pages.</div>
+            <div class="store-toggle-status" id="sid-toggle-status">Loading...</div>
+          </div>
+          <label class="store-toggle-switch">
+            <input type="checkbox" id="sid-toggle" onchange="saveSidToggle(this)">
+            <span class="store-toggle-slider"></span>
+          </label>
+        </div>
+
         <div class="adm-section-divider" style="margin-bottom:20px">Shipping Settings</div>
         <div class="adm-section-sub" style="margin-top:-14px;margin-bottom:16px">Changes apply immediately across cart and checkout.</div>
 
@@ -792,8 +808,15 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
     </div>
 
     <div class="prod-field">
-      <label>Description (HTML allowed)</label>
-      <textarea id="pm-description" placeholder="<p>Product description here.</p>" rows="4"></textarea>
+      <label>Description (HTML allowed — supports &lt;img&gt;, &lt;video&gt;, &lt;iframe&gt;)</label>
+      <div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" onclick="descInsert('img')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Image</button>
+        <button type="button" onclick="descInsert('gif')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ GIF</button>
+        <button type="button" onclick="descInsert('video')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Video URL</button>
+        <button type="button" onclick="descInsert('youtube')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ YouTube</button>
+      </div>
+      <textarea id="pm-description" placeholder="<p>Product description here.</p>" rows="5"></textarea>
+      <div style="margin-top:4px;font-size:11px;color:#aaa">Tip: Paste image/video URLs using the buttons above. HTML is rendered as-is on product page.</div>
     </div>
 
     <div class="prod-field">
@@ -809,6 +832,71 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
     </div>
   </div>
 </div>
+
+<!-- Reviews Tab -->
+<div class="adm-tab" id="tab-reviews">
+  <div class="adm-section-title">Customer Reviews</div>
+  <div class="adm-section-sub">Approve or reject reviews before they appear on product pages.</div>
+  <div id="reviews-admin-list"><p style="color:#aaa;padding:20px 0">Loading reviews...</p></div>
+</div>
+
+<script>
+function descInsert(type) {
+  const ta = document.getElementById('pm-description');
+  let snippet = '';
+  if (type === 'img' || type === 'gif') {
+    const url = prompt('Paste image/GIF URL:');
+    if (!url) return;
+    snippet = `<img src="${url}" alt="" style="max-width:100%;border-radius:4px;margin:8px 0">`;
+  } else if (type === 'video') {
+    const url = prompt('Paste direct video URL (.mp4):');
+    if (!url) return;
+    snippet = `<video src="${url}" controls playsinline style="max-width:100%;border-radius:4px;margin:8px 0"></video>`;
+  } else if (type === 'youtube') {
+    const url = prompt('Paste YouTube URL or embed URL:');
+    if (!url) return;
+    const m = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+    const id = m ? m[1] : url;
+    snippet = `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:8px 0"><iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px"></iframe></div>`;
+  }
+  const pos = ta.selectionEnd;
+  ta.value = ta.value.slice(0, pos) + snippet + ta.value.slice(pos);
+  ta.focus();
+}
+
+async function loadAdminReviews() {
+  const list = document.getElementById('reviews-admin-list');
+  if (!list) return;
+  try {
+    const r = await fetch('/api/reviews?all=1', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const { reviews } = await r.json();
+    if (!reviews.length) { list.innerHTML = '<p style="color:#aaa;padding:20px 0">No reviews yet.</p>'; return; }
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+    const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+    const statusColor = { pending:'#e67e22', approved:'#27ae60', rejected:'#c0392b' };
+    list.innerHTML = reviews.map(rv => `<div style="border:1px solid #e8e8e8;border-radius:8px;padding:14px 16px;margin-bottom:12px;background:#fafafa">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:13px;font-weight:700">${rv.name} &nbsp;<span style="color:#f5a623">${stars(rv.rating)}</span></div>
+          <div style="font-size:11px;color:#aaa;margin-bottom:6px">${rv.product_handle} · ${fmt(rv.created_at)}</div>
+          <div style="font-size:13px;color:#444">${rv.body}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0;align-items:center">
+          <span style="font-size:11px;font-weight:700;color:${statusColor[rv.status]||'#aaa'};text-transform:uppercase">${rv.status}</span>
+          ${rv.status !== 'approved' ? `<button onclick="reviewAction(${rv.id},'approve')" style="font-size:11px;padding:4px 10px;background:#27ae60;color:#fff;border:none;border-radius:4px;cursor:pointer">Approve</button>` : ''}
+          ${rv.status !== 'rejected' ? `<button onclick="reviewAction(${rv.id},'reject')" style="font-size:11px;padding:4px 10px;background:#e0e0e0;color:#333;border:none;border-radius:4px;cursor:pointer">Reject</button>` : ''}
+          <button onclick="reviewAction(${rv.id},'delete')" style="font-size:11px;padding:4px 10px;background:#fde8e8;color:#c0392b;border:none;border-radius:4px;cursor:pointer">Delete</button>
+        </div>
+      </div>
+    </div>`).join('');
+  } catch(e) { list.innerHTML = '<p style="color:#c00">Error loading reviews.</p>'; }
+}
+
+async function reviewAction(id, action) {
+  await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY}, body: JSON.stringify({ action, id }) });
+  loadAdminReviews();
+}
+</script>
 
 <script>
 let ADMIN_KEY = '';
@@ -836,7 +924,7 @@ function doLogin() {
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('admin-panel').style.display = 'block';
       processOrders(data.orders || []);
-      loadAtcToggle(); loadShipping();
+      loadAtcToggle(); loadSidToggle(); loadShipping();
       loadProducts();
       loadCoupons();
       setupImageZone();
@@ -870,7 +958,8 @@ function showTab(name) {
   document.getElementById('nav-' + name).classList.add('active');
   if (name === 'analytics') { renderAnalytics(); initAnaFilter(); }
   if (name === 'customers') { allRegisteredCustomers = null; renderCustomers(); }
-  if (name === 'shipping') { loadAtcToggle(); loadShipping(); }
+  if (name === 'shipping') { loadAtcToggle(); loadSidToggle(); loadShipping(); }
+  if (name === 'reviews') { loadAdminReviews(); }
 }
 
 // -- Image upload zone setup -----------------------------------
@@ -1682,6 +1771,35 @@ async function saveAtcToggle(cb) {
       document.getElementById('atc-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
     } else { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
   } catch { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
+}
+
+// -- Ask Sid Toggle --------------------------------------------
+async function loadSidToggle() {
+  try {
+    const r = await fetch('/api/admin-settings?key=hide_ask_sid', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const d = await r.json();
+    const hidden = d.value === true;
+    document.getElementById('sid-toggle').checked = hidden;
+    document.getElementById('sid-toggle-status').textContent = hidden ? 'Currently: Ask Sid is HIDDEN on site' : 'Currently: Ask Sid is visible on site';
+    document.getElementById('sid-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
+  } catch { document.getElementById('sid-toggle-status').textContent = 'Could not load.'; }
+}
+
+async function saveSidToggle(cb) {
+  const hidden = cb.checked;
+  document.getElementById('sid-toggle-status').textContent = 'Saving...';
+  document.getElementById('sid-toggle-status').style.color = '#aaa';
+  try {
+    const r = await fetch('/api/admin-settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ key: 'hide_ask_sid', value: hidden })
+    });
+    if (r.ok) {
+      document.getElementById('sid-toggle-status').textContent = hidden ? 'Saved - Ask Sid is now HIDDEN on site' : 'Saved - Ask Sid is now visible on site';
+      document.getElementById('sid-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
+    } else { document.getElementById('sid-toggle-status').textContent = 'Error saving.'; }
+  } catch { document.getElementById('sid-toggle-status').textContent = 'Error saving.'; }
 }
 
 // -- Shipping --------------------------------------------------
