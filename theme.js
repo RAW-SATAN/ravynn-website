@@ -262,6 +262,24 @@ class CollectionPage {
 }
 
 /* ============================================================
+   MARKDOWN → HTML
+   ============================================================ */
+function parseMd(text) {
+  if (!text) return '';
+  if (/<[a-z][a-z0-9]*[\s>]/i.test(text)) return text; // already HTML
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^### (.+)$/gm,'<h3 style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:14px 0 5px">$1</h3>')
+    .replace(/^## (.+)$/gm,'<h3 style="font-size:13px;font-weight:800;letter-spacing:.5px;margin:14px 0 5px">$1</h3>')
+    .replace(/^# (.+)$/gm,'<h2 style="font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 10px">$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^[-•*] (.+)$/gm,'<li style="margin:4px 0">$1</li>')
+    .replace(/(<li[^>]*>[\s\S]*?<\/li>\n?)+/g,m=>'<ul style="padding-left:18px;margin:8px 0;line-height:1.9">'+m+'</ul>')
+    .split(/\n{2,}/).map(p=>p.startsWith('<')?p:`<p style="margin:0 0 10px;line-height:1.8">${p.replace(/\n/g,'<br>')}</p>`).join('');
+}
+
+/* ============================================================
    PRODUCT PAGE
    ============================================================ */
 class ProductPage {
@@ -309,7 +327,7 @@ class ProductPage {
 
     // Description
     const detailBody = document.querySelector('.product-accordion:first-child .product-accordion-body');
-    if (detailBody && p.description) detailBody.innerHTML = p.description;
+    if (detailBody && p.description) detailBody.innerHTML = parseMd(p.description);
   }
 
   initGallery() {
