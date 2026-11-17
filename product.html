@@ -604,69 +604,70 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Reviews
   const handle = new URLSearchParams(location.search).get('p');
-  async function loadReviews() {
+  function initReviewForm() {
     const body = document.getElementById('reviews-body');
-    if (!body || !handle) return;
-    try {
-      const r = await fetch(`/api/reviews?handle=${encodeURIComponent(handle)}`);
-      const { reviews } = await r.json();
-      const avg = reviews.length ? (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1) : null;
-      const stars = n => '\u2605'.repeat(n) + '\u2606'.repeat(5-n);
-      const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-      body.innerHTML = `
-        ${reviews.length ? `<div class="review-avg">
-          <div class="review-avg-num">${avg}</div>
-          <div><div style="color:#f5a623;font-size:18px">${'\u2605'.repeat(Math.round(avg))}${'\u2606'.repeat(5-Math.round(avg))}</div>
-          <div class="review-avg-label">${reviews.length} review${reviews.length>1?'s':''}</div></div>
-        </div>` : '<p style="color:#888;font-style:italic;margin-bottom:16px">No reviews yet. Be the first!</p>'}
-        ${reviews.map(rv=>`<div class="review-item">
-          <div class="review-item-header"><span class="review-item-name">${rv.name}</span><span class="review-item-date">${fmt(rv.created_at)}</span></div>
-          <div class="review-item-stars">${stars(rv.rating)}</div>
-          <div class="review-item-body">${rv.body}</div>
-        </div>`).join('')}
-        <div class="review-form" id="review-form-wrap">
-          <h4>Write a Review</h4>
-          <div class="review-form-row">
-            <label>Your Rating</label>
-            <div class="review-star-pick" id="star-pick">
-              <span data-v="1">\u2605</span><span data-v="2">\u2605</span><span data-v="3">\u2605</span><span data-v="4">\u2605</span><span data-v="5">\u2605</span>
-            </div>
-            <input type="hidden" id="rev-rating" value="0">
+    if (!body) return;
+    // Render form immediately \u2014 always visible regardless of API status
+    body.innerHTML = `
+      <div id="reviews-list"><p style="color:#888;font-style:italic;margin-bottom:16px">Loading reviews...</p></div>
+      <div class="review-form" id="review-form-wrap">
+        <h4>Write a Review</h4>
+        <div class="review-form-row">
+          <label>Your Rating</label>
+          <div class="review-star-pick" id="star-pick">
+            <span data-v="1">\u2605</span><span data-v="2">\u2605</span><span data-v="3">\u2605</span><span data-v="4">\u2605</span><span data-v="5">\u2605</span>
           </div>
-          <div class="review-form-row"><label>Your Name</label><input type="text" id="rev-name" placeholder="Priya S." maxlength="60"></div>
-          <div class="review-form-row"><label>Your Review</label><textarea id="rev-body" rows="3" placeholder="What did you think of this product?" maxlength="1000"></textarea></div>
-          <button class="review-submit-btn" id="rev-submit">Submit Review</button>
-          <p id="rev-msg" style="margin-top:8px;font-size:12px;color:#2d7a3e;display:none"></p>
-        </div>`;
-      // Star picker interaction
-      const stars_el = document.querySelectorAll('#star-pick span');
-      const ratingInput = document.getElementById('rev-rating');
-      stars_el.forEach(s => {
-        s.addEventListener('mouseover', () => stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)));
-        s.addEventListener('mouseout', () => { const v = Number(ratingInput.value); stars_el.forEach((x,i) => x.classList.toggle('on', i < v)); });
-        s.addEventListener('click', () => { ratingInput.value = s.dataset.v; stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)); });
-      });
-      document.getElementById('rev-submit')?.addEventListener('click', async () => {
-        const rating = Number(ratingInput.value);
-        const name = document.getElementById('rev-name').value.trim();
-        const review_body = document.getElementById('rev-body').value.trim();
-        const msg = document.getElementById('rev-msg');
-        if (!rating) { msg.style.color='#c00'; msg.textContent='Please select a rating.'; msg.style.display='block'; return; }
-        if (!name) { msg.style.color='#c00'; msg.textContent='Please enter your name.'; msg.style.display='block'; return; }
-        if (!review_body) { msg.style.color='#c00'; msg.textContent='Please write your review.'; msg.style.display='block'; return; }
-        const btn = document.getElementById('rev-submit');
-        btn.disabled = true; btn.textContent = 'Submitting...';
+          <input type="hidden" id="rev-rating" value="0">
+        </div>
+        <div class="review-form-row"><label>Your Name</label><input type="text" id="rev-name" placeholder="Priya S." maxlength="60"></div>
+        <div class="review-form-row"><label>Your Review</label><textarea id="rev-body" rows="3" placeholder="What did you think of this product?" maxlength="1000"></textarea></div>
+        <button class="review-submit-btn" id="rev-submit">Submit Review</button>
+        <p id="rev-msg" style="margin-top:8px;font-size:12px;color:#2d7a3e;display:none"></p>
+      </div>`;
+    // Star picker
+    const stars_el = body.querySelectorAll('#star-pick span');
+    const ratingInput = body.querySelector('#rev-rating');
+    stars_el.forEach(s => {
+      s.addEventListener('mouseover', () => stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)));
+      s.addEventListener('mouseout', () => { const v = Number(ratingInput.value); stars_el.forEach((x,i) => x.classList.toggle('on', i < v)); });
+      s.addEventListener('click', () => { ratingInput.value = s.dataset.v; stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)); });
+    });
+    // Submit
+    body.querySelector('#rev-submit')?.addEventListener('click', async () => {
+      const rating = Number(ratingInput.value);
+      const name = body.querySelector('#rev-name').value.trim();
+      const review_body = body.querySelector('#rev-body').value.trim();
+      const msg = body.querySelector('#rev-msg');
+      const btn = body.querySelector('#rev-submit');
+      if (!rating) { msg.style.color='#c00'; msg.textContent='Please select a rating.'; msg.style.display='block'; return; }
+      if (!name) { msg.style.color='#c00'; msg.textContent='Please enter your name.'; msg.style.display='block'; return; }
+      if (!review_body) { msg.style.color='#c00'; msg.textContent='Please write your review.'; msg.style.display='block'; return; }
+      btn.disabled = true; btn.textContent = 'Submitting...';
+      try {
         const resp = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ product_handle: handle, name, rating, review_body }) });
         const data = await resp.json();
         msg.style.color = data.ok ? '#2d7a3e' : '#c00';
         msg.textContent = data.message || data.error || 'Error';
         msg.style.display = 'block';
-        if (data.ok) { document.getElementById('review-form-wrap').innerHTML = `<p style="color:#2d7a3e;font-weight:600;padding:12px 0">\u2713 Review submitted! It will appear after moderation.</p>`; }
+        if (data.ok) { body.querySelector('#review-form-wrap').innerHTML = `<p style="color:#2d7a3e;font-weight:600;padding:12px 0">\u2713 Review submitted! It will appear after moderation.</p>`; }
         else { btn.disabled = false; btn.textContent = 'Submit Review'; }
-      });
-    } catch(e) { console.error(e); }
+      } catch { btn.disabled = false; btn.textContent = 'Submit Review'; msg.style.color='#c00'; msg.textContent='Network error. Try again.'; msg.style.display='block'; }
+    });
+    // Load existing reviews in background
+    if (handle) fetch(`/api/reviews?handle=${encodeURIComponent(handle)}&_=${Date.now()}`)
+      .then(r=>r.json()).then(({reviews=[]})=>{
+        const list = body.querySelector('#reviews-list');
+        if (!list) return;
+        const stars = n => '\u2605'.repeat(n)+'\u2606'.repeat(5-n);
+        const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+        const avg = reviews.length ? (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1) : null;
+        list.innerHTML = reviews.length
+          ? `<div class="review-avg"><div class="review-avg-num">${avg}</div><div><div style="color:#f5a623;font-size:18px">${'\u2605'.repeat(Math.round(avg))}${'\u2606'.repeat(5-Math.round(avg))}</div><div class="review-avg-label">${reviews.length} review${reviews.length>1?'s':''}</div></div></div>`
+            + reviews.map(rv=>`<div class="review-item"><div class="review-item-header"><span class="review-item-name">${rv.name}</span><span class="review-item-date">${fmt(rv.created_at)}</span></div><div class="review-item-stars">${stars(rv.rating)}</div><div class="review-item-body">${rv.body}</div></div>`).join('')
+          : '<p style="color:#888;font-style:italic;margin-bottom:16px">No reviews yet. Be the first!</p>';
+      }).catch(()=>{ const list = body.querySelector('#reviews-list'); if(list) list.innerHTML=''; });
   }
-  loadReviews();
+  initReviewForm();
 });
 </script>
 <style>.wa-float{position:fixed;bottom:80px;right:20px;z-index:999}.wa-float a{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#25D366;border-radius:50%;box-shadow:0 4px 16px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s}.wa-float a:hover{transform:scale(1.1)}.wa-float svg{width:28px;height:28px;fill:#fff}@media(min-width:768px){.wa-float{bottom:30px}}</style>
