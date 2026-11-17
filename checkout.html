@@ -1034,6 +1034,30 @@ if (window.innerWidth > 900) {
 // Track checkout start
 if (window.rvTrack) window.rvTrack('checkout_start');
 if (window.fbq) window.fbq('track', 'InitiateCheckout');
+
+// Capture contact info for lead tracking (fires on phone blur if name is also present)
+(function() {
+  var _sent = false;
+  function captureContact() {
+    if (_sent) return;
+    var phone = (document.getElementById('inp-phone')?.value||'').replace(/\D/g,'');
+    var name  = (document.getElementById('inp-name')?.value||'').trim();
+    if (phone.length < 10 && name.length < 2) return;
+    _sent = true;
+    var sid = sessionStorage.getItem('rv_sid') || '';
+    fetch('/api/analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event_type: 'checkout_contact', session_id: sid, customer_name: name||null, customer_phone: phone||null })
+    }).catch(function(){});
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var phoneEl = document.getElementById('inp-phone');
+    var nameEl  = document.getElementById('inp-name');
+    if (phoneEl) phoneEl.addEventListener('blur', captureContact);
+    if (nameEl)  nameEl.addEventListener('blur', captureContact);
+  });
+})();
 </script>
 
 <!-- Firebase (paste your config below after setup) -->

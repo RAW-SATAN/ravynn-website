@@ -31,6 +31,13 @@ export default async function handler(req, res) {
     `;
     await sql`CREATE INDEX IF NOT EXISTS idx_page_events_created ON page_events(created_at DESC)`;
     await sql`CREATE INDEX IF NOT EXISTS idx_page_events_session ON page_events(session_id)`;
+    await sql`CREATE TABLE IF NOT EXISTS checkout_contacts (
+      id BIGSERIAL PRIMARY KEY,
+      session_id TEXT UNIQUE,
+      name TEXT,
+      phone TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )`;
   } catch {}
 
   // POST: record event (no auth — called from frontend)
@@ -40,6 +47,19 @@ export default async function handler(req, res) {
     const { event_type, session_id, page, referrer, utm_source, utm_medium, utm_campaign,
             device_type, product_id, product_name, product_price, quantity, order_id, revenue } = body || {};
     if (!event_type) return res.status(400).json({ error: 'event_type required' });
+    if (event_type === 'checkout_contact') {
+      const { customer_name, customer_phone } = body || {};
+      if (session_id && (customer_name || customer_phone)) {
+        try {
+          await sql`
+            INSERT INTO checkout_contacts (session_id, name, phone)
+            VALUES (${session_id}, ${customer_name||null}, ${customer_phone||null})
+            ON CONFLICT (session_id) DO UPDATE SET name=EXCLUDED.name, phone=EXCLUDED.phone, created_at=NOW()
+          `;
+        } catch {}
+      }
+      return res.json({ ok: true });
+    }
     try {
       await sql`
         INSERT INTO page_events (event_type,session_id,page,referrer,utm_source,utm_medium,utm_campaign,device_type,product_id,product_name,product_price,quantity,order_id,revenue)
@@ -74,7 +94,7 @@ export default async function handler(req, res) {
           COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS add_to_cart,
           COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkouts,
           COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchases
-          FROM page_events WHERE created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')`;
+          FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date`;
         return res.json({ today: rows[0] });
       }
       const [tod, wk, mo] = await Promise.all([
@@ -101,7 +121,7 @@ export default async function handler(req, res) {
             COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
             COUNT(CASE WHEN event_type='pageview' THEN 1 END) AS pageviews
           FROM page_events
-          WHERE created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+          WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
           GROUP BY date ORDER BY date`;
         return res.json({ chart: rows });
       }
@@ -119,7 +139,7 @@ export default async function handler(req, res) {
       const rows = hasRange
         ? await sql`SELECT COALESCE(NULLIF(utm_source,''), NULLIF(referrer,''), 'direct') AS source,
             COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
-            AND created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
             GROUP BY source ORDER BY visitors DESC LIMIT 10`
         : await sql`SELECT COALESCE(NULLIF(utm_source,''), NULLIF(referrer,''), 'direct') AS source,
             COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
@@ -132,7 +152,7 @@ export default async function handler(req, res) {
       const rows = hasRange
         ? await sql`SELECT page, COUNT(*) AS views, COUNT(DISTINCT session_id) AS visitors
             FROM page_events WHERE event_type='pageview'
-            AND created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
             GROUP BY page ORDER BY views DESC LIMIT 15`
         : await sql`SELECT page, COUNT(*) AS views, COUNT(DISTINCT session_id) AS visitors
             FROM page_events WHERE event_type='pageview'
@@ -145,7 +165,7 @@ export default async function handler(req, res) {
       const rows = hasRange
         ? await sql`SELECT COALESCE(device_type,'unknown') AS device,
             COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
-            AND created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
             GROUP BY device ORDER BY visitors DESC`
         : await sql`SELECT COALESCE(device_type,'unknown') AS device,
             COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
@@ -160,7 +180,7 @@ export default async function handler(req, res) {
             COUNT(DISTINCT session_id) AS visitors,
             COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS conversions
             FROM page_events WHERE utm_campaign IS NOT NULL
-            AND created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
             GROUP BY utm_campaign, utm_source, utm_medium ORDER BY visitors DESC LIMIT 20`
         : await sql`SELECT utm_campaign, utm_source, utm_medium,
             COUNT(DISTINCT session_id) AS visitors,
@@ -178,7 +198,7 @@ export default async function handler(req, res) {
             COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS added_cart,
             COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkout_started,
             COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchased
-            FROM page_events WHERE created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')`
+            FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date`
         : await sql`SELECT
             COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visited,
             COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS added_cart,
@@ -199,13 +219,62 @@ export default async function handler(req, res) {
       const rows = hasRange
         ? await sql`SELECT product_name, COUNT(*) AS count, SUM(quantity) AS total_qty
             FROM page_events WHERE event_type='add_to_cart'
-            AND created_at >= ${from}::date AND created_at < (${to}::date + INTERVAL '1 day')
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
             GROUP BY product_name ORDER BY count DESC LIMIT 10`
         : await sql`SELECT product_name, COUNT(*) AS count, SUM(quantity) AS total_qty
             FROM page_events WHERE event_type='add_to_cart'
             AND created_at >= NOW()-(${d}||' days')::INTERVAL
             GROUP BY product_name ORDER BY count DESC LIMIT 10`;
       return res.json({ atc: rows });
+    }
+
+    if (type === 'abandoned') {
+      const rows = hasRange
+        ? await sql`
+          SELECT pe.session_id, COALESCE(pe.device_type,'unknown') AS device_type,
+            MAX(pe.created_at) AS last_seen,
+            STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.product_name IS NOT NULL) AS products,
+            SUM(COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1)) AS cart_value
+          FROM page_events pe
+          WHERE pe.event_type='add_to_cart'
+            AND (pe.created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date
+            AND (pe.created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            AND NOT EXISTS (
+              SELECT 1 FROM page_events p2
+              WHERE p2.session_id=pe.session_id AND p2.event_type='purchase'
+            )
+          GROUP BY pe.session_id, pe.device_type
+          ORDER BY last_seen DESC LIMIT 50`
+        : await sql`
+          SELECT pe.session_id, COALESCE(pe.device_type,'unknown') AS device_type,
+            MAX(pe.created_at) AS last_seen,
+            STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.product_name IS NOT NULL) AS products,
+            SUM(COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1)) AS cart_value
+          FROM page_events pe
+          WHERE pe.event_type='add_to_cart'
+            AND pe.created_at >= NOW()-INTERVAL '30 days'
+            AND NOT EXISTS (
+              SELECT 1 FROM page_events p2
+              WHERE p2.session_id=pe.session_id AND p2.event_type='purchase'
+            )
+          GROUP BY pe.session_id, pe.device_type
+          ORDER BY last_seen DESC LIMIT 50`;
+      return res.json({ abandoned: rows });
+    }
+
+    if (type === 'abandoned_contacts') {
+      const rows = await sql`
+        SELECT
+          cc.name, cc.phone, cc.session_id, cc.created_at AS contact_time,
+          STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.event_type='add_to_cart' AND pe.product_name IS NOT NULL) AS products,
+          SUM(CASE WHEN pe.event_type='add_to_cart' THEN COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1) ELSE 0 END) AS cart_value,
+          MAX(pe.created_at) AS last_seen,
+          BOOL_OR(pe.event_type='purchase') AS purchased
+        FROM checkout_contacts cc
+        LEFT JOIN page_events pe ON pe.session_id=cc.session_id
+        GROUP BY cc.name, cc.phone, cc.session_id, cc.created_at
+        ORDER BY cc.created_at DESC LIMIT 200`;
+      return res.json({ contacts: rows });
     }
 
     return res.status(400).json({ error: 'Invalid type' });
