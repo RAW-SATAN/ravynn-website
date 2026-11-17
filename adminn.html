@@ -428,6 +428,16 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <div id="ana-campaigns-list"></div>
         </div>
 
+        <!-- Abandoned Carts -->
+        <div class="adm-section-divider">Abandoned Carts</div>
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head">
+            <h3>Abandoned Carts <span class="ana-period-tag" style="font-size:11px;color:#aaa">Selected period</span></h3>
+            <span id="ana-abandoned-summary" style="font-size:11px;color:#c0392b;font-weight:700;margin-left:auto"></span>
+          </div>
+          <div id="ana-abandoned-list"><p style="color:#aaa;font-size:13px">Loading...</p></div>
+        </div>
+
         <!-- Recent events -->
         <div class="adm-section-divider">Recent Events</div>
         <div class="analytics-chart-card">
@@ -1414,10 +1424,10 @@ function fmt2(n) { return Number(n||0).toLocaleString('en-IN'); }
 
 async function loadTrafficAnalytics() {
   try {
-    const [stats, sources, devices, funnel, pages, atc, campaigns, events] = await Promise.all([
+    const [stats, sources, devices, funnel, pages, atc, campaigns, events, abandoned] = await Promise.all([
       anaPFetch('stats'), anaPFetch('sources'), anaPFetch('devices'),
       anaPFetch('funnel'), anaPFetch('pages'), anaPFetch('atc'),
-      anaPFetch('campaigns'), anaFetch('events')
+      anaPFetch('campaigns'), anaFetch('events'), anaPFetch('abandoned')
     ]);
 
     // Today stats
@@ -1505,6 +1515,28 @@ async function loadTrafficAnalytics() {
           ${camList.map(c=>`<tr style="border-top:1px solid #f0f0f0"><td style="padding:8px 10px;font-weight:600">${c.utm_campaign||'-'}</td><td style="padding:8px 10px;color:#888">${c.utm_source||'-'}</td><td style="padding:8px 10px;text-align:right">${fmt2(c.visitors)}</td><td style="padding:8px 10px;text-align:right;color:#2d7a3e;font-weight:700">${fmt2(c.conversions)}</td></tr>`).join('')}
         </table>`
       : '<p style="color:#aaa;font-size:13px">No UTM campaigns tracked yet. Add ?utm_source=instagram&utm_campaign=post1 to your links.</p>';
+
+    // Abandoned Carts
+    const abandList = abandoned.abandoned || [];
+    const abandValue = abandList.reduce((s,r)=>s+Number(r.cart_value||0),0);
+    document.getElementById('ana-abandoned-summary').textContent = abandList.length
+      ? `${abandList.length} cart${abandList.length>1?'s':''} • ₹${fmt2(abandValue)} lost`
+      : '';
+    document.getElementById('ana-abandoned-list').innerHTML = abandList.length
+      ? `<table style="width:100%;border-collapse:collapse;font-size:12px">
+          <tr style="background:#fff5f5"><th style="padding:7px 10px;text-align:left;font-weight:700;color:#c0392b">Products</th><th style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">Value</th><th style="padding:7px 10px;text-align:center;font-weight:700;color:#c0392b">Device</th><th style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">When</th></tr>
+          ${abandList.map(r=>{
+            const d=new Date(r.last_seen);
+            const when=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+            return `<tr style="border-top:1px solid #f9e9e9">
+              <td style="padding:7px 10px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.products||''}">${(r.products||'Unknown').replace(/^RAVYNN\s+/g,'').slice(0,50)}</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">₹${fmt2(r.cart_value)}</td>
+              <td style="padding:7px 10px;text-align:center;color:#888">${r.device_type}</td>
+              <td style="padding:7px 10px;text-align:right;color:#aaa;font-size:11px;white-space:nowrap">${when}</td>
+            </tr>`;
+          }).join('')}
+        </table>`
+      : '<p style="color:#aaa;font-size:13px">No abandoned carts in this period.</p>';
 
     // Event stream
     const evEl = document.getElementById('ana-events-list');
