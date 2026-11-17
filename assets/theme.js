@@ -19,6 +19,8 @@ const Cart = {
     if (ex) { ex.qty += qty; }
     else { items.push({ key, id: product.id, handle: product.handle, title: product.title, size, price: product.price, image: product.images[0], qty }); }
     this.save(items);
+    if (window.rvTrack) window.rvTrack('add_to_cart', { product_id: String(product.id), product_name: product.title, product_price: product.price, quantity: qty });
+    if (window.fbq) window.fbq('track', 'AddToCart', { content_ids: [String(product.id)], content_name: product.title, value: product.price, currency: 'INR', content_type: 'product' });
   },
   remove(key) { this.save(this.get().filter(i => i.key !== key)); },
   update(key, qty) {
@@ -278,6 +280,9 @@ class ProductPage {
       this.initAddToBag();
       this.initCouponCopy();
       this.loadRelated();
+      const p = this.product;
+      if (window.rvTrack) window.rvTrack('view_content', { product_id: String(p.id), product_name: p.title, product_price: p.price });
+      if (window.fbq) window.fbq('track', 'ViewContent', { content_ids: [String(p.id)], content_name: p.title, value: p.price, currency: 'INR', content_type: 'product' });
     });
   }
 
@@ -318,7 +323,8 @@ class ProductPage {
     const slides = $$('.mobile-slide'), dots = $$('.mobile-dot'), gallery = $('.mobile-gallery');
     if (!slides.length) return;
     let cur = 0;
-    const go = i => { slides[cur]?.classList.remove('active'); dots[cur]?.classList.remove('active'); cur = (i+slides.length)%slides.length; slides[cur]?.classList.add('active'); dots[cur]?.classList.add('active'); };
+    const go = i => { slides[cur]?.classList.remove('active'); dots[cur]?.classList.remove('active'); cur = (i+slides.length)%slides.length; slides[cur]?.classList.add('active'); dots[cur]?.classList.add('active'); document.dispatchEvent(new CustomEvent('mobileGalleryChange',{detail:cur})); };
+    document.addEventListener('mobileGalleryGo', e => go(e.detail));
     $('.mobile-slide-prev')?.addEventListener('click', () => go(cur-1));
     $('.mobile-slide-next')?.addEventListener('click', () => go(cur+1));
     let sx = 0;
