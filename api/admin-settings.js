@@ -6,17 +6,21 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-key');
   if (req.method === 'OPTIONS') return res.status(204).end();
 
-  if (!process.env.ADMIN_KEY || req.headers['x-admin-key'] !== process.env.ADMIN_KEY) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+  const isAdmin = process.env.ADMIN_KEY && req.headers['x-admin-key'] === process.env.ADMIN_KEY;
 
   const sql = neon(process.env.DATABASE_URL);
 
+  // Public GET \u2014 coupons and shipping needed by checkout
   if (req.method === 'GET') {
     const { key = 'shipping' } = req.query;
+    if (!isAdmin && key !== 'coupons' && key !== 'shipping' && key !== 'hide_atc') {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
     const rows = await sql`SELECT value FROM settings WHERE key = ${key}`;
     return res.json({ success: true, value: rows[0]?.value ?? null });
   }
+
+  if (!isAdmin) return res.status(401).json({ error: 'Unauthorized' });
 
   if (req.method === 'POST') {
     const { key, value } = req.body;

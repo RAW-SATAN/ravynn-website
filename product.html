@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1870549064107037');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script src="assets/analytics-tracker.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product — RAVYNN</title>
+<title>Product &mdash; RAVYNN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
 <link rel="stylesheet" href="assets/menu.css">
 <style>
-/* ── Header (exact match to index.html) ── */
+/* -- Header (exact match to index.html) -- */
 .site-header { position:sticky; top:0; z-index:100; background:#fff; border-bottom:1px solid #e8e8e8; height:64px; display:flex; align-items:center; padding:0 20px; gap:16px; }
 .header-menu-btn { background:none; border:none; cursor:pointer; padding:6px; display:flex; align-items:center; }
 .header-menu-btn svg { width:22px; height:22px; }
@@ -21,10 +39,10 @@
 .header-actions { display:flex; align-items:center; gap:4px; margin-left:auto; }
 .header-icon-btn { background:none; border:none; cursor:pointer; padding:6px; display:flex; align-items:center; position:relative; text-decoration:none; color:#000; }
 .header-icon-btn svg { width:22px; height:22px; }
-/* ── Product Page Layout ── */
+/* -- Product Page Layout -- */
 .product-page { max-width:1200px; margin:0 auto; padding:32px 20px 80px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
 @media(max-width:767px){ .product-page { grid-template-columns:1fr; gap:0; padding:0 0 120px; } }
-/* ── Desktop Gallery ── */
+/* -- Desktop Gallery -- */
 .product-gallery { display:flex; gap:12px; position:sticky; top:80px; }
 @media(max-width:767px){ .product-gallery { display:none; } }
 .product-thumbs { display:flex; flex-direction:column; gap:8px; width:80px; flex-shrink:0; max-height:560px; overflow-y:auto; scrollbar-width:none; }
@@ -34,7 +52,7 @@
 .product-thumb img { width:100%; height:100%; object-fit:cover; }
 .product-main-wrap { flex:1; aspect-ratio:3/4; overflow:hidden; border-radius:3px; background:#f5f5f5; }
 .product-main-wrap img { width:100%; height:100%; object-fit:contain; display:block; }
-/* ── Mobile Gallery ── */
+/* -- Mobile Gallery -- */
 .mobile-gallery { display:none; position:relative; overflow:hidden; background:#f5f5f5; }
 @media(max-width:767px){ .mobile-gallery { display:block; } }
 .mobile-slides { display:flex; transition:none; }
@@ -47,7 +65,7 @@
 .mobile-slide-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:5px; }
 .mobile-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.5); border:none; padding:0; cursor:pointer; }
 .mobile-dot.active { background:#fff; }
-/* ── Product Info ── */
+/* -- Product Info -- */
 .product-info { }
 @media(max-width:767px){ .product-info { padding:16px 16px 0; } }
 .product-breadcrumb { font-size:12px; color:#888; margin-bottom:12px; }
@@ -58,7 +76,7 @@
 .product-price .compare { text-decoration:line-through; color:#999; font-size:15px; }
 .product-price span:not(.compare):not(.saved) { font-size:22px; font-weight:700; }
 .product-price .saved { background:#ff6200; color:#fff; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.5px; }
-/* Coupon Cards — 2-col side by side, ravynn.in style */
+/* Coupon Cards -- 2-col side by side, ravynn.in style */
 .coupon-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
 .coupon-card { border:1px solid #e0e0e0; border-radius:8px; padding:10px 12px; background:#fafafa; }
 .coupon-card-top { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
@@ -85,7 +103,7 @@
 .add-to-bag-btn.shake { animation:shake .4s; }
 .buy-now-btn { display:block; width:100%; background:#fff; color:#000; border:1.5px solid #000; padding:15px; font-size:14px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:background .2s,color .2s; margin-bottom:16px; }
 .buy-now-btn:hover { background:#000; color:#fff; }
-/* ASK SID — dark chat widget (ravynn.in style) */
+/* ASK SID -- dark chat widget (ravynn.in style) */
 .ask-sid { background:#111; color:#fff; border-radius:10px; padding:14px 16px; margin-bottom:20px; }
 .ask-sid-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
 .ask-sid-dot { width:30px; height:30px; border-radius:50%; background:#f60; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#fff; }
@@ -142,7 +160,7 @@
 .footer-popular-tags{display:flex;flex-wrap:wrap}
 .footer-popular-tag{font-size:13px;color:#555;text-decoration:none}
 .footer-popular-tag:hover{color:#000}
-.footer-popular-tag::after{content:"    ·    ";color:#bbb;white-space:pre}
+.footer-popular-tag::after{content:"    \00B7     ";color:#bbb;white-space:pre}
 .footer-popular-tag:last-child::after{content:""}
 .site-footer{background:#fff}
 .footer-inner{padding:36px 20px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
@@ -165,7 +183,7 @@
 <!-- Announcement Bar -->
 <div class="announcement-bar">
   <div class="announcement-content"><span>FREE SHIPPING ON EVERY ORDER | USE CODE: <strong>WELCOME10</strong> FOR 10% OFF YOUR FIRST ORDER</span></div>
-  <button class="announcement-close">×</button>
+  <button class="announcement-close">&times;</button>
 </div>
 
 <!-- Header -->
@@ -174,20 +192,20 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
   <a href="index.html" class="site-logo" aria-label="RAVYNN Home">
-    <img src="https://ravynn.in/cdn/shop/files/ChatGPT_Image_May_27__2026__05_29_39_PM-removebg-preview.png" alt="RAVYNN" style="height:42px;width:auto;display:block">
+    <img src="https://ravynn-2.myshopify.com/cdn/shop/files/ChatGPT_Image_May_27__2026__05_29_39_PM-removebg-preview.png" alt="RAVYNN" style="height:42px;width:auto;display:block">
   </a>
   <nav class="header-nav">
     <a href="collection.html?c=new-drops">New Drops</a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
     <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-    <a href="collection.html?c=under-999">Under ₹999</a>
+    <a href="collection.html?c=under-999">Under &#8377;999</a>
     <a href="collection.html">Shop All</a>
   </nav>
   <div class="header-actions">
     <button class="header-icon-btn" data-open-search aria-label="Search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
-    <a href="#" class="header-icon-btn" aria-label="Account">
+    <a href="customer.html" class="header-icon-btn" aria-label="Account">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </a>
     <a href="cart.html" class="header-icon-btn" aria-label="Cart">
@@ -203,7 +221,7 @@
     <div class="search-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="search" class="search-input" placeholder="Search for products..." autocomplete="off">
-      <button class="search-close">×</button>
+      <button class="search-close">&times;</button>
     </div>
     <div class="search-products"></div>
   </div>
@@ -213,19 +231,19 @@
 <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true">
   <div class="mobile-menu-header">
     <span class="mobile-menu-logo">CATEGORIES</span>
-    <button data-close-menu class="mobile-menu-close">×</button>
+    <button data-close-menu class="mobile-menu-close">&times;</button>
   </div>
   <div class="mobile-menu-thumbs">
-    <a href="collection.html?c=new-drops" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/sfv.png" alt="New Drops"><span>New Drops</span></a>
-    <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/fckk_mck.png" alt="Graphic Tees"><span>Graphic</span></a>
-    <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/SBF.png" alt="Oversized"><span>Oversized</span></a>
-    <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://ravynn.in/cdn/shop/files/c.png" alt="Under ₹999"><span>₹999</span></a>
+    <a href="collection.html?c=new-drops" class="mobile-menu-thumb"><img src="https://ravynn-2.myshopify.com/cdn/shop/files/sfv.png" alt="New Drops"><span>New Drops</span></a>
+    <a href="collection.html?c=graphic-tees" class="mobile-menu-thumb"><img src="https://ravynn-2.myshopify.com/cdn/shop/files/fckk_mck.png" alt="Graphic Tees"><span>Graphic</span></a>
+    <a href="collection.html?c=oversized-essentials" class="mobile-menu-thumb"><img src="https://ravynn-2.myshopify.com/cdn/shop/files/SBF.png" alt="Oversized"><span>Oversized</span></a>
+    <a href="collection.html?c=under-999" class="mobile-menu-thumb"><img src="https://ravynn-2.myshopify.com/cdn/shop/files/c.png" alt="Under &#8377;999"><span>&#8377;999</span></a>
   </div>
   <nav class="mobile-menu-nav">
     <a href="collection.html?c=new-drops">New Drops <span class="menu-new-badge">NEW</span></a>
     <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
     <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-    <a href="collection.html?c=under-999">Under ₹999</a>
+    <a href="collection.html?c=under-999">Under &#8377;999</a>
     <a href="collection.html">Shop All</a>
   </nav>
   <div class="mobile-menu-popular">
@@ -235,7 +253,7 @@
       <button data-col="new-drops">New Drops</button>
       <button data-col="graphic-tees">Graphic</button>
       <button data-col="oversized-essentials">Oversized</button>
-      <button data-col="under-999">Under ₹999</button>
+      <button data-col="under-999">Under &#8377;999</button>
     </div>
     <div class="mobile-menu-products" id="menu-products"></div>
   </div>
@@ -276,7 +294,7 @@
     <div class="coupon-cards">
       <div class="coupon-card">
         <div class="coupon-card-top">
-          <span class="coupon-heart">♡</span>
+          <span class="coupon-heart">&#9825;</span>
           <span class="coupon-name">WELCOME10</span>
           <button class="coupon-copy-btn" onclick="navigator.clipboard?.writeText('WELCOME10')" title="Copy code">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -286,7 +304,7 @@
       </div>
       <div class="coupon-card">
         <div class="coupon-card-top">
-          <span class="coupon-heart">♡</span>
+          <span class="coupon-heart">&#9825;</span>
           <span class="coupon-name">RAVYNN15</span>
           <button class="coupon-copy-btn" onclick="navigator.clipboard?.writeText('RAVYNN15')" title="Copy code">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -301,15 +319,15 @@
       <span class="size-label">Sizes</span>
       <span class="size-guide-link">Size Guide</span>
     </div>
-    <div class="size-rec">ⓘ We recommend one size smaller</div>
+    <div class="size-rec">&#9432; We recommend one size smaller</div>
     <div class="size-grid"></div>
-    <div class="delivery-note">🚚 FREE shipping pan-India | Delivered in 7–10 business days.</div>
+    <div class="delivery-note">&#128666; FREE shipping pan-India | Delivered in 7&ndash;10 business days.</div>
 
     <!-- Add to Bag + Buy Now -->
     <button class="add-to-bag-btn">ADD TO BAG</button>
     <button class="buy-now-btn" id="buy-now-btn">BUY NOW</button>
 
-    <!-- ASK SID — dark chat widget -->
+    <!-- ASK SID &mdash; dark chat widget -->
     <div class="ask-sid">
       <div class="ask-sid-header">
         <div class="ask-sid-dot">SID</div>
@@ -355,7 +373,7 @@
           Delivery <span class="product-accordion-icon">+</span>
         </div>
         <div class="product-accordion-body">
-          <p>Free shipping pan-India on every order. Standard delivery: 7–10 business days. You'll receive a tracking link via SMS/WhatsApp once dispatched.</p>
+          <p>Free shipping pan-India on every order. Standard delivery: 7&ndash;10 business days. You'll receive a tracking link via SMS/WhatsApp once dispatched.</p>
         </div>
       </div>
       <div class="product-accordion">
@@ -363,7 +381,7 @@
           Returns <span class="product-accordion-icon">+</span>
         </div>
         <div class="product-accordion-body">
-          <p>7-day size exchange (₹80 flat fee). Items must be unworn, unwashed, with tags intact. No refunds for change of mind. Contact us on WhatsApp: +91 85120 45784.</p>
+          <p>7-day size exchange (&#8377;80 flat fee). Items must be unworn, unwashed, with tags intact. No refunds for change of mind. Contact us on WhatsApp: +91 92205 65322.</p>
         </div>
       </div>
     </div>
@@ -386,7 +404,7 @@
           <a href="collection.html?c=new-drops">New Drops</a>
           <a href="collection.html?c=oversized-essentials">Oversized Essentials</a>
           <a href="collection.html?c=graphic-tees">Graphic Tees</a>
-          <a href="collection.html?c=under-999">Under ₹999</a>
+          <a href="collection.html?c=under-999">Under &#8377;999</a>
           <a href="collection.html">Shop All</a>
         </div>
       </div>
@@ -419,7 +437,7 @@
         <li><a href="collection.html?c=new-drops">New Drops</a></li>
         <li><a href="collection.html?c=oversized-essentials">Oversized Essentials</a></li>
         <li><a href="collection.html?c=graphic-tees">Graphic Tees</a></li>
-        <li><a href="collection.html?c=under-999">Under ₹999</a></li>
+        <li><a href="collection.html?c=under-999">Under &#8377;999</a></li>
         <li><a href="collection.html">Shop All</a></li>
       </ul>
     </div>
@@ -454,8 +472,8 @@
     </a>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 Ravynn. All rights reserved.</p>
-    <p class="footer-made">Made with ❤️ by <a href="https://drpshippr.com" target="_blank" rel="noopener">Drpshippr Ecomm Pvt Ltd</a></p>
+    <p class="footer-copy">&copy; 2026 Ravynn. All rights reserved.</p>
+    <p class="footer-made">Made with &#10084; by <a href="https://drpshippr.com" target="_blank" rel="noopener">Drpshippr Ecomm Pvt Ltd</a></p>
   </div>
 </footer>
 
@@ -476,7 +494,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     <span>Cart</span>
   </a>
-  <a href="track-order.html" class="mobile-nav-item">
+  <a href="customer.html" class="mobile-nav-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     <span>Profile</span>
   </a>
@@ -485,10 +503,17 @@
 <script src="assets/theme.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
+  fetch('/api/admin-settings?key=hide_atc').then(r=>r.json()).then(d=>{
+    if(d.value===true){
+      document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
+      const bn=document.getElementById('buy-now-btn');
+      if(bn)bn.style.display='none';
+    }
+  }).catch(()=>{});
   await Products.load();
   function menuProductHTML(p) {
-    const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^–]*–\s*/,'').split(' ').slice(0,5).join(' ');
-    return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">₹${p.price}</div></a>`;
+    const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
+    return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">\u20B9${p.price}</div></a>`;
   }
   function loadMenuProducts(col) {
     const c = document.getElementById('menu-products');
@@ -505,15 +530,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Buy Now — add to cart then go to cart page
+  // Buy Now \u2014 add to cart then go to cart page
   document.getElementById('buy-now-btn')?.addEventListener('click', () => {
-    const addBtn = document.querySelector('.add-to-bag-btn');
-    addBtn?.click();
+    if (!document.querySelector('.size-btn.active')) {
+      document.querySelector('.add-to-bag-btn')?.click();
+      return;
+    }
+    document.querySelector('.add-to-bag-btn')?.click();
     setTimeout(() => { window.location.href = 'cart.html'; }, 150);
   });
 });
 </script>
 <style>.wa-float{position:fixed;bottom:80px;right:20px;z-index:999}.wa-float a{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#25D366;border-radius:50%;box-shadow:0 4px 16px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s}.wa-float a:hover{transform:scale(1.1)}.wa-float svg{width:28px;height:28px;fill:#fff}@media(min-width:768px){.wa-float{bottom:30px}}</style>
-<div class="wa-float"><a href="https://wa.me/918512045784?text=Hi%20Ravynn!%20I%20have%20a%20question%20about%20my%20order." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.84-1.596l-.419-.247-4.362 1.049 1.067-4.25-.274-.436A11.46 11.46 0 014.5 16C4.5 9.649 9.649 4.5 16 4.5S27.5 9.649 27.5 16 22.351 27.5 16 27.5zm6.29-8.61c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg></a></div>
+<div class="wa-float"><a href="https://wa.me/919220565322?text=Hi%20Ravynn!%20I%20have%20a%20question%20about%20my%20order." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.493.651 4.836 1.789 6.87L2 30l7.352-1.766A13.942 13.942 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.84-1.596l-.419-.247-4.362 1.049 1.067-4.25-.274-.436A11.46 11.46 0 014.5 16C4.5 9.649 9.649 4.5 16 4.5S27.5 9.649 27.5 16 22.351 27.5 16 27.5zm6.29-8.61c-.345-.172-2.04-1.006-2.356-1.12-.317-.114-.547-.172-.778.173-.23.344-.893 1.12-1.094 1.35-.201.23-.402.258-.748.086-.345-.173-1.458-.537-2.778-1.714-1.027-.916-1.72-2.047-1.921-2.392-.201-.345-.021-.531.151-.702.155-.155.345-.402.517-.603.173-.2.23-.344.345-.575.114-.23.057-.431-.028-.603-.086-.172-.778-1.876-1.066-2.57-.28-.672-.565-.581-.778-.592l-.662-.012a1.27 1.27 0 00-.921.432c-.317.345-1.207 1.178-1.207 2.872s1.236 3.331 1.408 3.561c.172.23 2.433 3.714 5.893 5.208.824.355 1.467.567 1.968.726.827.262 1.58.225 2.175.137.663-.099 2.04-.834 2.328-1.638.287-.804.287-1.493.201-1.638-.086-.144-.316-.23-.662-.402z"/></svg></a></div>
 </body>
 </html>
