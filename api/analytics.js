@@ -33,7 +33,6 @@ export default async function handler(req, res) {
     await sql`CREATE INDEX IF NOT EXISTS idx_page_events_session ON page_events(session_id)`;
   } catch {}
 
-  // POST: record event (no auth — called from frontend)
   if (req.method === 'POST') {
     let body = req.body;
     if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
@@ -49,7 +48,6 @@ export default async function handler(req, res) {
     return res.json({ ok: true });
   }
 
-  // GET: requires admin key
   if (req.method === 'GET') {
     if (req.headers['x-admin-key'] !== process.env.ADMIN_KEY) return res.status(401).json({ error: 'Unauthorized' });
     const { type, days } = req.query;
@@ -206,6 +204,40 @@ export default async function handler(req, res) {
             AND created_at >= NOW()-(${d}||' days')::INTERVAL
             GROUP BY product_name ORDER BY count DESC LIMIT 10`;
       return res.json({ atc: rows });
+    }
+
+    if (type === 'abandoned') {
+      const rows = hasRange
+        ? await sql`
+          SELECT pe.session_id, COALESCE(pe.device_type,'unknown') AS device_type,
+            MAX(pe.created_at) AS last_seen,
+            STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.product_name IS NOT NULL) AS products,
+            SUM(COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1)) AS cart_value
+          FROM page_events pe
+          WHERE pe.event_type='add_to_cart'
+            AND (pe.created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date
+            AND (pe.created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            AND NOT EXISTS (
+              SELECT 1 FROM page_events p2
+              WHERE p2.session_id=pe.session_id AND p2.event_type='purchase'
+            )
+          GROUP BY pe.session_id, pe.device_type
+          ORDER BY last_seen DESC LIMIT 50`
+        : await sql`
+          SELECT pe.session_id, COALESCE(pe.device_type,'unknown') AS device_type,
+            MAX(pe.created_at) AS last_seen,
+            STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.product_name IS NOT NULL) AS products,
+            SUM(COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1)) AS cart_value
+          FROM page_events pe
+          WHERE pe.event_type='add_to_cart'
+            AND pe.created_at >= NOW()-INTERVAL '30 days'
+            AND NOT EXISTS (
+              SELECT 1 FROM page_events p2
+              WHERE p2.session_id=pe.session_id AND p2.event_type='purchase'
+            )
+          GROUP BY pe.session_id, pe.device_type
+          ORDER BY last_seen DESC LIMIT 50`;
+      return res.json({ abandoned: rows });
     }
 
     return res.status(400).json({ error: 'Invalid type' });
