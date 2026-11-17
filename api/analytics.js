@@ -54,6 +54,10 @@ export default async function handler(req, res) {
     if (req.headers['x-admin-key'] !== process.env.ADMIN_KEY) return res.status(401).json({ error: 'Unauthorized' });
     const { type, days } = req.query;
     const d = Number(days || 7);
+    const dateRe = /^\d{4}-\d{2}-\d{2}$/;
+    const from = dateRe.test(req.query.from || '') ? req.query.from : null;
+    const to   = dateRe.test(req.query.to   || '') ? req.query.to   : null;
+    const hasRange = !!(from && to);
 
     if (type === 'live') {
       const rows = await sql`
@@ -63,6 +67,16 @@ export default async function handler(req, res) {
     }
 
     if (type === 'stats') {
+      if (hasRange) {
+        const rows = await sql`SELECT
+          COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
+          COUNT(CASE WHEN event_type='pageview' THEN 1 END) AS pageviews,
+          COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS add_to_cart,
+          COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkouts,
+          COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchases
+          FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date`;
+        return res.json({ today: rows[0] });
+      }
       const [tod, wk, mo] = await Promise.all([
         sql`SELECT
           COUNT(DISTINCT CASE WHEN event_type IN ('pageview') THEN session_id END) AS visitors,
@@ -70,7 +84,7 @@ export default async function handler(req, res) {
           COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS add_to_cart,
           COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkouts,
           COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchases
-          FROM page_events WHERE created_at >= CURRENT_DATE`,
+          FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date = CURRENT_DATE AT TIME ZONE 'Asia/Kolkata'`,
         sql`SELECT COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
           COUNT(CASE WHEN event_type='pageview' THEN 1 END) AS pageviews
           FROM page_events WHERE created_at >= NOW()-INTERVAL '7 days'`,
@@ -81,6 +95,16 @@ export default async function handler(req, res) {
     }
 
     if (type === 'chart') {
+      if (hasRange) {
+        const rows = await sql`
+          SELECT DATE(created_at AT TIME ZONE 'Asia/Kolkata') AS date,
+            COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
+            COUNT(CASE WHEN event_type='pageview' THEN 1 END) AS pageviews
+          FROM page_events
+          WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+          GROUP BY date ORDER BY date`;
+        return res.json({ chart: rows });
+      }
       const rows = await sql`
         SELECT DATE(created_at AT TIME ZONE 'Asia/Kolkata') AS date,
           COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
@@ -92,54 +116,75 @@ export default async function handler(req, res) {
     }
 
     if (type === 'sources') {
-      const rows = await sql`
-        SELECT COALESCE(NULLIF(utm_source,''), NULLIF(referrer,''), 'direct') AS source,
-          COUNT(DISTINCT session_id) AS visitors
-        FROM page_events WHERE event_type='pageview'
-        AND created_at >= NOW()-INTERVAL '30 days'
-        GROUP BY source ORDER BY visitors DESC LIMIT 10`;
+      const rows = hasRange
+        ? await sql`SELECT COALESCE(NULLIF(utm_source,''), NULLIF(referrer,''), 'direct') AS source,
+            COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            GROUP BY source ORDER BY visitors DESC LIMIT 10`
+        : await sql`SELECT COALESCE(NULLIF(utm_source,''), NULLIF(referrer,''), 'direct') AS source,
+            COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
+            AND created_at >= NOW()-INTERVAL '30 days'
+            GROUP BY source ORDER BY visitors DESC LIMIT 10`;
       return res.json({ sources: rows });
     }
 
     if (type === 'pages') {
-      const rows = await sql`
-        SELECT page, COUNT(*) AS views, COUNT(DISTINCT session_id) AS visitors
-        FROM page_events WHERE event_type='pageview'
-        AND created_at >= NOW()-(${d}||' days')::INTERVAL
-        GROUP BY page ORDER BY views DESC LIMIT 15`;
+      const rows = hasRange
+        ? await sql`SELECT page, COUNT(*) AS views, COUNT(DISTINCT session_id) AS visitors
+            FROM page_events WHERE event_type='pageview'
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            GROUP BY page ORDER BY views DESC LIMIT 15`
+        : await sql`SELECT page, COUNT(*) AS views, COUNT(DISTINCT session_id) AS visitors
+            FROM page_events WHERE event_type='pageview'
+            AND created_at >= NOW()-(${d}||' days')::INTERVAL
+            GROUP BY page ORDER BY views DESC LIMIT 15`;
       return res.json({ pages: rows });
     }
 
     if (type === 'devices') {
-      const rows = await sql`
-        SELECT COALESCE(device_type,'unknown') AS device,
-          COUNT(DISTINCT session_id) AS visitors
-        FROM page_events WHERE event_type='pageview'
-        AND created_at >= NOW()-INTERVAL '30 days'
-        GROUP BY device ORDER BY visitors DESC`;
+      const rows = hasRange
+        ? await sql`SELECT COALESCE(device_type,'unknown') AS device,
+            COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            GROUP BY device ORDER BY visitors DESC`
+        : await sql`SELECT COALESCE(device_type,'unknown') AS device,
+            COUNT(DISTINCT session_id) AS visitors FROM page_events WHERE event_type='pageview'
+            AND created_at >= NOW()-INTERVAL '30 days'
+            GROUP BY device ORDER BY visitors DESC`;
       return res.json({ devices: rows });
     }
 
     if (type === 'campaigns') {
-      const rows = await sql`
-        SELECT utm_campaign, utm_source, utm_medium,
-          COUNT(DISTINCT session_id) AS visitors,
-          COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS conversions
-        FROM page_events WHERE utm_campaign IS NOT NULL
-        AND created_at >= NOW()-INTERVAL '30 days'
-        GROUP BY utm_campaign, utm_source, utm_medium
-        ORDER BY visitors DESC LIMIT 20`;
+      const rows = hasRange
+        ? await sql`SELECT utm_campaign, utm_source, utm_medium,
+            COUNT(DISTINCT session_id) AS visitors,
+            COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS conversions
+            FROM page_events WHERE utm_campaign IS NOT NULL
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            GROUP BY utm_campaign, utm_source, utm_medium ORDER BY visitors DESC LIMIT 20`
+        : await sql`SELECT utm_campaign, utm_source, utm_medium,
+            COUNT(DISTINCT session_id) AS visitors,
+            COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS conversions
+            FROM page_events WHERE utm_campaign IS NOT NULL
+            AND created_at >= NOW()-INTERVAL '30 days'
+            GROUP BY utm_campaign, utm_source, utm_medium ORDER BY visitors DESC LIMIT 20`;
       return res.json({ campaigns: rows });
     }
 
     if (type === 'funnel') {
-      const rows = await sql`
-        SELECT
-          COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visited,
-          COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS added_cart,
-          COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkout_started,
-          COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchased
-        FROM page_events WHERE created_at >= NOW()-INTERVAL '30 days'`;
+      const rows = hasRange
+        ? await sql`SELECT
+            COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visited,
+            COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS added_cart,
+            COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkout_started,
+            COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchased
+            FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date`
+        : await sql`SELECT
+            COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visited,
+            COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS added_cart,
+            COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkout_started,
+            COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchased
+            FROM page_events WHERE created_at >= NOW()-INTERVAL '30 days'`;
       return res.json({ funnel: rows[0] });
     }
 
@@ -151,11 +196,15 @@ export default async function handler(req, res) {
     }
 
     if (type === 'atc') {
-      const rows = await sql`
-        SELECT product_name, COUNT(*) AS count, SUM(quantity) AS total_qty
-        FROM page_events WHERE event_type='add_to_cart'
-        AND created_at >= NOW()-(${d}||' days')::INTERVAL
-        GROUP BY product_name ORDER BY count DESC LIMIT 10`;
+      const rows = hasRange
+        ? await sql`SELECT product_name, COUNT(*) AS count, SUM(quantity) AS total_qty
+            FROM page_events WHERE event_type='add_to_cart'
+            AND (created_at AT TIME ZONE 'Asia/Kolkata')::date >= ${from}::date AND (created_at AT TIME ZONE 'Asia/Kolkata')::date <= ${to}::date
+            GROUP BY product_name ORDER BY count DESC LIMIT 10`
+        : await sql`SELECT product_name, COUNT(*) AS count, SUM(quantity) AS total_qty
+            FROM page_events WHERE event_type='add_to_cart'
+            AND created_at >= NOW()-(${d}||' days')::INTERVAL
+            GROUP BY product_name ORDER BY count DESC LIMIT 10`;
       return res.json({ atc: rows });
     }
 
