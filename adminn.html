@@ -348,7 +348,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <!-- Live visitors -->
         <div class="ana-live-bar">
           <div class="ana-live-dot"></div>
-          <span class="ana-live-num" id="ana-live">‚Äì</span>
+          <span class="ana-live-num" id="ana-live">-</span>
           <span class="ana-live-label">Live Visitors</span>
           <div class="ana-live-sep"></div>
           <span style="font-size:12px;color:#888">updates every 30s</span>
@@ -362,18 +362,18 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <button class="ana-df-btn" onclick="setAnaFilter('30d',this)">Last 30 Days</button>
           <span class="ana-df-sep">|</span>
           <input type="date" id="ana-from-date" class="ana-df-input" onchange="setAnaFilter('custom',null)">
-          <span style="font-size:12px;color:#aaa">‚Üí</span>
+          <span style="font-size:12px;color:#aaa">&rarr;</span>
           <input type="date" id="ana-to-date" class="ana-df-input" onchange="setAnaFilter('custom',null)">
         </div>
 
         <!-- Period stats -->
         <div class="adm-section-divider" id="ana-period-label">Today</div>
         <div class="ana-traffic-stats">
-          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-vis">‚Äì</div><div class="ana-tstat-lbl">Visitors</div></div>
-          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pv">‚Äì</div><div class="ana-tstat-lbl">Pageviews</div></div>
-          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-atc">‚Äì</div><div class="ana-tstat-lbl">Add to Cart</div></div>
-          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-co">‚Äì</div><div class="ana-tstat-lbl">Checkouts</div></div>
-          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pur">‚Äì</div><div class="ana-tstat-lbl">Purchases</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-vis">-</div><div class="ana-tstat-lbl">Visitors</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pv">-</div><div class="ana-tstat-lbl">Pageviews</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-atc">-</div><div class="ana-tstat-lbl">Add to Cart</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-co">-</div><div class="ana-tstat-lbl">Checkouts</div></div>
+          <div class="ana-tstat"><div class="ana-tstat-val" id="ana-today-pur">-</div><div class="ana-tstat-lbl">Purchases</div></div>
         </div>
 
         <!-- Visitor chart -->
@@ -428,7 +428,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <div class="adm-section-divider">Recent Events</div>
         <div class="analytics-chart-card">
           <div class="analytics-chart-head"><h3>Live Event Stream</h3>
-            <button class="chart-range-btn" onclick="loadTrafficAnalytics()" style="font-size:11px">‚Üª Refresh</button>
+            <button class="chart-range-btn" onclick="loadTrafficAnalytics()" style="font-size:11px">&#8635; Refresh</button>
             <!-- loadTrafficAnalytics() uses current anaFromDate/anaToDate -->
           </div>
           <div id="ana-events-list"></div>
@@ -437,10 +437,10 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <!-- Divider: Sales -->
         <div class="adm-section-divider">Sales Overview</div>
         <div class="adm-stat-row" id="ana-stats">
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-total-rev">‚Äì</div><div class="adm-stat-label">Total Revenue</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-month-orders">‚Äì</div><div class="adm-stat-label">Orders This Month</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-avg">‚Äì</div><div class="adm-stat-label">Avg Order Value</div></div>
-          <div class="adm-stat"><div class="adm-stat-val" id="ana-products">‚Äì</div><div class="adm-stat-label">Active Products</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-total-rev">-</div><div class="adm-stat-label">Total Revenue</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-month-orders">-</div><div class="adm-stat-label">Orders This Month</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-avg">-</div><div class="adm-stat-label">Avg Order Value</div></div>
+          <div class="adm-stat"><div class="adm-stat-val" id="ana-products">-</div><div class="adm-stat-label">Active Products</div></div>
         </div>
 
         <div class="analytics-chart-card">
@@ -615,7 +615,7 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
       <!-- -- SHIPPING TAB -- -->
       <div class="adm-tab" id="tab-shipping">
         <div class="adm-section-title">Store Settings</div>
-        <div class="adm-section-sub">Site-wide controls ‚Äî changes apply immediately.</div>
+        <div class="adm-section-sub">Site-wide controls &mdash; changes apply immediately.</div>
 
         <div class="store-toggle-card">
           <div class="store-toggle-info">
@@ -1295,7 +1295,7 @@ function setAnaFilter(preset, btn) {
     anaFromDate = document.getElementById('ana-from-date').value;
     anaToDate = document.getElementById('ana-to-date').value;
     if (!anaFromDate || !anaToDate) return;
-    document.getElementById('ana-period-label').textContent = anaFromDate + ' ‚Üí ' + anaToDate;
+    document.getElementById('ana-period-label').textContent = anaFromDate + ' to ' + anaToDate;
   }
   if (preset !== 'custom') {
     document.getElementById('ana-from-date').value = anaFromDate;
@@ -1411,7 +1411,7 @@ async function loadTrafficAnalytics() {
     camEl.innerHTML = camList.length
       ? `<table style="width:100%;border-collapse:collapse;font-size:12px">
           <tr style="background:#f5f5f5"><th style="padding:8px 10px;text-align:left;font-weight:700">Campaign</th><th style="padding:8px 10px;text-align:left">Source</th><th style="padding:8px 10px;text-align:right">Visitors</th><th style="padding:8px 10px;text-align:right">Conversions</th></tr>
-          ${camList.map(c=>`<tr style="border-top:1px solid #f0f0f0"><td style="padding:8px 10px;font-weight:600">${c.utm_campaign||'‚Äì'}</td><td style="padding:8px 10px;color:#888">${c.utm_source||'‚Äì'}</td><td style="padding:8px 10px;text-align:right">${fmt2(c.visitors)}</td><td style="padding:8px 10px;text-align:right;color:#2d7a3e;font-weight:700">${fmt2(c.conversions)}</td></tr>`).join('')}
+          ${camList.map(c=>`<tr style="border-top:1px solid #f0f0f0"><td style="padding:8px 10px;font-weight:600">${c.utm_campaign||'-'}</td><td style="padding:8px 10px;color:#888">${c.utm_source||'-'}</td><td style="padding:8px 10px;text-align:right">${fmt2(c.visitors)}</td><td style="padding:8px 10px;text-align:right;color:#2d7a3e;font-weight:700">${fmt2(c.conversions)}</td></tr>`).join('')}
         </table>`
       : '<p style="color:#aaa;font-size:13px">No UTM campaigns tracked yet. Add ?utm_source=instagram&utm_campaign=post1 to your links.</p>';
 
@@ -1434,12 +1434,12 @@ async function loadTrafficAnalytics() {
 
   } catch (e) { console.error('analytics load error', e); }
 
-  // Live visitors ‚Äî poll every 30s
+  // Live visitors - poll every 30s
   clearInterval(liveTimer);
   async function fetchLive() {
     try {
       const d = await anaFetch('live');
-      document.getElementById('ana-live').textContent = d.live ?? '‚Äì';
+      document.getElementById('ana-live').textContent = d.live ?? '-';
     } catch {}
   }
   fetchLive();
@@ -1676,7 +1676,7 @@ async function saveAtcToggle(cb) {
       body: JSON.stringify({ key: 'hide_atc', value: hidden })
     });
     if (r.ok) {
-      document.getElementById('atc-toggle-status').textContent = hidden ? 'Saved ‚Äî Add to Cart is now HIDDEN on site' : 'Saved ‚Äî Add to Cart is now visible on site';
+      document.getElementById('atc-toggle-status').textContent = hidden ? 'Saved - Add to Cart is now HIDDEN on site' : 'Saved - Add to Cart is now visible on site';
       document.getElementById('atc-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
     } else { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
   } catch { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
