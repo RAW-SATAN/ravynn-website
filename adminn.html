@@ -187,6 +187,19 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#f5f
 input:checked+.disc-slider{background:#000}
 input:checked+.disc-slider:before{transform:translateX(16px)}
 
+/* -- Store toggle settings -- */
+.store-toggle-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
+.store-toggle-info{flex:1}
+.store-toggle-title{font-size:13px;font-weight:700;color:#111;margin-bottom:3px}
+.store-toggle-desc{font-size:12px;color:#999}
+.store-toggle-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.store-toggle-switch input{opacity:0;width:0;height:0}
+.store-toggle-slider{position:absolute;inset:0;background:#d4d4d4;border-radius:24px;cursor:pointer;transition:.2s}
+.store-toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.store-toggle-switch input:checked+.store-toggle-slider{background:#111}
+.store-toggle-switch input:checked+.store-toggle-slider:before{transform:translateX(20px)}
+.store-toggle-status{font-size:11px;color:#aaa;margin-top:3px}
+
 /* -- Shipping settings -- */
 .ship-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
 @media(max-width:600px){.ship-grid{grid-template-columns:1fr}}
@@ -601,8 +614,23 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 
       <!-- -- SHIPPING TAB -- -->
       <div class="adm-tab" id="tab-shipping">
-        <div class="adm-section-title">Shipping Settings</div>
-        <div class="adm-section-sub">Changes apply immediately across cart and checkout.</div>
+        <div class="adm-section-title">Store Settings</div>
+        <div class="adm-section-sub">Site-wide controls ‚Äî changes apply immediately.</div>
+
+        <div class="store-toggle-card">
+          <div class="store-toggle-info">
+            <div class="store-toggle-title">Hide "Add to Cart" Button</div>
+            <div class="store-toggle-desc">When ON, hides Add to Bag &amp; Buy Now on all product pages. Use for sold-out or lookbook mode.</div>
+            <div class="store-toggle-status" id="atc-toggle-status">Loading...</div>
+          </div>
+          <label class="store-toggle-switch">
+            <input type="checkbox" id="atc-toggle" onchange="saveAtcToggle(this)">
+            <span class="store-toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="adm-section-divider" style="margin-bottom:20px">Shipping Settings</div>
+        <div class="adm-section-sub" style="margin-top:-14px;margin-bottom:16px">Changes apply immediately across cart and checkout.</div>
 
         <div class="ship-notice" id="ship-status">Loading current settings...</div>
 
@@ -808,7 +836,7 @@ function doLogin() {
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('admin-panel').style.display = 'block';
       processOrders(data.orders || []);
-      loadShipping();
+      loadAtcToggle(); loadShipping();
       loadProducts();
       loadCoupons();
       setupImageZone();
@@ -842,6 +870,7 @@ function showTab(name) {
   document.getElementById('nav-' + name).classList.add('active');
   if (name === 'analytics') { renderAnalytics(); initAnaFilter(); }
   if (name === 'customers') { allRegisteredCustomers = null; renderCustomers(); }
+  if (name === 'shipping') { loadAtcToggle(); loadShipping(); }
 }
 
 // -- Image upload zone setup -----------------------------------
@@ -1622,6 +1651,35 @@ async function deleteCoupon(i) {
 async function toggleCoupon(i, active) {
   allCoupons[i].active = active;
   await saveCoupons();
+}
+
+// -- ATC Toggle ------------------------------------------------
+async function loadAtcToggle() {
+  try {
+    const r = await fetch('/api/admin-settings?key=hide_atc', { headers: { 'x-admin-key': ADMIN_KEY } });
+    const d = await r.json();
+    const hidden = d.value === true;
+    document.getElementById('atc-toggle').checked = hidden;
+    document.getElementById('atc-toggle-status').textContent = hidden ? 'Currently: Add to Cart is HIDDEN on site' : 'Currently: Add to Cart is visible on site';
+    document.getElementById('atc-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
+  } catch { document.getElementById('atc-toggle-status').textContent = 'Could not load.'; }
+}
+
+async function saveAtcToggle(cb) {
+  const hidden = cb.checked;
+  document.getElementById('atc-toggle-status').textContent = 'Saving...';
+  document.getElementById('atc-toggle-status').style.color = '#aaa';
+  try {
+    const r = await fetch('/api/admin-settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+      body: JSON.stringify({ key: 'hide_atc', value: hidden })
+    });
+    if (r.ok) {
+      document.getElementById('atc-toggle-status').textContent = hidden ? 'Saved ‚Äî Add to Cart is now HIDDEN on site' : 'Saved ‚Äî Add to Cart is now visible on site';
+      document.getElementById('atc-toggle-status').style.color = hidden ? '#c0392b' : '#27ae60';
+    } else { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
+  } catch { document.getElementById('atc-toggle-status').textContent = 'Error saving.'; }
 }
 
 // -- Shipping --------------------------------------------------
