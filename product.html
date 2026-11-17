@@ -503,6 +503,13 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 <script src="assets/theme.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
+  fetch('/api/admin-settings?key=hide_atc').then(r=>r.json()).then(d=>{
+    if(d.value===true){
+      document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
+      const bn=document.getElementById('buy-now-btn');
+      if(bn)bn.style.display='none';
+    }
+  }).catch(()=>{});
   await Products.load();
   function menuProductHTML(p) {
     const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
