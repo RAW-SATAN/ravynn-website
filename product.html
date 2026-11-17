@@ -506,8 +506,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   fetch('/api/admin-settings?key=hide_atc').then(r=>r.json()).then(d=>{
     if(d.value===true){
       document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
-      const bn=document.getElementById('buy-now-btn');
-      if(bn)bn.style.display='none';
     }
   }).catch(()=>{});
   await Products.load();
