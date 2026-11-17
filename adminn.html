@@ -1275,20 +1275,22 @@ function setAnaFilter(preset, btn) {
   document.querySelectorAll('.ana-df-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   const now = new Date();
-  const toDay = now.toISOString().slice(0,10);
+  // Use IST (UTC+5:30) for date boundaries so "Today" matches India's calendar date
+  const istNow = new Date(now.getTime() + 5.5*60*60*1000);
+  const toDay = istNow.toISOString().slice(0,10);
   if (preset === 'today') {
     anaFromDate = toDay; anaToDate = toDay;
     document.getElementById('ana-period-label').textContent = 'Today';
   } else if (preset === 'yesterday') {
-    const y = new Date(now); y.setDate(y.getDate()-1);
+    const y = new Date(istNow); y.setDate(y.getDate()-1);
     anaFromDate = anaToDate = y.toISOString().slice(0,10);
     document.getElementById('ana-period-label').textContent = 'Yesterday';
   } else if (preset === '7d') {
-    const f = new Date(now); f.setDate(f.getDate()-6);
+    const f = new Date(istNow); f.setDate(f.getDate()-6);
     anaFromDate = f.toISOString().slice(0,10); anaToDate = toDay;
     document.getElementById('ana-period-label').textContent = 'Last 7 Days';
   } else if (preset === '30d') {
-    const f = new Date(now); f.setDate(f.getDate()-29);
+    const f = new Date(istNow); f.setDate(f.getDate()-29);
     anaFromDate = f.toISOString().slice(0,10); anaToDate = toDay;
     document.getElementById('ana-period-label').textContent = 'Last 30 Days';
   } else if (preset === 'custom') {
@@ -1307,15 +1309,15 @@ function setAnaFilter(preset, btn) {
 }
 
 async function anaFetch(type, extra) {
-  const url = `/api/analytics?type=${type}${extra||''}`;
-  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY } });
+  const url = `/api/analytics?type=${type}${extra||''}&_=${Date.now()}`;
+  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY }, cache: 'no-store' });
   return r.json();
 }
 
 async function anaPFetch(type) {
   const params = anaFromDate && anaToDate ? `&from=${anaFromDate}&to=${anaToDate}` : '';
-  const url = `/api/analytics?type=${type}${params}`;
-  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY } });
+  const url = `/api/analytics?type=${type}${params}&_=${Date.now()}`;
+  const r = await fetch(url, { headers: { 'x-admin-key': ADMIN_KEY }, cache: 'no-store' });
   return r.json();
 }
 
