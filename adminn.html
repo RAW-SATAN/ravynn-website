@@ -339,6 +339,10 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           Reviews
         </button>
+        <button class="adm-nav-btn" onclick="showTab('leads')" id="nav-leads">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Leads
+        </button>
       </nav>
     </aside>
 
@@ -426,6 +430,16 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         <div class="analytics-chart-card">
           <div class="analytics-chart-head"><h3>UTM Campaigns</h3><span class="ana-period-tag" style="font-size:11px;color:#aaa">30 days</span></div>
           <div id="ana-campaigns-list"></div>
+        </div>
+
+        <!-- Abandoned Carts -->
+        <div class="adm-section-divider">Abandoned Carts</div>
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head">
+            <h3>Abandoned Carts <span class="ana-period-tag" style="font-size:11px;color:#aaa">Selected period</span></h3>
+            <span id="ana-abandoned-summary" style="font-size:11px;color:#c0392b;font-weight:700;margin-left:auto"></span>
+          </div>
+          <div id="ana-abandoned-list"><p style="color:#aaa;font-size:13px">Loading...</p></div>
         </div>
 
         <!-- Recent events -->
@@ -809,14 +823,22 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 
     <div class="prod-field">
       <label>Description (HTML allowed — supports &lt;img&gt;, &lt;video&gt;, &lt;iframe&gt;)</label>
-      <div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" onclick="descInsert('img')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Image</button>
-        <button type="button" onclick="descInsert('gif')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ GIF</button>
+      <div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+        <button type="button" onclick="document.getElementById('desc-file-input').click()" style="font-size:11px;padding:4px 8px;background:#000;color:#fff;border:1px solid #000;border-radius:3px;cursor:pointer">↑ Upload Image</button>
+        <input type="file" id="desc-file-input" accept="image/*" style="display:none" onchange="descUploadFile(this.files)">
+        <button type="button" onclick="descInsert('img')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Image URL</button>
+        <button type="button" onclick="descInsert('gif')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ GIF URL</button>
         <button type="button" onclick="descInsert('video')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Video URL</button>
         <button type="button" onclick="descInsert('youtube')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ YouTube</button>
+        <span id="desc-upload-status" style="font-size:11px;color:#888"></span>
       </div>
       <textarea id="pm-description" placeholder="<p>Product description here.</p>" rows="5"></textarea>
-      <div style="margin-top:4px;font-size:11px;color:#aaa">Tip: Paste image/video URLs using the buttons above. HTML is rendered as-is on product page.</div>
+      <div style="margin-top:4px;font-size:11px;color:#aaa">Tip: Upload images directly or paste URLs using the buttons above. HTML is rendered as-is on product page.</div>
+    </div>
+
+    <div class="prod-field">
+      <label>Limited Edition Total <span style="font-weight:400;color:#aaa">(optional — shows "X/N claimed" counter on product page)</span></label>
+      <input type="number" id="pm-stock-total" placeholder="e.g. 320 — leave blank for regular product" min="1" style="max-width:220px">
     </div>
 
     <div class="prod-field">
@@ -840,7 +862,44 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
   <div id="reviews-admin-list"><p style="color:#aaa;padding:20px 0">Loading reviews...</p></div>
 </div>
 
+<div class="adm-tab" id="tab-leads">
+  <div class="adm-section-title">Leads</div>
+  <div class="adm-section-sub">Customers who entered their contact info but didn't complete purchase — call or WhatsApp them.</div>
+  <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+    <button onclick="loadLeads('all')" class="chart-range-btn active" id="leads-btn-all" style="font-weight:700">All</button>
+    <button onclick="loadLeads('abandoned')" class="chart-range-btn" id="leads-btn-abandoned">Abandoned Only</button>
+    <button onclick="loadLeads('purchased')" class="chart-range-btn" id="leads-btn-purchased">Purchased</button>
+    <span id="leads-count" style="font-size:12px;color:#888;align-self:center;margin-left:auto"></span>
+  </div>
+  <div id="leads-list"><p style="color:#aaa;padding:20px 0">Loading leads...</p></div>
+</div>
+
 <script>
+async function descUploadFile(files) {
+  const file = files && files[0];
+  if (!file) return;
+  const status = document.getElementById('desc-upload-status');
+  const ta = document.getElementById('pm-description');
+  status.textContent = 'Uploading...';
+  try {
+    const dataUrl = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); });
+    const base64 = dataUrl.split(',')[1];
+    const filename = `desc-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+    const resp = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY }, body: JSON.stringify({ filename, base64 }) });
+    const d = await resp.json();
+    if (!resp.ok) throw new Error(d.error || 'Upload failed');
+    const snippet = `<img src="${d.url}" alt="" style="max-width:100%;border-radius:4px;margin:8px 0">`;
+    const pos = ta.selectionEnd || ta.value.length;
+    ta.value = ta.value.slice(0, pos) + snippet + ta.value.slice(pos);
+    ta.focus();
+    status.textContent = '✓ Uploaded';
+    setTimeout(() => { status.textContent = ''; }, 3000);
+  } catch (e) {
+    status.textContent = '✗ ' + e.message;
+  }
+  document.getElementById('desc-file-input').value = '';
+}
+
 function descInsert(type) {
   const ta = document.getElementById('pm-description');
   let snippet = '';
@@ -895,6 +954,57 @@ async function loadAdminReviews() {
 async function reviewAction(id, action) {
   await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY}, body: JSON.stringify({ action, id }) });
   loadAdminReviews();
+}
+
+async function loadLeads(filter) {
+  document.querySelectorAll('[id^="leads-btn-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('leads-btn-' + filter)?.classList.add('active');
+  const list = document.getElementById('leads-list');
+  const countEl = document.getElementById('leads-count');
+  list.innerHTML = '<p style="color:#aaa;padding:20px 0">Loading...</p>';
+  try {
+    const r = await fetch('/api/analytics?type=abandoned_contacts&_=' + Date.now(), { headers: { 'x-admin-key': ADMIN_KEY }, cache: 'no-store' });
+    const { contacts } = await r.json();
+    if (!contacts) { list.innerHTML = '<p style="color:#c00">Error loading leads.</p>'; return; }
+    let rows = contacts;
+    if (filter === 'abandoned') rows = rows.filter(c => !c.purchased);
+    if (filter === 'purchased') rows = rows.filter(c => c.purchased);
+    countEl.textContent = rows.length + ' lead' + (rows.length !== 1 ? 's' : '');
+    if (!rows.length) { list.innerHTML = '<p style="color:#aaa;padding:20px 0">No leads found.</p>'; return; }
+    const fmt = d => { const dt = new Date(d); return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short'}) + ' ' + dt.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true}); };
+    list.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px;min-width:600px">
+      <thead><tr style="background:#f5f5f5">
+        <th style="padding:10px 12px;text-align:left;font-weight:700">Name</th>
+        <th style="padding:10px 12px;text-align:left;font-weight:700">Phone</th>
+        <th style="padding:10px 12px;text-align:left;font-weight:700">Products</th>
+        <th style="padding:10px 12px;text-align:right;font-weight:700">Value</th>
+        <th style="padding:10px 12px;text-align:center;font-weight:700">Status</th>
+        <th style="padding:10px 12px;text-align:right;font-weight:700">Time</th>
+        <th style="padding:10px 12px;text-align:center;font-weight:700">Action</th>
+      </tr></thead>
+      <tbody>${rows.map(c => {
+        const statusBadge = c.purchased
+          ? '<span style="background:#e8f5e9;color:#2d7a3e;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">Purchased</span>'
+          : '<span style="background:#fde8e8;color:#c0392b;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">Abandoned</span>';
+        const waLink = c.phone ? `https://wa.me/91${c.phone.replace(/\D/g,'')}?text=${encodeURIComponent('Hi ' + (c.name||'') + ', tumhara RAVYNN order complete nahi hua. Koi help chahiye?')}` : '';
+        const products = (c.products||'').replace(/^RAVYNN\s+/g,'').slice(0,60);
+        return `<tr style="border-top:1px solid #f0f0f0;${!c.purchased?'background:#fffbf8':''}">
+          <td style="padding:10px 12px;font-weight:600">${c.name||'-'}</td>
+          <td style="padding:10px 12px"><a href="tel:${c.phone}" style="color:#000;text-decoration:none;font-weight:600">${c.phone||'-'}</a></td>
+          <td style="padding:10px 12px;color:#555;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${c.products||''}">${products||'-'}</td>
+          <td style="padding:10px 12px;text-align:right;font-weight:700;color:${!c.purchased?'#c0392b':'#2d7a3e'}">₹${Number(c.cart_value||0).toLocaleString('en-IN')}</td>
+          <td style="padding:10px 12px;text-align:center">${statusBadge}</td>
+          <td style="padding:10px 12px;text-align:right;color:#aaa;font-size:11px;white-space:nowrap">${c.contact_time ? fmt(c.contact_time) : '-'}</td>
+          <td style="padding:10px 12px;text-align:center">
+            ${waLink ? `<a href="${waLink}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#fff;padding:5px 10px;border-radius:4px;font-size:11px;font-weight:700;text-decoration:none">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+              WhatsApp
+            </a>` : ''}
+          </td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div>`;
+  } catch(e) { list.innerHTML = '<p style="color:#c00">Error: ' + e.message + '</p>'; }
 }
 </script>
 
@@ -960,6 +1070,7 @@ function showTab(name) {
   if (name === 'customers') { allRegisteredCustomers = null; renderCustomers(); }
   if (name === 'shipping') { loadAtcToggle(); loadSidToggle(); loadShipping(); }
   if (name === 'reviews') { loadAdminReviews(); }
+  if (name === 'leads') { loadLeads('all'); }
 }
 
 // -- Image upload zone setup -----------------------------------
@@ -1414,10 +1525,10 @@ function fmt2(n) { return Number(n||0).toLocaleString('en-IN'); }
 
 async function loadTrafficAnalytics() {
   try {
-    const [stats, sources, devices, funnel, pages, atc, campaigns, events] = await Promise.all([
+    const [stats, sources, devices, funnel, pages, atc, campaigns, events, abandoned] = await Promise.all([
       anaPFetch('stats'), anaPFetch('sources'), anaPFetch('devices'),
       anaPFetch('funnel'), anaPFetch('pages'), anaPFetch('atc'),
-      anaPFetch('campaigns'), anaFetch('events')
+      anaPFetch('campaigns'), anaFetch('events'), anaPFetch('abandoned')
     ]);
 
     // Today stats
@@ -1505,6 +1616,28 @@ async function loadTrafficAnalytics() {
           ${camList.map(c=>`<tr style="border-top:1px solid #f0f0f0"><td style="padding:8px 10px;font-weight:600">${c.utm_campaign||'-'}</td><td style="padding:8px 10px;color:#888">${c.utm_source||'-'}</td><td style="padding:8px 10px;text-align:right">${fmt2(c.visitors)}</td><td style="padding:8px 10px;text-align:right;color:#2d7a3e;font-weight:700">${fmt2(c.conversions)}</td></tr>`).join('')}
         </table>`
       : '<p style="color:#aaa;font-size:13px">No UTM campaigns tracked yet. Add ?utm_source=instagram&utm_campaign=post1 to your links.</p>';
+
+    // Abandoned Carts
+    const abandList = abandoned.abandoned || [];
+    const abandValue = abandList.reduce((s,r)=>s+Number(r.cart_value||0),0);
+    document.getElementById('ana-abandoned-summary').textContent = abandList.length
+      ? `${abandList.length} cart${abandList.length>1?'s':''} • ₹${fmt2(abandValue)} lost`
+      : '';
+    document.getElementById('ana-abandoned-list').innerHTML = abandList.length
+      ? `<table style="width:100%;border-collapse:collapse;font-size:12px">
+          <tr style="background:#fff5f5"><th style="padding:7px 10px;text-align:left;font-weight:700;color:#c0392b">Products</th><th style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">Value</th><th style="padding:7px 10px;text-align:center;font-weight:700;color:#c0392b">Device</th><th style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">When</th></tr>
+          ${abandList.map(r=>{
+            const d=new Date(r.last_seen);
+            const when=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+            return `<tr style="border-top:1px solid #f9e9e9">
+              <td style="padding:7px 10px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.products||''}">${(r.products||'Unknown').replace(/^RAVYNN\s+/g,'').slice(0,50)}</td>
+              <td style="padding:7px 10px;text-align:right;font-weight:700;color:#c0392b">₹${fmt2(r.cart_value)}</td>
+              <td style="padding:7px 10px;text-align:center;color:#888">${r.device_type}</td>
+              <td style="padding:7px 10px;text-align:right;color:#aaa;font-size:11px;white-space:nowrap">${when}</td>
+            </tr>`;
+          }).join('')}
+        </table>`
+      : '<p style="color:#aaa;font-size:13px">No abandoned carts in this period.</p>';
 
     // Event stream
     const evEl = document.getElementById('ana-events-list');
@@ -1978,6 +2111,7 @@ function openProductModal(id) {
   document.getElementById('pm-compare').value = p ? (p.compare_at_price || '') : '';
   document.getElementById('pm-type').value = p ? (p.type || 'Graphic Tees') : 'Graphic Tees';
   document.getElementById('pm-description').value = p ? (p.description || '') : '';
+  document.getElementById('pm-stock-total').value = p ? (p.stock_total || '') : '';
   document.getElementById('pm-available').checked = p ? p.available !== false : true;
   document.getElementById('pm-images').value = p && Array.isArray(p.images) ? p.images.join('\n') : '';
   document.getElementById('img-file-input').value = '';
@@ -2079,13 +2213,15 @@ async function saveProduct() {
   const collections = Array.from(document.querySelectorAll('#pm-collections input:checked')).map(cb => cb.value);
   const sizes = Array.from(document.querySelectorAll('#pm-sizes input:checked')).map(cb => cb.value);
 
+  const stockTotal = document.getElementById('pm-stock-total').value;
   const body = {
     handle, title, price,
     compare_at_price: compare ? Number(compare) : null,
     type: document.getElementById('pm-type').value,
     collections, images, sizes,
     available: document.getElementById('pm-available').checked,
-    description: document.getElementById('pm-description').value.trim()
+    description: document.getElementById('pm-description').value.trim(),
+    stock_total: stockTotal ? Number(stockTotal) : null
   };
 
   const btn = document.querySelector('.prod-save-btn');

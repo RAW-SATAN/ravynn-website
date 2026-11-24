@@ -92,6 +92,12 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .review-form-row input:focus, .review-form-row textarea:focus { border-color:#000; }
 .review-submit-btn { width:100%; background:#000; color:#fff; border:none; padding:12px; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; margin-top:4px; }
 .review-submit-btn:hover { background:#333; }
+.rev-img-label { display:inline-flex; align-items:center; gap:7px; padding:8px 14px; border:1.5px dashed #ddd; border-radius:3px; font-size:12px; color:#666; cursor:pointer; transition:border-color .2s,color .2s; margin-top:2px; }
+.rev-img-label:hover { border-color:#000; color:#000; }
+.rev-img-label svg { flex-shrink:0; }
+.rev-img-thumb { display:none; width:72px; height:72px; object-fit:cover; border-radius:4px; border:1px solid #eee; margin-top:8px; }
+.rev-img-remove { display:none; background:none; border:none; font-size:11px; color:#c00; cursor:pointer; margin-top:4px; padding:0; text-decoration:underline; }
+.review-img { max-width:180px; max-height:180px; object-fit:cover; border-radius:4px; margin-top:8px; display:block; border:1px solid #eee; cursor:pointer; }
 .review-star-pick { display:flex; gap:4px; font-size:24px; color:#ddd; cursor:pointer; margin-bottom:8px; }
 .review-star-pick span.on { color:#f5a623; }
 /* -- Product Info -- */
@@ -105,6 +111,12 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .product-price .compare { text-decoration:line-through; color:#999; font-size:15px; }
 .product-price span:not(.compare):not(.saved) { font-size:22px; font-weight:700; }
 .product-price .saved { background:#ff6200; color:#fff; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.5px; }
+/* Limited Edition Counter */
+.limited-counter { margin-bottom:16px; }
+.limited-label { font-size:12px; font-weight:600; color:#222; margin-bottom:5px; letter-spacing:.2px; }
+.limited-label strong { color:#c0392b; }
+.limited-bar-bg { background:#f0f0f0; border-radius:99px; height:6px; overflow:hidden; }
+.limited-bar-fill { height:100%; background:linear-gradient(90deg,#c0392b,#ff6200); border-radius:99px; transition:width .6s ease; }
 /* Coupon Cards -- 2-col side by side, ravynn.in style */
 .coupon-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
 .coupon-card { border:1px solid #e0e0e0; border-radius:8px; padding:10px 12px; background:#fafafa; }
@@ -130,9 +142,11 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .add-to-bag-btn:hover { background:#222; }
 .add-to-bag-btn.added { background:#2d7a3e; }
 .add-to-bag-btn.shake { animation:shake .4s; }
-.buy-now-btn { display:block; width:100%; background:linear-gradient(135deg,#ff6a00,#ff9d00); color:#fff; border:none; padding:16px; font-size:15px; font-weight:800; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-bottom:16px; border-radius:2px; box-shadow:0 4px 20px rgba(255,106,0,.35); animation:buyPulse 2.5s ease-in-out infinite; }
-.buy-now-btn:hover { background:linear-gradient(135deg,#e55f00,#f08c00); box-shadow:0 6px 28px rgba(255,106,0,.5); animation:none; }
-@keyframes buyPulse { 0%,100%{box-shadow:0 4px 20px rgba(255,106,0,.35)} 50%{box-shadow:0 4px 32px rgba(255,106,0,.65)} }
+.buy-now-btn { display:block; width:100%; background:#0f0f0f; color:#fff; border:none; padding:18px; font-size:13px; font-weight:900; letter-spacing:4px; text-transform:uppercase; cursor:pointer; margin-bottom:16px; position:relative; overflow:hidden; transition:background .3s,letter-spacing .3s,box-shadow .3s; box-shadow:inset 0 -3px 0 #ff6200; }
+.buy-now-btn::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#ff6200,#ff9500); opacity:0; transition:opacity .3s; }
+.buy-now-btn:hover { letter-spacing:5px; box-shadow:inset 0 -3px 0 #cc4f00, 0 8px 28px rgba(255,98,0,.35); }
+.buy-now-btn:hover::after { opacity:1; }
+.buy-now-btn > * { position:relative; z-index:1; }
 /* ASK SID -- dark chat widget (ravynn.in style) */
 .ask-sid { background:#111; color:#fff; border-radius:10px; padding:14px 16px; margin-bottom:20px; }
 .ask-sid-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
@@ -321,6 +335,7 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
     </div>
     <h1 class="product-name">Loading...</h1>
     <div class="product-price"></div>
+    <div id="limited-counter" class="limited-counter" style="display:none"></div>
 
     <!-- Coupons -->
     <div class="coupon-cards">
@@ -544,6 +559,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   }).catch(()=>{});
 
   await Products.load();
+
+  // Limited edition counter
+  (function() {
+    const handle = new URLSearchParams(location.search).get('p');
+    if (!handle) return;
+    const prd = Products.byHandle(handle);
+    if (!prd || !prd.stock_total) return;
+    const el = document.getElementById('limited-counter');
+    if (!el) return;
+    const total = prd.stock_total;
+    el.style.display = '';
+    el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>—/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:0%"></div></div>`;
+    fetch(`/api/products?handle=${encodeURIComponent(handle)}&sold=1`)
+      .then(r => r.json())
+      .then(d => {
+        const sold = d.product?.sold_count || 0;
+        const pct = Math.min(100, Math.round(sold / total * 100));
+        el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>${sold}/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:${pct}%"></div></div>`;
+      }).catch(() => {
+        el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>0/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:0%"></div></div>`;
+      });
+  })();
+
   function menuProductHTML(p) {
     const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
     return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">\u20B9${p.price}</div></a>`;
@@ -602,69 +640,122 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Reviews
   const handle = new URLSearchParams(location.search).get('p');
-  async function loadReviews() {
+  function initReviewForm() {
     const body = document.getElementById('reviews-body');
-    if (!body || !handle) return;
-    try {
-      const r = await fetch(`/api/reviews?handle=${encodeURIComponent(handle)}`);
-      const { reviews } = await r.json();
-      const avg = reviews.length ? (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1) : null;
-      const stars = n => '\u2605'.repeat(n) + '\u2606'.repeat(5-n);
-      const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-      body.innerHTML = `
-        ${reviews.length ? `<div class="review-avg">
-          <div class="review-avg-num">${avg}</div>
-          <div><div style="color:#f5a623;font-size:18px">${'\u2605'.repeat(Math.round(avg))}${'\u2606'.repeat(5-Math.round(avg))}</div>
-          <div class="review-avg-label">${reviews.length} review${reviews.length>1?'s':''}</div></div>
-        </div>` : '<p style="color:#888;font-style:italic;margin-bottom:16px">No reviews yet. Be the first!</p>'}
-        ${reviews.map(rv=>`<div class="review-item">
-          <div class="review-item-header"><span class="review-item-name">${rv.name}</span><span class="review-item-date">${fmt(rv.created_at)}</span></div>
-          <div class="review-item-stars">${stars(rv.rating)}</div>
-          <div class="review-item-body">${rv.body}</div>
-        </div>`).join('')}
-        <div class="review-form" id="review-form-wrap">
-          <h4>Write a Review</h4>
-          <div class="review-form-row">
-            <label>Your Rating</label>
-            <div class="review-star-pick" id="star-pick">
-              <span data-v="1">\u2605</span><span data-v="2">\u2605</span><span data-v="3">\u2605</span><span data-v="4">\u2605</span><span data-v="5">\u2605</span>
-            </div>
-            <input type="hidden" id="rev-rating" value="0">
+    if (!body) return;
+    // Render form immediately \u2014 always visible regardless of API status
+    body.innerHTML = `
+      <div id="reviews-list"><p style="color:#888;font-style:italic;margin-bottom:16px">Loading reviews...</p></div>
+      <div class="review-form" id="review-form-wrap">
+        <h4>Write a Review</h4>
+        <div class="review-form-row">
+          <label>Your Rating</label>
+          <div class="review-star-pick" id="star-pick">
+            <span data-v="1">\u2605</span><span data-v="2">\u2605</span><span data-v="3">\u2605</span><span data-v="4">\u2605</span><span data-v="5">\u2605</span>
           </div>
-          <div class="review-form-row"><label>Your Name</label><input type="text" id="rev-name" placeholder="Priya S." maxlength="60"></div>
-          <div class="review-form-row"><label>Your Review</label><textarea id="rev-body" rows="3" placeholder="What did you think of this product?" maxlength="1000"></textarea></div>
-          <button class="review-submit-btn" id="rev-submit">Submit Review</button>
-          <p id="rev-msg" style="margin-top:8px;font-size:12px;color:#2d7a3e;display:none"></p>
-        </div>`;
-      // Star picker interaction
-      const stars_el = document.querySelectorAll('#star-pick span');
-      const ratingInput = document.getElementById('rev-rating');
-      stars_el.forEach(s => {
-        s.addEventListener('mouseover', () => stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)));
-        s.addEventListener('mouseout', () => { const v = Number(ratingInput.value); stars_el.forEach((x,i) => x.classList.toggle('on', i < v)); });
-        s.addEventListener('click', () => { ratingInput.value = s.dataset.v; stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)); });
+          <input type="hidden" id="rev-rating" value="0">
+        </div>
+        <div class="review-form-row"><label>Your Name</label><input type="text" id="rev-name" placeholder="Priya S." maxlength="60"></div>
+        <div class="review-form-row"><label>Your Review</label><textarea id="rev-body" rows="3" placeholder="What did you think of this product?" maxlength="1000"></textarea></div>
+        <div class="review-form-row">
+          <label>Add Photo <span style="font-weight:400;color:#999">(optional)</span></label>
+          <label class="rev-img-label" id="rev-img-label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span id="rev-img-btn-text">Choose Photo</span>
+            <input type="file" accept="image/*" id="rev-img-input" style="display:none">
+          </label>
+          <img id="rev-img-thumb" class="rev-img-thumb" alt="preview">
+          <button type="button" class="rev-img-remove" id="rev-img-remove">✕ Remove photo</button>
+        </div>
+        <button class="review-submit-btn" id="rev-submit">Submit Review</button>
+        <p id="rev-msg" style="margin-top:8px;font-size:12px;color:#2d7a3e;display:none"></p>
+      </div>`;
+    // Image compression helper
+    function compressImg(file) {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const MAX = 700, q = 0.65;
+            const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+            const c = document.createElement('canvas');
+            c.width = Math.round(img.width * scale);
+            c.height = Math.round(img.height * scale);
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            resolve(c.toDataURL('image/jpeg', q));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
       });
-      document.getElementById('rev-submit')?.addEventListener('click', async () => {
-        const rating = Number(ratingInput.value);
-        const name = document.getElementById('rev-name').value.trim();
-        const review_body = document.getElementById('rev-body').value.trim();
-        const msg = document.getElementById('rev-msg');
-        if (!rating) { msg.style.color='#c00'; msg.textContent='Please select a rating.'; msg.style.display='block'; return; }
-        if (!name) { msg.style.color='#c00'; msg.textContent='Please enter your name.'; msg.style.display='block'; return; }
-        if (!review_body) { msg.style.color='#c00'; msg.textContent='Please write your review.'; msg.style.display='block'; return; }
-        const btn = document.getElementById('rev-submit');
-        btn.disabled = true; btn.textContent = 'Submitting...';
-        const resp = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ product_handle: handle, name, rating, review_body }) });
+    }
+    // Star picker
+    const stars_el = body.querySelectorAll('#star-pick span');
+    const ratingInput = body.querySelector('#rev-rating');
+    stars_el.forEach(s => {
+      s.addEventListener('mouseover', () => stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)));
+      s.addEventListener('mouseout', () => { const v = Number(ratingInput.value); stars_el.forEach((x,i) => x.classList.toggle('on', i < v)); });
+      s.addEventListener('click', () => { ratingInput.value = s.dataset.v; stars_el.forEach((x,i) => x.classList.toggle('on', i < s.dataset.v)); });
+    });
+    // Image picker
+    let revImgData = null;
+    const imgInput = body.querySelector('#rev-img-input');
+    const imgThumb = body.querySelector('#rev-img-thumb');
+    const imgRemove = body.querySelector('#rev-img-remove');
+    const imgBtnText = body.querySelector('#rev-img-btn-text');
+    imgInput?.addEventListener('change', async () => {
+      const file = imgInput.files[0];
+      if (!file) return;
+      imgBtnText.textContent = 'Compressing...';
+      revImgData = await compressImg(file);
+      imgThumb.src = revImgData; imgThumb.style.display = 'block';
+      imgRemove.style.display = 'block';
+      imgBtnText.textContent = 'Change Photo';
+    });
+    imgRemove?.addEventListener('click', () => {
+      revImgData = null; imgInput.value = '';
+      imgThumb.style.display = 'none'; imgRemove.style.display = 'none';
+      imgBtnText.textContent = 'Choose Photo';
+    });
+    // Submit
+    body.querySelector('#rev-submit')?.addEventListener('click', async () => {
+      const rating = Number(ratingInput.value);
+      const name = body.querySelector('#rev-name').value.trim();
+      const review_body = body.querySelector('#rev-body').value.trim();
+      const msg = body.querySelector('#rev-msg');
+      const btn = body.querySelector('#rev-submit');
+      if (!rating) { msg.style.color='#c00'; msg.textContent='Please select a rating.'; msg.style.display='block'; return; }
+      if (!name) { msg.style.color='#c00'; msg.textContent='Please enter your name.'; msg.style.display='block'; return; }
+      if (!review_body) { msg.style.color='#c00'; msg.textContent='Please write your review.'; msg.style.display='block'; return; }
+      btn.disabled = true; btn.textContent = 'Submitting...';
+      try {
+        const payload = { product_handle: handle, name, rating, review_body };
+        if (revImgData) payload.image = revImgData;
+        const resp = await fetch('/api/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
         const data = await resp.json();
         msg.style.color = data.ok ? '#2d7a3e' : '#c00';
         msg.textContent = data.message || data.error || 'Error';
         msg.style.display = 'block';
-        if (data.ok) { document.getElementById('review-form-wrap').innerHTML = `<p style="color:#2d7a3e;font-weight:600;padding:12px 0">\u2713 Review submitted! It will appear after moderation.</p>`; }
+        if (data.ok) { body.querySelector('#review-form-wrap').innerHTML = `<p style="color:#2d7a3e;font-weight:600;padding:12px 0">\u2713 Review submitted! It will appear after moderation.</p>`; }
         else { btn.disabled = false; btn.textContent = 'Submit Review'; }
-      });
-    } catch(e) { console.error(e); }
+      } catch { btn.disabled = false; btn.textContent = 'Submit Review'; msg.style.color='#c00'; msg.textContent='Network error. Try again.'; msg.style.display='block'; }
+    });
+    // Load existing reviews in background
+    if (handle) fetch(`/api/reviews?handle=${encodeURIComponent(handle)}&_=${Date.now()}`)
+      .then(r=>r.json()).then(({reviews=[]})=>{
+        const list = body.querySelector('#reviews-list');
+        if (!list) return;
+        const stars = n => '\u2605'.repeat(n)+'\u2606'.repeat(5-n);
+        const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+        const avg = reviews.length ? (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1) : null;
+        list.innerHTML = reviews.length
+          ? `<div class="review-avg"><div class="review-avg-num">${avg}</div><div><div style="color:#f5a623;font-size:18px">${'\u2605'.repeat(Math.round(avg))}${'\u2606'.repeat(5-Math.round(avg))}</div><div class="review-avg-label">${reviews.length} review${reviews.length>1?'s':''}</div></div></div>`
+            + reviews.map(rv=>`<div class="review-item"><div class="review-item-header"><span class="review-item-name">${rv.name}</span><span class="review-item-date">${fmt(rv.created_at)}</span></div><div class="review-item-stars">${stars(rv.rating)}</div><div class="review-item-body">${rv.body}</div>${rv.image?`<img src="${rv.image}" class="review-img" loading="lazy" onclick="this.style.maxWidth=this.style.maxWidth==='100%'?'180px':'100%'">`:''}</div>`).join('')
+          : '<p style="color:#888;font-style:italic;margin-bottom:16px">No reviews yet. Be the first!</p>';
+      }).catch(()=>{ const list = body.querySelector('#reviews-list'); if(list) list.innerHTML=''; });
   }
-  loadReviews();
+  initReviewForm();
 });
 </script>
 <style>.wa-float{position:fixed;bottom:80px;right:20px;z-index:999}.wa-float a{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#25D366;border-radius:50%;box-shadow:0 4px 16px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s}.wa-float a:hover{transform:scale(1.1)}.wa-float svg{width:28px;height:28px;fill:#fff}@media(min-width:768px){.wa-float{bottom:30px}}</style>
