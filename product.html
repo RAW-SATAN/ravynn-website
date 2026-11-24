@@ -111,6 +111,12 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 .product-price .compare { text-decoration:line-through; color:#999; font-size:15px; }
 .product-price span:not(.compare):not(.saved) { font-size:22px; font-weight:700; }
 .product-price .saved { background:#ff6200; color:#fff; font-size:12px; font-weight:700; padding:3px 8px; border-radius:4px; letter-spacing:.5px; }
+/* Limited Edition Counter */
+.limited-counter { margin-bottom:16px; }
+.limited-label { font-size:12px; font-weight:600; color:#222; margin-bottom:5px; letter-spacing:.2px; }
+.limited-label strong { color:#c0392b; }
+.limited-bar-bg { background:#f0f0f0; border-radius:99px; height:6px; overflow:hidden; }
+.limited-bar-fill { height:100%; background:linear-gradient(90deg,#c0392b,#ff6200); border-radius:99px; transition:width .6s ease; }
 /* Coupon Cards -- 2-col side by side, ravynn.in style */
 .coupon-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
 .coupon-card { border:1px solid #e0e0e0; border-radius:8px; padding:10px 12px; background:#fafafa; }
@@ -329,6 +335,7 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
     </div>
     <h1 class="product-name">Loading...</h1>
     <div class="product-price"></div>
+    <div id="limited-counter" class="limited-counter" style="display:none"></div>
 
     <!-- Coupons -->
     <div class="coupon-cards">
@@ -552,6 +559,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   }).catch(()=>{});
 
   await Products.load();
+
+  // Limited edition counter
+  (function() {
+    const handle = new URLSearchParams(location.search).get('p');
+    if (!handle) return;
+    const prd = Products.byHandle(handle);
+    if (!prd || !prd.stock_total) return;
+    const el = document.getElementById('limited-counter');
+    if (!el) return;
+    const total = prd.stock_total;
+    el.style.display = '';
+    el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>—/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:0%"></div></div>`;
+    fetch(`/api/products?handle=${encodeURIComponent(handle)}&sold=1`)
+      .then(r => r.json())
+      .then(d => {
+        const sold = d.product?.sold_count || 0;
+        const pct = Math.min(100, Math.round(sold / total * 100));
+        el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>${sold}/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:${pct}%"></div></div>`;
+      }).catch(() => {
+        el.innerHTML = `<div class="limited-label">🔥 Limited Edition · <strong>0/${total}</strong> claimed</div><div class="limited-bar-bg"><div class="limited-bar-fill" style="width:0%"></div></div>`;
+      });
+  })();
+
   function menuProductHTML(p) {
     const shortTitle = p.title.replace(/^RAVYNN Oversized (White |Black |Olive )?T-Shirt[^\u2013]*\u2013\s*/,'').split(' ').slice(0,5).join(' ');
     return `<a href="product.html?p=${p.handle}" class="menu-product-card"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"><div class="menu-product-name">${shortTitle}</div><div class="menu-product-price">\u20B9${p.price}</div></a>`;

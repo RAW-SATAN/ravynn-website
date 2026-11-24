@@ -823,14 +823,22 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 
     <div class="prod-field">
       <label>Description (HTML allowed — supports &lt;img&gt;, &lt;video&gt;, &lt;iframe&gt;)</label>
-      <div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" onclick="descInsert('img')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Image</button>
-        <button type="button" onclick="descInsert('gif')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ GIF</button>
+      <div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+        <button type="button" onclick="document.getElementById('desc-file-input').click()" style="font-size:11px;padding:4px 8px;background:#000;color:#fff;border:1px solid #000;border-radius:3px;cursor:pointer">↑ Upload Image</button>
+        <input type="file" id="desc-file-input" accept="image/*" style="display:none" onchange="descUploadFile(this.files)">
+        <button type="button" onclick="descInsert('img')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Image URL</button>
+        <button type="button" onclick="descInsert('gif')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ GIF URL</button>
         <button type="button" onclick="descInsert('video')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ Video URL</button>
         <button type="button" onclick="descInsert('youtube')" style="font-size:11px;padding:4px 8px;background:#f0f0f0;border:1px solid #ddd;border-radius:3px;cursor:pointer">+ YouTube</button>
+        <span id="desc-upload-status" style="font-size:11px;color:#888"></span>
       </div>
       <textarea id="pm-description" placeholder="<p>Product description here.</p>" rows="5"></textarea>
-      <div style="margin-top:4px;font-size:11px;color:#aaa">Tip: Paste image/video URLs using the buttons above. HTML is rendered as-is on product page.</div>
+      <div style="margin-top:4px;font-size:11px;color:#aaa">Tip: Upload images directly or paste URLs using the buttons above. HTML is rendered as-is on product page.</div>
+    </div>
+
+    <div class="prod-field">
+      <label>Limited Edition Total <span style="font-weight:400;color:#aaa">(optional — shows "X/N claimed" counter on product page)</span></label>
+      <input type="number" id="pm-stock-total" placeholder="e.g. 320 — leave blank for regular product" min="1" style="max-width:220px">
     </div>
 
     <div class="prod-field">
@@ -867,6 +875,31 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 </div>
 
 <script>
+async function descUploadFile(files) {
+  const file = files && files[0];
+  if (!file) return;
+  const status = document.getElementById('desc-upload-status');
+  const ta = document.getElementById('pm-description');
+  status.textContent = 'Uploading...';
+  try {
+    const dataUrl = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); });
+    const base64 = dataUrl.split(',')[1];
+    const filename = `desc-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+    const resp = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY }, body: JSON.stringify({ filename, base64 }) });
+    const d = await resp.json();
+    if (!resp.ok) throw new Error(d.error || 'Upload failed');
+    const snippet = `<img src="${d.url}" alt="" style="max-width:100%;border-radius:4px;margin:8px 0">`;
+    const pos = ta.selectionEnd || ta.value.length;
+    ta.value = ta.value.slice(0, pos) + snippet + ta.value.slice(pos);
+    ta.focus();
+    status.textContent = '✓ Uploaded';
+    setTimeout(() => { status.textContent = ''; }, 3000);
+  } catch (e) {
+    status.textContent = '✗ ' + e.message;
+  }
+  document.getElementById('desc-file-input').value = '';
+}
+
 function descInsert(type) {
   const ta = document.getElementById('pm-description');
   let snippet = '';
@@ -2078,6 +2111,7 @@ function openProductModal(id) {
   document.getElementById('pm-compare').value = p ? (p.compare_at_price || '') : '';
   document.getElementById('pm-type').value = p ? (p.type || 'Graphic Tees') : 'Graphic Tees';
   document.getElementById('pm-description').value = p ? (p.description || '') : '';
+  document.getElementById('pm-stock-total').value = p ? (p.stock_total || '') : '';
   document.getElementById('pm-available').checked = p ? p.available !== false : true;
   document.getElementById('pm-images').value = p && Array.isArray(p.images) ? p.images.join('\n') : '';
   document.getElementById('img-file-input').value = '';
@@ -2179,13 +2213,15 @@ async function saveProduct() {
   const collections = Array.from(document.querySelectorAll('#pm-collections input:checked')).map(cb => cb.value);
   const sizes = Array.from(document.querySelectorAll('#pm-sizes input:checked')).map(cb => cb.value);
 
+  const stockTotal = document.getElementById('pm-stock-total').value;
   const body = {
     handle, title, price,
     compare_at_price: compare ? Number(compare) : null,
     type: document.getElementById('pm-type').value,
     collections, images, sizes,
     available: document.getElementById('pm-available').checked,
-    description: document.getElementById('pm-description').value.trim()
+    description: document.getElementById('pm-description').value.trim(),
+    stock_total: stockTotal ? Number(stockTotal) : null
   };
 
   const btn = document.querySelector('.prod-save-btn');
