@@ -293,18 +293,10 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         <label class="co-ship-opt">
           <input type="radio" name="shipping" value="standard" checked>
           <div class="co-ship-opt-info">
-            <div class="co-ship-opt-name">Standard Delivery</div>
-            <div class="co-ship-opt-eta">4&#8211;7 business days</div>
+            <div class="co-ship-opt-name">Standard Delivery <span style="font-size:11px;color:#e05;font-weight:600;margin-left:6px">🎉 Free for limited time</span></div>
+            <div class="co-ship-opt-eta">3&#8211;5 business days</div>
           </div>
-          <div class="co-ship-opt-price" id="std-price">&#8377;99</div>
-        </label>
-        <label class="co-ship-opt">
-          <input type="radio" name="shipping" value="express">
-          <div class="co-ship-opt-info">
-            <div class="co-ship-opt-name">Express Delivery</div>
-            <div class="co-ship-opt-eta">2&#8211;3 business days</div>
-          </div>
-          <div class="co-ship-opt-price">&#8377;149</div>
+          <div class="co-ship-opt-price" id="std-price" style="color:#2a7a2a;font-weight:700">FREE</div>
         </label>
       </div>
 
@@ -697,7 +689,7 @@ function fillShippingSummary() {
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   selectedShipping = method;
   const { ship } = calcTotals();
-  const label = method === 'express' ? 'Express Delivery (2\u20133 days)' : 'Standard Delivery (4\u20137 days)';
+  const label = 'Standard Delivery (3\u20135 days)';
   const el = document.getElementById('shipping-summary');
   if (el) el.textContent = `${label} \u00AC\u2211 ${ship === 0 ? 'FREE' : fmt(ship)}`;
 }
@@ -802,7 +794,7 @@ function buildWAMsg(payMethod) {
 
   return {
     orderNum,
-    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* ${ship === 0 ? 'FREE' : fmt(ship)} (${method === 'express' ? 'Express' : 'Standard'})\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
+    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* FREE (Standard)\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
   };
 }
 
@@ -817,7 +809,7 @@ async function showConfirmation(orderNum, payMethod) {
   const state = document.getElementById('inp-state').value;
   const { sub, disc, ship, total } = calcTotals();
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
-  const eta = method === 'express' ? '2\u20133 business days' : '4\u20137 business days';
+  const eta = '3\u20135 business days';
 
   const orderData = {
     orderId: orderNum,
