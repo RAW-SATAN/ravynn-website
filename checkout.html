@@ -338,6 +338,7 @@ body{font-family:'Inter',sans-serif;font-size:14px;color:#1a1a1a;background:#fff
         <div class="co-pay-opt selected" data-pay="card" onclick="selectPay('card')">
           <input type="radio" name="payment" value="card" checked>
           <span class="co-pay-opt-label">Pay Online</span>
+          <span style="font-size:11px;font-weight:700;color:#fff;background:#1e7e3e;border-radius:20px;padding:2px 8px;margin-left:4px">Save ₹100</span>
           <div class="co-pay-opt-icons">
             <span class="pay-badge">UPI</span>
             <span class="pay-badge">Cards</span>
@@ -500,20 +501,29 @@ function getCart() {
 }
 function fmt(n) { return '\u20B9' + n.toLocaleString('en-IN'); }
 
+const PREPAID_DISC = 100;
+
+function getPayMethod() {
+  return document.querySelector('input[name="payment"]:checked')?.value || 'card';
+}
+
 function calcTotals() {
   const sub = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
-  const disc = appliedCoupon
+  const couponDisc = appliedCoupon
     ? (appliedCoupon.fixed ? Math.min(appliedCoupon.fixed, sub) : Math.round(sub * (appliedCoupon.pct || 0) / 100))
     : 0;
-  const afterDisc = sub - disc;
+  const isPrepaid = getPayMethod() !== 'cod';
+  const prepaidDisc = isPrepaid ? PREPAID_DISC : 0;
+  const disc = couponDisc + prepaidDisc;
+  const afterDisc = Math.max(0, sub - disc);
   const ship = getShipRate(selectedShipping, afterDisc);
-  return { sub, disc, afterDisc, ship, total: afterDisc + ship };
+  return { sub, couponDisc, prepaidDisc, disc, afterDisc, ship, total: afterDisc + ship };
 }
 
 //  Sidebar render 
 function renderSidebar() {
   cartItems = getCart();
-  const { sub, disc, ship, total } = calcTotals();
+  const { sub, couponDisc, prepaidDisc, disc, ship, total } = calcTotals();
 
   // Items
   document.getElementById('sidebar-items').innerHTML = cartItems.map(item => {
@@ -546,15 +556,30 @@ function renderSidebar() {
   // Summary rows
   document.getElementById('sum-subtotal').textContent = fmt(sub);
   var savNote = document.getElementById('sum-savings-note');
-  if (disc > 0) {
+  if (couponDisc > 0) {
     document.getElementById('sum-discount-row').style.display = 'flex';
     document.getElementById('sum-discount-label').textContent = appliedCoupon.label;
-    document.getElementById('sum-discount-val').textContent = '\u2212' + fmt(disc);
-    if (savNote) { savNote.style.display = 'block'; savNote.textContent = String.fromCharCode(10003) + ' You\'re saving ' + fmt(disc) + ' on this order!'; }
+    document.getElementById('sum-discount-val').textContent = '\u2212' + fmt(couponDisc);
   } else {
     document.getElementById('sum-discount-row').style.display = 'none';
-    if (savNote) savNote.style.display = 'none';
   }
+  // Prepaid discount row
+  let prepRow = document.getElementById('sum-prepaid-row');
+  if (!prepRow) {
+    prepRow = document.createElement('div');
+    prepRow.id = 'sum-prepaid-row';
+    prepRow.className = 'co-sum-row co-discount-row';
+    prepRow.innerHTML = '<span>\ud83d\udcb3 Prepaid discount</span><span id="sum-prepaid-val"></span>';
+    document.getElementById('sum-discount-row').insertAdjacentElement('afterend', prepRow);
+  }
+  if (prepaidDisc > 0) {
+    prepRow.style.display = 'flex';
+    document.getElementById('sum-prepaid-val').textContent = '\u2212' + fmt(prepaidDisc);
+  } else {
+    prepRow.style.display = 'none';
+  }
+  if (disc > 0 && savNote) { savNote.style.display = 'block'; savNote.textContent = '\u2713 You\'re saving ' + fmt(disc) + ' on this order!'; }
+  else if (savNote) savNote.style.display = 'none';
 
   document.getElementById('sum-shipping').innerHTML = ship === 0
     ? '<span class="co-free">FREE</span>'
@@ -706,6 +731,7 @@ function selectPay(type) {
   const cta = document.getElementById('btn-place-order');
   if (type === 'cod')  cta.textContent = 'Place Order \u2014 Cash on Delivery';
   if (type === 'card') cta.innerHTML   = 'Pay with Razorpay &#8594;';
+  renderSidebar();
 }
 
 //  UPI copy 
@@ -787,14 +813,14 @@ function buildWAMsg(payMethod) {
   const pin   = document.getElementById('inp-pincode').value.trim();
   const city  = document.getElementById('inp-city').value.trim();
   const state = document.getElementById('inp-state').value;
-  const { sub, disc, ship, total } = calcTotals();
+  const { sub, couponDisc, prepaidDisc, disc, ship, total } = calcTotals();
   const method = document.querySelector('input[name="shipping"]:checked')?.value || 'standard';
   const orderNum = 'RVN' + Date.now().toString().slice(-6);
   const lines = cartItems.map(i => `  \u2022 ${i.title.replace(/^RAVYNN\s+/,'')} | Size: ${i.size} | Qty: ${i.qty} | ${fmt(i.price * i.qty)}`).join('\n');
 
   return {
     orderNum,
-    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${disc > 0 ? `\n*Discount (${appliedCoupon?.code}):* \u2212${fmt(disc)}` : ''}\n*Shipping:* FREE (Standard)\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
+    msg: `*New Order \u2014 RAVYNN*\n*Order #:* ${orderNum}\n\n*Items:*\n${lines}\n\n*Subtotal:* ${fmt(sub)}${couponDisc > 0 ? `\n*Coupon (${appliedCoupon?.code}):* \u2212${fmt(couponDisc)}` : ''}${prepaidDisc > 0 ? `\n*Prepaid Discount:* \u2212${fmt(prepaidDisc)}` : ''}\n*Shipping:* FREE (Standard)\n*Total:* ${fmt(total)}\n\n*Payment:* ${payMethod === 'cod' ? 'Cash on Delivery' : payMethod === 'upi' ? 'UPI (payment screenshot to follow)' : 'Card/Online'}\n\n*Deliver to:*\n${name}\n${addr1}${addr2 ? '\n' + addr2 : ''}\n${city} \u2013 ${pin}\n${state}\nPhone: +91 ${phone}`
   };
 }
 
