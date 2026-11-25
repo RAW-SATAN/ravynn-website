@@ -967,7 +967,9 @@ async function loadAdminReviews() {
   if (!list) return;
   try {
     const r = await fetch('/api/reviews?all=1', { headers: { 'x-admin-key': ADMIN_KEY } });
-    const { reviews } = await r.json();
+    const data = await r.json();
+    if (!r.ok) { list.innerHTML = '<p style="color:#c00">API error: ' + (data.error || r.status) + '</p>'; return; }
+    const reviews = data.reviews || [];
     if (!reviews.length) { list.innerHTML = '<p style="color:#aaa;padding:20px 0">No reviews yet.</p>'; return; }
     const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
     const fmt = d => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
