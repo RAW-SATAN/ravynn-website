@@ -31,14 +31,35 @@ export default async function handler(req, res) {
     `;
     await sql`CREATE INDEX IF NOT EXISTS idx_page_events_created ON page_events(created_at DESC)`;
     await sql`CREATE INDEX IF NOT EXISTS idx_page_events_session ON page_events(session_id)`;
+    await sql`CREATE TABLE IF NOT EXISTS checkout_contacts (
+      id BIGSERIAL PRIMARY KEY,
+      session_id TEXT UNIQUE,
+      name TEXT,
+      phone TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )`;
   } catch {}
 
+  // POST: record event (no auth — called from frontend)
   if (req.method === 'POST') {
     let body = req.body;
     if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
     const { event_type, session_id, page, referrer, utm_source, utm_medium, utm_campaign,
             device_type, product_id, product_name, product_price, quantity, order_id, revenue } = body || {};
     if (!event_type) return res.status(400).json({ error: 'event_type required' });
+    if (event_type === 'checkout_contact') {
+      const { customer_name, customer_phone } = body || {};
+      if (session_id && (customer_name || customer_phone)) {
+        try {
+          await sql`
+            INSERT INTO checkout_contacts (session_id, name, phone)
+            VALUES (${session_id}, ${customer_name||null}, ${customer_phone||null})
+            ON CONFLICT (session_id) DO UPDATE SET name=EXCLUDED.name, phone=EXCLUDED.phone, created_at=NOW()
+          `;
+        } catch {}
+      }
+      return res.json({ ok: true });
+    }
     try {
       await sql`
         INSERT INTO page_events (event_type,session_id,page,referrer,utm_source,utm_medium,utm_campaign,device_type,product_id,product_name,product_price,quantity,order_id,revenue)
@@ -48,6 +69,7 @@ export default async function handler(req, res) {
     return res.json({ ok: true });
   }
 
+  // GET: requires admin key
   if (req.method === 'GET') {
     if (req.headers['x-admin-key'] !== process.env.ADMIN_KEY) return res.status(401).json({ error: 'Unauthorized' });
     const { type, days } = req.query;
@@ -82,7 +104,7 @@ export default async function handler(req, res) {
           COUNT(DISTINCT CASE WHEN event_type='add_to_cart' THEN session_id END) AS add_to_cart,
           COUNT(DISTINCT CASE WHEN event_type='checkout_start' THEN session_id END) AS checkouts,
           COUNT(DISTINCT CASE WHEN event_type='purchase' THEN session_id END) AS purchases
-          FROM page_events WHERE (created_at AT TIME ZONE 'Asia/Kolkata')::date = CURRENT_DATE AT TIME ZONE 'Asia/Kolkata'`,
+          FROM page_events WHERE created_at >= CURRENT_DATE`,
         sql`SELECT COUNT(DISTINCT CASE WHEN event_type='pageview' THEN session_id END) AS visitors,
           COUNT(CASE WHEN event_type='pageview' THEN 1 END) AS pageviews
           FROM page_events WHERE created_at >= NOW()-INTERVAL '7 days'`,
@@ -238,6 +260,21 @@ export default async function handler(req, res) {
           GROUP BY pe.session_id, pe.device_type
           ORDER BY last_seen DESC LIMIT 50`;
       return res.json({ abandoned: rows });
+    }
+
+    if (type === 'abandoned_contacts') {
+      const rows = await sql`
+        SELECT
+          cc.name, cc.phone, cc.session_id, cc.created_at AS contact_time,
+          STRING_AGG(DISTINCT pe.product_name, ', ') FILTER (WHERE pe.event_type='add_to_cart' AND pe.product_name IS NOT NULL) AS products,
+          SUM(CASE WHEN pe.event_type='add_to_cart' THEN COALESCE(pe.product_price,0)*COALESCE(pe.quantity,1) ELSE 0 END) AS cart_value,
+          MAX(pe.created_at) AS last_seen,
+          BOOL_OR(pe.event_type='purchase') AS purchased
+        FROM checkout_contacts cc
+        LEFT JOIN page_events pe ON pe.session_id=cc.session_id
+        GROUP BY cc.name, cc.phone, cc.session_id, cc.created_at
+        ORDER BY cc.created_at DESC LIMIT 200`;
+      return res.json({ contacts: rows });
     }
 
     return res.status(400).json({ error: 'Invalid type' });
