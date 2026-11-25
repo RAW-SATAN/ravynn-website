@@ -749,6 +749,26 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
         </div>
       </div>
 
+      <!-- Reviews Tab -->
+      <div class="adm-tab" id="tab-reviews">
+        <div class="adm-section-title">Customer Reviews</div>
+        <div class="adm-section-sub">Approve or reject reviews before they appear on product pages.</div>
+        <div id="reviews-admin-list"><p style="color:#aaa;padding:20px 0">Loading reviews...</p></div>
+      </div>
+
+      <!-- Abandoned Cart Tab -->
+      <div class="adm-tab" id="tab-leads">
+        <div class="adm-section-title">Abandoned Cart</div>
+        <div class="adm-section-sub">Customers who entered their contact info at checkout but didn't complete their order — call or WhatsApp to recover the sale.</div>
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+          <button onclick="loadLeads('all')" class="chart-range-btn active" id="leads-btn-all" style="font-weight:700">All</button>
+          <button onclick="loadLeads('abandoned')" class="chart-range-btn" id="leads-btn-abandoned">Abandoned Only</button>
+          <button onclick="loadLeads('purchased')" class="chart-range-btn" id="leads-btn-purchased">Purchased</button>
+          <span id="leads-count" style="font-size:12px;color:#888;align-self:center;margin-left:auto"></span>
+        </div>
+        <div id="leads-list"><p style="color:#aaa;padding:20px 0">Loading...</p></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -886,25 +906,6 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
       <button class="prod-save-btn" onclick="saveProduct()">Save Product</button>
     </div>
   </div>
-</div>
-
-<!-- Reviews Tab -->
-<div class="adm-tab" id="tab-reviews">
-  <div class="adm-section-title">Customer Reviews</div>
-  <div class="adm-section-sub">Approve or reject reviews before they appear on product pages.</div>
-  <div id="reviews-admin-list"><p style="color:#aaa;padding:20px 0">Loading reviews...</p></div>
-</div>
-
-<div class="adm-tab" id="tab-leads">
-  <div class="adm-section-title">Abandoned Cart</div>
-  <div class="adm-section-sub">Customers who entered their contact info at checkout but didn't complete their order — call or WhatsApp to recover the sale.</div>
-  <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-    <button onclick="loadLeads('all')" class="chart-range-btn active" id="leads-btn-all" style="font-weight:700">All</button>
-    <button onclick="loadLeads('abandoned')" class="chart-range-btn" id="leads-btn-abandoned">Abandoned Only</button>
-    <button onclick="loadLeads('purchased')" class="chart-range-btn" id="leads-btn-purchased">Purchased</button>
-    <span id="leads-count" style="font-size:12px;color:#888;align-self:center;margin-left:auto"></span>
-  </div>
-  <div id="leads-list"><p style="color:#aaa;padding:20px 0">Loading...</p></div>
 </div>
 
 <script>
