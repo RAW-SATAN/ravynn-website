@@ -552,10 +552,10 @@ src="https://www.facebook.com/tr?id=1870549064107037&ev=PageView&noscript=1"
 document.addEventListener('DOMContentLoaded', async () => {
   // Admin toggles
   fetch('/api/admin-settings?key=hide_atc').then(r=>r.json()).then(d=>{
-    if(d.value===true) document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
+    if(d.value===true||d.value==='true'||d.value===1) document.querySelectorAll('.add-to-bag-btn').forEach(el=>el.style.display='none');
   }).catch(()=>{});
   fetch('/api/admin-settings?key=hide_ask_sid').then(r=>r.json()).then(d=>{
-    if(d.value===true) { const s=document.querySelector('.ask-sid'); if(s) s.style.display='none'; }
+    if(d.value===true||d.value==='true'||d.value===1) { const s=document.querySelector('.ask-sid'); if(s) s.style.display='none'; }
   }).catch(()=>{});
 
   await Products.load();
