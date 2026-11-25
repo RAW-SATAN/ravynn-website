@@ -357,8 +357,8 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
           Reviews
         </button>
         <button class="adm-nav-btn" onclick="showTab('leads')" id="nav-leads">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          Leads
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Abandoned Cart
         </button>
       </nav>
     </aside>
@@ -896,15 +896,15 @@ input:checked+.prod-avail-slider:before{transform:translateX(16px)}
 </div>
 
 <div class="adm-tab" id="tab-leads">
-  <div class="adm-section-title">Leads</div>
-  <div class="adm-section-sub">Customers who entered their contact info but didn't complete purchase — call or WhatsApp them.</div>
+  <div class="adm-section-title">Abandoned Cart</div>
+  <div class="adm-section-sub">Customers who entered their contact info at checkout but didn't complete their order — call or WhatsApp to recover the sale.</div>
   <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
     <button onclick="loadLeads('all')" class="chart-range-btn active" id="leads-btn-all" style="font-weight:700">All</button>
     <button onclick="loadLeads('abandoned')" class="chart-range-btn" id="leads-btn-abandoned">Abandoned Only</button>
     <button onclick="loadLeads('purchased')" class="chart-range-btn" id="leads-btn-purchased">Purchased</button>
     <span id="leads-count" style="font-size:12px;color:#888;align-self:center;margin-left:auto"></span>
   </div>
-  <div id="leads-list"><p style="color:#aaa;padding:20px 0">Loading leads...</p></div>
+  <div id="leads-list"><p style="color:#aaa;padding:20px 0">Loading...</p></div>
 </div>
 
 <script>
@@ -1002,13 +1002,14 @@ async function loadLeads(filter) {
   list.innerHTML = '<p style="color:#aaa;padding:20px 0">Loading...</p>';
   try {
     const r = await fetch('/api/analytics?type=abandoned_contacts&_=' + Date.now(), { headers: { 'x-admin-key': ADMIN_KEY }, cache: 'no-store' });
-    const { contacts } = await r.json();
-    if (!contacts) { list.innerHTML = '<p style="color:#c00">Error loading leads.</p>'; return; }
+    const data = await r.json();
+    if (!r.ok) { list.innerHTML = '<p style="color:#c00">API error: ' + (data.error || r.status) + '</p>'; return; }
+    const contacts = data.contacts || [];
     let rows = contacts;
     if (filter === 'abandoned') rows = rows.filter(c => !c.purchased);
     if (filter === 'purchased') rows = rows.filter(c => c.purchased);
-    countEl.textContent = rows.length + ' lead' + (rows.length !== 1 ? 's' : '');
-    if (!rows.length) { list.innerHTML = '<p style="color:#aaa;padding:20px 0">No leads found.</p>'; return; }
+    countEl.textContent = rows.length + ' record' + (rows.length !== 1 ? 's' : '');
+    if (!rows.length) { list.innerHTML = '<p style="color:#aaa;padding:20px 0">No abandoned carts found.</p>'; return; }
     const fmt = d => { const dt = new Date(d); return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short'}) + ' ' + dt.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true}); };
     list.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px;min-width:600px">
       <thead><tr style="background:#f5f5f5">
