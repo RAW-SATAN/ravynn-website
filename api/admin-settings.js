@@ -10,10 +10,10 @@ export default async function handler(req, res) {
 
   const sql = neon(process.env.DATABASE_URL);
 
-  // Public GET — coupons and shipping needed by checkout
+  // Public GET \u2014 coupons and shipping needed by checkout
   if (req.method === 'GET') {
     const { key = 'shipping' } = req.query;
-    if (!isAdmin && key !== 'coupons' && key !== 'shipping' && key !== 'hide_atc') {
+    if (!isAdmin && key !== 'coupons' && key !== 'shipping' && key !== 'hide_atc' && key !== 'hide_ask_sid') {
       return res.status(401).json({ error: 'Unauthorized' });
     }
     const rows = await sql`SELECT value FROM settings WHERE key = ${key}`;
