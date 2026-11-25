@@ -20,6 +20,7 @@ export default async function handler(req, res) {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS idx_reviews_handle ON reviews(product_handle, status, created_at DESC)`;
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS image TEXT`;
 
   if (req.method === 'GET') {
     const { handle, all } = req.query;
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
 
     if (!handle) return res.status(400).json({ error: 'handle required' });
     const rows = await sql`
-      SELECT id, name, rating, body, created_at FROM reviews
+      SELECT id, name, rating, body, image, created_at FROM reviews
       WHERE product_handle = ${handle} AND status = 'approved'
       ORDER BY created_at DESC LIMIT 50
     `;
@@ -55,16 +56,18 @@ export default async function handler(req, res) {
     }
 
     // Public: submit review
-    const { product_handle, name, rating, review_body } = body || {};
+    const { product_handle, name, rating, review_body, image } = body || {};
     if (!product_handle || !name || !rating || !review_body)
       return res.status(400).json({ error: 'product_handle, name, rating, review_body required' });
     const r = Number(rating);
     if (r < 1 || r > 5) return res.status(400).json({ error: 'rating must be 1-5' });
     const cleanName = String(name).slice(0, 60).replace(/[<>]/g, '');
     const cleanBody = String(review_body).slice(0, 1000).replace(/[<>]/g, '');
+    // Accept base64 image (data:image/jpeg;base64,...), max ~300KB
+    const cleanImage = image && typeof image === 'string' && image.startsWith('data:image/') && image.length < 400000 ? image : null;
     await sql`
-      INSERT INTO reviews (product_handle, name, rating, body, status)
-      VALUES (${product_handle}, ${cleanName}, ${r}, ${cleanBody}, 'pending')
+      INSERT INTO reviews (product_handle, name, rating, body, image, status)
+      VALUES (${product_handle}, ${cleanName}, ${r}, ${cleanBody}, ${cleanImage}, 'pending')
     `;
     return res.json({ ok: true, message: 'Review submitted! It will appear after moderation.' });
   }
